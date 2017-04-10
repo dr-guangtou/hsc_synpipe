@@ -1032,9 +1032,9 @@
     As for the $g$-band, since the two \tracts{} share similar seeings now, they also
     follow similar relations.
     We also see that the blendedness can also affect accuracies of PSF photometry.
-    In $i$-band, the highly blendend synthetic stars scatter toward lower \s2n{} at
+    In $i$-band, the highly blended synthetic stars scatter toward lower \s2n{} at
     fixed magnitude.
-    Interestingly, the effect is not obvious in $g$-band, suggeting the deblending
+    Interestingly, the effect is not obvious in $g$-band, suggesting the deblending
     process and photometric quality of blended objects also depend on seeing condition.
 
     At \s2n{}$=5$, HSC Wide can detect stars as faint as ${\sim}26.5$ mag in both $g$ and
@@ -1055,8 +1055,8 @@
     around ${\sim}0.015$ mag (${\sim}1.5$\% accuracy) at
     $i_{\mathrm{Input}}{\sim}19.0$ mag.
     At $i_{\mathrm{Input}}{\sim}24.0$ mag, the average accuracy of PSF
-    magnitud keeps at ${\sim}3$\% level (${\sim}0.036$ mag average difference).
-    Down to $i_{\mathrm{Input}}{\sim}25.2$ mag, the average accuracy descreases to
+    magnitude keeps at ${\sim}3$\% level (${\sim}0.036$ mag average difference).
+    Down to $i_{\mathrm{Input}}{\sim}25.2$ mag, the average accuracy decreases to
     ${\sim}7$\% level with an average ${\sim}0.072$ mag difference.
     The \tract{} with worse seeing shows similar accuracy of PSF photometry at
     $i_{\mathrm{Input}}<23.5$ mag.
@@ -1093,13 +1093,13 @@
     differences, which indicates \hscpipe{} tends to underestimate the fluxes of stars
     in these bands by ${\sim}0.01-0.02$ mag.
     Although the exact cause of this offset is unclear (could still be related to
-    differenecs in seeing), it will not affect the accuracies of magnitudes of colors.
+    differences in seeing), it will not affect the accuracies of magnitudes of colors.
 
     At the same time, the story for highly blended stars is very different.
     \hscpipe{} on average systematically underestimates the total fluxes of them by
     $0.05$--$0.10$ mag at fixed input magnitude.
     We see the same effect in all bands, and the impact of blendedness becomes
-    increasingly significant at fainter magnitde.
+    increasingly significant at fainter magnitude.
     It is therefore important to keep this in mind when using PSF photometry for point
     sources in HSC data.
 
@@ -1118,42 +1118,45 @@
 
 \subsubsection{Accuracy of the PSF colors}
 
-    \begin{itemize}
+    Color measurement based on PSF photometry is the most appropriate one for point
+    sources, and is therefore important to many scientific goals of the HSC survey
+    (e.g. study of the Milky Way structure, selection of unique stellar objects or
+    high-redshift quasars, and the accurate star--galaxy separation).
 
-        \item \plan{Briefly explain why PSF colors are important; we focus on the
-            \forced{} PSF colors here}
+    In Fig \ref{fig:psf_color}, we evaluate the accuracies of the \forced{} $(g-i)$
+    and $(i-y)$ PSF colors via comparing the error in color measurements with both
+    input magnitudes and input colors.
+    These results suggest that \hscpipe{} provides accurate and unbiased PSF color
+    estimates for synthetic stars with realistic color distributions down to very faint
+    magnitude.
+    For $(g-i)$ color, the average uncertainty around $i_{\mathrm{Input}}{\sim}19.0$ mag
+    is ${\sim}0.025$ mag, and increases to ${\sim}0.11$ mag at
+    $i_{\mathrm{Input}}{\sim}24.0$ mag.
+    The results are very similar for the $(i-y)$ color.
+    We also find that the accuracies of PSF colors do not depend on the input colors of
+    the synthetic stars or the seeing conditions.
+    For instance, the accuracy of $(g-i)$ color for \tract{} with bad seeing only becomes
+    slightly worse in the very faint end (${\sim}0.14$ mag at
+    $i_{\mathrm{Input}}{\sim}24.0$ mag) comparing to the results for good seeing \tract{}.
 
-        \item The results for accuracy of \forced{} PSF colors are shown in
-            Fig \ref{fig:psf_color} and Fig \ref{fig:psf_cdist}.
+    We further illustrate the accuracies of PSF colors via comparing the distributions
+    of colors for the input synthetic stars and the ones recovered by \hscpipe{}
+    (see Fig \ref{fig:psf_cdist}).
+    Using four different colors and two color--color planes, we show that the \forced{}
+    PSF colors can accurately reproduce the distributions of all four colors and the
+    2-D color-color distributions.
 
-        \item \plan{In Fig \ref{fig:psf_color}, we investiage how \forced{}
-            PSF colors depend on input magnitude and colors using both $(g-i)$ and
-            $(i-y)$ colors.
-            Results suggest \hscpipe{} \forced{} PSF photometry can provide
-            accurate and unbiased colors for stars in our tests.
-            The uncertainties do not show any significant dependence on neither input
-            magnitude nor color.}
-
-        \item \plan{For $(g-i)$ color, average uncertainty around
-            $i_{\mathrm{Input}}{\sim}19.0$ mag is ${\sim}0.025$ mag.
-            The uncertainty increases to ${\sim}0.11$ mag at
-            $i_{\mathrm{Input}}{\sim}25.0$ mag.
-            Results for $(i-y)$ color is similar.}
-
-        \item \plan{In Fig \ref{fig:psf_cdist}, we use the results from the bad
-            seeing \tract{} to show that the \forced{} PSF photometry
-            can accurately recover the color-color sequences of stars down to
-            $i{\sim}25$ mag.}
-
-        \item \plan{Accuracy of \forced{} PSF photometry apparently does not
-            strongly depend on seeing condition.
-            Impact from blendedness on PSF color is less serious than the magnitude,
-            although highly blended stars still show worse color accuracy and
-            systematically bluer (redder) $(g-i)$ ($i-y$) colors.
-            \unforced{} PSF photometry show similar but slightly worse
-            accuracy than the \forced{} ones. }
-
-    \end{itemize}
+    As for the highly blended stars, on Fig \ref{fig:psf_color}, we see that on average
+    they still have larger uncertainties in colors comparing to the relative isolated
+    ones.
+    For $(g-i)$ color, the average color uncertainty is ${\sim}0.1$ mag larger for the
+    highly blended stars at fixed input magnitude.
+    However, the biases in color measurements for these stars are less severe than
+    the magnitude measurements.
+    Although the blended stars still show slightly bluer (redder) $(g-i)$ ($(i-y)$)
+    colors comparing to the isolated ones and the input values, the differences in the
+    distributions of color uncertainties of blended and isolated stars are less striking
+    than the ones for magnitude differences.
 
 %% ------------------------------------------------------------------------------------ %%
 
@@ -1554,8 +1557,7 @@
 \subsection{Blendedness and Photometric Errors}
     \label{ssec:blendedness}
 
-    \plan{Briefly explain the definition of blendedness}
-
+    \plan{Review the definition of blendedness and explain why it is important.}
     \plan{Relationship between magnitude and blendedness}
 
     \plan{How blendedness affects the photometric uncertainties}
