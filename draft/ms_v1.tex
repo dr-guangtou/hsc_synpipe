@@ -152,23 +152,25 @@
     In this work, we present \synpipe{}, a \texttt{Python}-based, flexible framework
     that interfaces with the HSC data reduction pipeline (\hscpipe{}) and test its
     performance via injecting synthetic objects to the single-\texttt{visit} HSC images.
-    We use the coadd images in two \tracts{} from the Wide layer with representative
-    seeing conditions to demonstrate the usage of \synpipe{} and examine the general
-    photometric performance of \texttt{hscpipe}.
+    We use coadd images in two \tracts{} from the Wide layer with representative
+    seeing conditions to demonstrate the implementation of \synpipe{} and examine the 
+    general photometric performance of \texttt{hscpipe}.
     We find that the typical uncertainties of HSC \forced{} PSF photometry for stars
     range from ${\sim}0.01$ mag at $i{\sim}18.0$ mag to ${\sim}0.06$ at $i{\sim}25.5$
-    mag (1\%-5\% accuracy in the $i$-band).
-    For synthetic single-{S\'{e}rsic\ } model galaxies, the typical uncertainties of
-    HSC forced \cmodel{} photometry range from 0.14 mag at $i{\sim}20.0$ mag to
+    mag (1\%-7\% accuracy in the $i$-band).
+    For synthetic galaxies with single-\ser{} model, typical uncertainties of the
+    forced \cmodel{} photometry range from 0.14 mag at $i{\sim}20.0$ mag to
     0.20 mag at $i{\sim} 25.2$ mag.
-    Over the range of colors and magnitudes in these tests, we find that both \forced{}
-    PSF and \cmodel{} photometry provide unbiased estimates of colors that are robust
-    against different seeing conditions.
-    Finally, we also noticed that 1) the degree that a object is blended with others
-    impact the photometric accuracy, especially for stars.
+    Over the colors and magnitudes ranges used in these tests, we find that both 
+    \forced{} PSF and \cmodel{} photometry provide unbiased estimates of colors that 
+    are robust in different seeing conditions.
+    Finally, we notice a few issues in the current \hscpipe{} that are worth keeping
+    in mind when using HSC data: 
+    1) the degree that a object is blended with others impacts the photometric 
+    accuracy, especially for point sources.
     Highly blended object tends to have larger photometric uncertainty, systematically
     underestimated flux, and slightly biased color.
-    2) a relative high fraction of faint stars (${\sim}20$\% at $i>22.5$ mag) could be
+    2) a relative high fraction of faint stars (${\sim}16$\% at $i>22.5$ mag) can be
     misclassified as extended objects.
     3) the shape and size estimates for galaxies using \cmodel{} suffer from strong
     biases.
