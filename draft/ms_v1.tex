@@ -1259,43 +1259,55 @@
     \hscpipe{} that can be seen as an improved version of the SDSS \cmodel{}
     photometry.
     For more details, please see Section 4.9.8 of Bosch\etal (in prep.).
-    Basically, \cmodel{} tries to fit each object using a combination of de Vaucouleur
+    In short, \cmodel{} tries to fit each object using a combination of de Vaucouleur
     and exponential profiles that are approximated by multiple Gaussian profiles.
     Despite the limitation of the \cmodel{} method (e.g. sensitive to background
     subtraction and deblender failure), it can deliver robust PSF-corrected fluxes and
     colors for galaxies.
 
-    \begin{itemize}
-
-        \item \plan{${\sim}2$--$3$\% of the injected synthetic galaxies are
-            ambiguously blended with real objects.}
-
-        \item \plan{Excluding the ambiguously blended ones, ${\sim}4$--$8$\% of the
-            remaining synthetic galaxies do not have any match.
-            The unmatched galaxies are systematically fainter than the matched ones.
-            And the fraction of unmatched synthetic galaxies is also slightly higher
-            in the bad seeing \tract{} than the one with good seeing.
-            Similarly, $g$- and $i$-band have higher fraction of unmatched objects.
-            }
-
-       \item \plan{From the rest of the matched galaxies, we only keep the primary
-           detections (\texttt{detect.is-primary=True}) and the ones with clean
-           photometry (see Appendix \ref{app:qc} for details).
-           For each \tract{}, there are ${\sim}30000$ galaxies left.}
-
-       \item \plan{A tiny fraction of synthetic galaxies is misclassified as
-           point sources by \hscpipe{}.
-           And the fraction of misclassifications seems to increase with seeing
-           (${\sim}1$\% in good seeing \tract{}; ${\sim}4$\% in bad seeing \tract{}).
-           We will further discuss in Section \ref{ssec:sg}.}
-
-       \item \plan{We also use $b>0.05$ to define samples of highly blended galaxies.
-           Since synthetic galaxies are more extended, their distribution of $b$
-           skew more toward the higher value.
-           About ${\sim}7$--$9$\% of galaxies are highly blended by this standard.
-           The $g$-band has significantly higher fraction of highly blended objects.}
-
-    \end{itemize}
+    In our tests, we randomly inject ${\sim}40000$ synthetic galaxies into each 
+    \tract{}, and select samples for photometric comparisons in a similar way to the
+    stars. 
+    First, ${\sim}2$--$3$\% of the synthetic galaxies are ambiguously blended with 
+    real objects, and are hence removed from the sample. 
+    Among the rest of the sample, ${\sim}2$--$7$\% do not have any match in the 
+    \synpipe{} results in different \tracts{} and filters. 
+    The fraction of unmatched objects is slightly higher for the $g$- and $y$-band. 
+    For the same filter, the fraction is always higher for the bad seeing \tract{}.
+    The magnitudes of the unmatched galaxies are systematically fainter than the 
+    matched ones. 
+    In $i$-band, the median input magnitudes for matched and unmatched galaxies are 
+    $24.0$ mag and $24.6$ mag. 
+    
+    After selecting the matched synthetic galaxies with primary detection and 
+    clean photometry (see Appendix \ref{app:qc} for details), we have ${\sim}30000$
+    galaxies in each \tract{} for comparison.  
+    Among these objects, only $<1$\% is misclassified as point sources by \hscpipe{}
+    in the good seeing \tract{}.  
+    However, for the bad seeing one, the fraction increases to $4$\%.  
+    The median input magnitude for these misclassified sources is ${\sim}24.9$ mag 
+    in $i$-band, significantly fainter than the median of others.  
+    We will further discuss this in Section \ref{ssec:sg}.
+    
+    We also use $b>0.1$ to define samples of highly blended galaxies.
+    Due to the extended nature, the distributions of $b$ for synthetic galaxies are 
+    very different from stars, and skew toward higher values (especially for the 
+    bad-seeing \tract{}). 
+    About ${\sim}7$--$9$\% of synthetic galaxies are highly blended by this standard.
+    The fraction is only slightly higher in the bad-seeing \tract{}, and the 
+    $g$-band has the highest fraction of highly blended galaxies. 
+    We highlight the highly blended ones in comparisons, and there are more relevant 
+    discussions in Section \ref{ssec:blendedness}.
+    
+    Although these galaxies span in very wide large ranges of magnitude and 
+    structural parameters, the majority of them are faint 
+    ($i_{\mathrm{Input}} > 24.0$ mag) and small ($R_{\mathrm{e}} < 0.5$\asec). 
+    The photometric quality of these galaxies is very challenging, and also crucial
+    to several key scientific goals of the HSC survey. 
+    At the same time, these samples are unable to provide enough amounts of 
+    bright or large galaxies to test. 
+    We will supplement results for these galaxies using better samples for them 
+    in the future. 
 
 \subsubsection{Input magnitude and the $\mathrm{S}/\mathrm{N}$ of \cmodel{} photometry}
 
