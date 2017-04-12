@@ -1309,33 +1309,41 @@
     We will supplement results for these galaxies using better samples for them 
     in the future. 
 
-\subsubsection{Input magnitude and the $\mathrm{S}/\mathrm{N}$ of \cmodel{} photometry}
+\subsubsection{Input magnitude and the \s2n{} of \cmodel{} photometry}
 
-    \begin{itemize}
-
-        \item In Fig \ref{fig:cmodel_sn}, we show the relations between the input
-            magnitude and the $\mathrm{S}/\mathrm{N}$ recovered by \cmodel{}
-            photometry in $g$- and $i$-band.
-
-        \item \plan{Define $\mathrm{S}/\mathrm{N}$.
-                    Unlike point sources, at fixed total magnitude, the
-                    synthetic galaxies have a range of size and shape that
-                    lead to different average surface brightness.
-                    Comparing to stars, at the same input magnitude, synthetic
-                    galaxies have lower average $\mathrm{S}/\mathrm{N}$ and larger
-                    scatter. }
-
-        \item \plan{Seeing condition still impacts the $\mathrm{S}/\mathrm{N}$ of
-                    galaxies}
-
-        \item \plan{Blendedness can reduce the $\mathrm{S}/\mathrm{N}$ a little.}
-
-        \item \plan{Briefly discuss the detection limit of point sources.
-            Basically consistent with the reported values in \citet{HSCDR1}.
-            Although at $i{\sim}25.2$, the average $\mathrm{S}/\mathrm{N}$ is quite high,
-            small fraction of galaxies will have very low $\mathrm{S}/\mathrm{N}$.}
-
-    \end{itemize}
+    In Fig \ref{fig:cmodel_sn}, we first show the relations between the input 
+    magnitudes and the \s2n{} of the synthetic galaxies estimated by the ratio 
+    between \cmodel{} flux and its uncertainties from \hscpipe{}. 
+    Since these galaxies are extended objects, the \s2n{} here should be treated 
+    as the average \s2n{} which is different from the \s2n{} of stars using PSF 
+    photometry. 
+    
+    We still use $i$- and $g$-band as examples. 
+    Comparing to the similar figure for stars, the most obvious difference is that
+    at fixed input magnitude, the \s2n{} distribution of galaxies show much larger
+    scatter than stars.  
+    At the same total flux, galaxy can have different size and shape, and 
+    naturally leads to differences in their peak and average \s2n{}.  
+    This also makes it difficult to have a clear definition of ``detection limit'' 
+    for galaxies. 
+    For $i$-band, the typical \s2n{} for synthetic galaxies at the magnitude limit 
+    of our sample ($25.2$ mag) is ${\sim}20$, but the low-\s2n{} tail has already 
+    reached to the \s2n{}$=5$ boundary.  
+    This suggests that, although HSC Wide can detect galaxies as faint as 
+    $i{\sim}26.0$ mag, the sample will become highly incomplete. 
+    Furthermore, it can also introduce bias into the selection as galaxies with 
+    certain structural properties are harder to detect than others. 
+    \todo{Add average \s2n{} of the high and low \ser{} index galaxies at 
+    $23.8 < i < 24.2$ mag.}
+    Users of HSC survey data who want to select flux-limited samples of galaxies,
+    or intend to study the population of faint (e.g. high-$z$) galaxies should
+    keep this in mind.  
+    
+    Similar to the synthetic stars, worse seeing condition can also lead to 
+    noticeable decrease of \s2n{} at the same magnitude (see the figure for
+    $i$-band). 
+    Meanwhile, the highly blended synthetic galaxies do not show significantly 
+    different \s2n{} distributions here. 
 
 \subsubsection{Accuracy of the \cmodel{} magnitude}
 
