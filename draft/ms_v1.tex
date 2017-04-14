@@ -1612,36 +1612,47 @@
     \label{ssec:sg}
     
     As we already mentioned, star--galaxy separation is important for cosmology survey,
-    and becomes increasingly difficult for fainter and fainter objects. 
-
-    \begin{itemize}
-
-        \item \plan{Explain how star--galaxy separation is done in \hscpipe{}, and
-            why it is difficult at faint magnitudes.}
-
-        \item In Fig \ref{fig:sg}, we highlight the misclassified stars and galaxies
-            on the relations between the input magnitude and
-            $i_{\mathrm{PSF}}-i_{\mathrm{cModel}}$.
-
-        \item \plan{The fraction of misclassified stars show dependence on both
-            input magnitude and seeing.}
-
-        \item \plan{Most of the misclassified galaxies have $i > 24.0$.
-            The fraction of misclassification and distribution of
-            $i_{\mathrm{PSF}}-i_{\mathrm{cModel}}$ for synthetic galaxies also depend on
-            seeings}.
-
-    \end{itemize}
-
+    and becomes increasingly difficult at very faint magnitude ($i<24.0$ mag). 
+    In \hscpipe{}, the star--galaxy classification primarily depends on the extendedness 
+    value that is measured by the magnitude difference between PSF and \cmodel{} 
+    photometry in $i$-band. 
+    For more details about this algorithm, please see Section 4.9.9 in Bosch\etal 
+    (in prep.). 
+    
+    In Fig \ref{fig:sg}, we show the current status of star--galaxy classification  
+    via comparing the input magnitude with the difference between PSF and \cmodel{} 
+    magnitudes for both synthetic stars and galaxies, and highlight the distributions 
+    for misclassified objects. 
+    As described in earlier sections, $>20$\% of synthetic stars at 
+    $i_{\mathrm{Input}}>23.0$ mag is misclassified as extended objects, while only a 
+    tiny fraction of faint synthetic galaxies ($i_{\mathrm{Input}}>24.0$) are 
+    misclassified. 
+    This confirms that the current star--galaxy classification strategy in \hscpipe{}
+    results in galaxy sample with \textbf{high completeness} and star sample 
+    with \textbf{high purity}.
+    
+    It it also easy to notice that seeing condition strongly modify the distributions 
+    of $i_{\mathrm{PSF}}-i_{\mathrm{cModel}}$, where worse seeing clearly make it 
+    more difficult to separate star and galaxy.  
+    This implies that the completeness/purity of star and galaxy sample at faint end
+    may depend on seeing, which deserve the attention of HSC users who care about 
+    these properties.      
+    
+    In the next data release, \hscpipe{} will include a better star--galaxy classifier
+    that is based on Machine Learning method takes the shape and color information 
+    into account. 
+    We will test its improvement using \synpipe{} in the future.
+    
 %% ------------------------------------------------------------------------------------ %%
 \subsection{Blendedness and Photometric Errors}
     \label{ssec:blendedness}
 
-    \plan{Review the definition of blendedness and explain why it is important.}
-    \plan{Relationship between magnitude and blendedness}
-
-    \plan{How blendedness affects the photometric uncertainties}
-
+    In the above sections, we have pointed out the impact of high blendedness on 
+    photometry through a small sample of highly blended objects.  
+    Here, in Fig \ref{fig:blend}, we further explore the effect of blendedness via 
+    directly plot it against the uncertainties of magnitudes and colors for both stars 
+    and galaxies. 
+    
 %% ------------------------------------------------------------------------------------ %%
 \subsection{Comparing to Kron photometry}
 
