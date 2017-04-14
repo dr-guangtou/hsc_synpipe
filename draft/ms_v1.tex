@@ -1650,8 +1650,20 @@
     In the above sections, we have pointed out the impact of high blendedness on 
     photometry through a small sample of highly blended objects.  
     Here, in Fig \ref{fig:blend}, we further explore the effect of blendedness via 
-    directly plot it against the uncertainties of magnitudes and colors for both stars 
-    and galaxies. 
+    directly plotting it against the uncertainties of magnitudes and colors. 
+    
+    For both PSF and \cmodel{} magnitude, we can see clear trends that high-blendeness
+    ($b>0.05$ or $0.1$) objects have systematically underestimated total fluxes. 
+    This effect is particularly strong for stars. 
+    As for colors, higher blendedness still result in higher uncertainties for both 
+    stars and galaxies, but the trends are different. 
+    For stars, highly blended ones have clearly overestimated $(g-i)$ colors, and the 
+    highly blended galaxies seem to have bluer $(g-i)$ colors than the true values. 
+    
+    These blendedness-related uncertainties are not included in the photometric errors
+    released by \hscpipe{}.  
+    We therefore remind the HSC users of treating the highly blended object with 
+    greater caution.
     
 %% ------------------------------------------------------------------------------------ %%
 \subsection{Comparing to Kron photometry}
@@ -1664,6 +1676,9 @@
 \subsection{Shape and Structural Parameters of Galaxies}
     \label{ssec:shape}
 
+    In SDSS, the structural parameters 
+    
+    The CModel galaxy fitting algorithm utilizes a Bayesian prior on radius and ellipticity, largely as a way to regularize fits to low S/N and/or poorly-resolved galaxies. When combining this with the likelihood to form the posterior probability (which is then
     \plan{Explain why the current \cmodel{}{} algorithm has problem with measuring
           the size and shape of galaxies}
 
