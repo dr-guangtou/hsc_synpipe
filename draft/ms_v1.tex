@@ -1250,7 +1250,7 @@
         The empty contours and solid-line histograms show the distributions recovered
         by \hscpipe{} \cmodel{} photometry.
         }
-    \label{fig:galaxy_cdist}
+    \label{fig:cmodel_cdist}
 \end{figure*}
 %% ------------------------------------------------------------------------------------ %%
 
@@ -1312,6 +1312,7 @@
     We will supplement results for these galaxies using better samples for them 
     in the future. 
 
+%% ------------------------------------------------------------------------------------ %%
 \subsubsection{Input magnitude and the \s2n{} of \cmodel{} photometry}
 
     In Fig \ref{fig:cmodel_sn}, we first show the relations between the input 
@@ -1336,8 +1337,6 @@
     $i{\sim}26.0$ mag, the sample will become highly incomplete. 
     Furthermore, it can also introduce bias into the selection as galaxies with 
     certain structural properties are harder to detect than others. 
-    \todo{Add average \s2n{} of the high and low \ser{} index galaxies at 
-    $23.8 < i < 24.2$ mag.}
     Users of HSC survey data who want to select flux-limited samples of galaxies,
     or intend to study the population of faint (e.g. high-$z$) galaxies should
     keep this in mind.  
@@ -1348,6 +1347,7 @@
     Meanwhile, the highly blended synthetic galaxies do not show significantly 
     different \s2n{} distributions here. 
 
+%% ------------------------------------------------------------------------------------ %%
 \subsubsection{Accuracy of the \cmodel{} magnitude}
 
     In Fig \ref{fig:cmodel_mag}, we illustrate the photometric uncertainties of the 
@@ -1429,39 +1429,49 @@
     The only noticeable difference is for galaxies brighter than $24.0$ mag in 
     $g$-band, their \forced{} \cmodel{} magnitudes are systematically brighter than 
     the \unforced{} ones. 
-    
+ 
+%% ------------------------------------------------------------------------------------ %%   
 \subsubsection{Accuracy of the \cmodel{} color}
 
-    \begin{itemize}
+    The consistent and accurate five-band \cmodel{} colors from \hscpipe{} are crucial 
+    to the photometric redshift and spectral energy distribution (SED) fitting results. 
+    They are also key to the selection of high-$z$ Lyman-break galaxies (LBG) and 
+    and many other interesting objects. 
 
-        \item \plan{Briefly explain why \cmodel{} colors are important.}
-
-        \item The results for accuracy of \forced{} \cmodel{} colors are shown in
-            Fig \ref{fig:cmodel_color} and Fig \ref{fig:cmodel_cdist}.
-
-        \item \plan{\forced{} \cmodel{} photometry provides accurate and unbiased
-            colors for galaxies at $20.0 < i < 25.0$ mag at different seeing conditions.
-            The accuracies of colors also do not show dependence on input colors.
-            }
-
-        \item \plan{For $(g-i)$ color, average uncertainty around
-            $i_{\mathrm{Input}}{\sim}21.0$ mag is ${\sim}0.04$ mag.
-            The uncertainty increases to ${\sim}0.11$ mag at
-            $i_{\mathrm{Input}}{\sim}25.0$ mag.
-            Results for $(i-y)$ color is similar.}
-
-        \item \plan{High blendedness can increase the uncertainties of the color
-            and bias the color measurements.
-            The highly blended galaxies on average show slightly bluer $(g-i)$ colors
-            and redder $(i-y)$ colors comparing to the input values.}
-
-        \item \plan{In Fig \ref{fig:cmodel_cdist}, we show that the \forced{} \cmodel{}
-            photometry can reasonably recover the color-color distributions of galaxies
-            down to $i{\sim}25$ mag.
-            }
-
-    \end{itemize}
-
+    In Fig \ref{fig:cmodel_color}, we demonstrate the accuracies of \forced{} $(g-i)$
+    and $(i-y)$ \cmodel{} colors in the same format for synthetic stars 
+    (Fig \ref{fig:psf_color}).
+    These plots show that \hscpipe{} can provide reliable \cmodel{} colors for 
+    synthetic galaxies down to $i_{\mathrm{Input}}{\sim}25.0$ mag. 
+    For $(g-i)$ colors, average uncertainty around $i_{\mathrm{Input}}{\sim}21.0$ mag 
+    is ${\sim}0.04$ mag.
+    The uncertainty increases to ${\sim}0.11$ mag at $i_{\mathrm{Input}}{\sim}25.0$ mag.
+    Results for $(i-y)$ colors are similar.
+    
+    The performance of \forced{} \cmodel{} color does not show dependence on seeing
+    condition, and is unbiased across the ranges for input total magnitude and color.
+    The only noticeable feature is that the $(i-y)$ color at 
+    $i_{\mathrm{Input}}>24.0$ is slightly overestimated. 
+    As mentioned above, this is not surprise given the shallower imaging depth of 
+    $y$-band.    
+    At the same time, high blendedness of synthetic galaxies can still increase the 
+    uncertainties of the color and bias the color measurements.
+    The highly blended galaxies on average show slightly bluer $(g-i)$ 
+    colors and redder $(i-y)$ colors than the input values.
+    
+    Similar to Fig \ref{fig:psf_cdist}, we also compare the color--color distributions 
+    of the input and output \forced{} \cmodel{} values in Fig \ref{fig:cmodel_cdist}. 
+    The general distributions of colors are well recovered despite the accuracy is 
+    not as good as the one for stars, especially on the $(i-z)$ v.s. $(z-y)$ plane. 
+    It is expected given the narrow dynamical ranges of these colors among red filters.
+    The \forced{} \cmodel{} tends to slightly underestimate the $(g-r)$ and $(i-z)$ 
+    colors at the very ``blue'' end, while overestimate the $(i-y)$ color at very 
+    red end. 
+    
+    In the end, we should point out that we assume constant color for the entire galaxy.  
+    In reality, different colors for individual components and smooth color gradient 
+    can really complicated the situation, hence the uncertainties of \cmodel{} colors 
+    here should be considered as lower limits.
 %% ------------------------------------------------------------------------------------ %%
 
 
@@ -1482,6 +1492,7 @@
     \label{fig:astrometry}
 \end{figure*}
 %% ------------------------------------------------------------------------------------ %%
+
 
 %% ------------------------------------------------------------------------------------ %%
 %% Fig: Star-Galaxy Separation
@@ -1571,31 +1582,37 @@
 
 %% ------------------------------------------------------------------------------------ %%
 
-\section{Results on Other Performance}
+\section{Results on Other Aspects of \hscpipe{}}
     \label{sec:others}
 
+    In this section, we briefly discuss a few other issues of \hscpipe{} that relates 
+    to astrometric calibration, star-galaxy separation, and measurements of galaxy 
+    shape to demonstrate the ranges of topics can be tested by \synpipe{}
+    
 %% ------------------------------------------------------------------------------------ %%
 \subsection{Astrometric Calibration}
     \label{ssec:astrometry}
-
-    \begin{itemize}
-
-        \item \plan{Explain what we are testing here; and why it is useful}
-
-        \item In Fig \ref{fig:astrometry}, we briefly look into the accuracies
-            of the astrometric comparison for both synthetic stars and galaxies in
-            \tracts{} with both good and bad seeing.
-
-        \item \plan{We see small astrometric offsets in both R.A and Dec directions
-            that show small differences between the two \tracts{}.
-            The average offset is at ${\sim}10$--20 mas, which is consistent with
-            the estimate in \citet{HSCDR1}}.
-
-    \end{itemize}
-
+    
+    For \synpipe{} test, we inject synthetic objects to single \visit{} images using 
+    the less accurate, initial astrometric calibration. 
+    During the image stacking step, the joint calibration process will improve the 
+    astrometric solutions. 
+    Therefore the differences between the input and output coordinates from \synpipe{}
+    can help understand the systematic effect of this step. 
+    
+    In Fig \ref{fig:astrometry}, we plot the distributions of astrometric offsets for 
+    both synthetic stars and galaxies in good- and bad-seeing \tracts{}. 
+    Small systematic offsets at ${\sim}10$--20 mas can be noticed in either direction. 
+    The two \tracts{} apparently show different systematic offsets. 
+    In the same \tracts{}, synthetic stars and galaxies show very similar offsets, 
+    although the scatter for galaxies is slightly larger due to their extended nature.
+    
 %% ------------------------------------------------------------------------------------ %%
 \subsection{Star-Galaxy Separation}
     \label{ssec:sg}
+    
+    As we already mentioned, star--galaxy separation is important for cosmology survey,
+    and becomes increasingly difficult for fainter and fainter objects. 
 
     \begin{itemize}
 
