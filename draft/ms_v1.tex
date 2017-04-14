@@ -84,6 +84,7 @@
 \newcommand{\song}[1]{\textcolor{cyan} {\textbf{#1}}}
 \newcommand{\addref}{{\textcolor{red}{\textbf{REF}}}}
 \newcommand{\term}[1]{\textbf{\texttt{#1}}}
+\newcommand{\susan}[1]{\textcolor{magenta} {\textbf{#1}}}
 
 \newcommand{\plus}{\raisebox{.4\height}{\scalebox{.6}{+}}}
 \newcommand{\minus}{\raisebox{.4\height}{\scalebox{.8}{-}}}
@@ -103,8 +104,8 @@
 %%%%%%%%%%%%: Title and Affiliations %%%%%%%%%%%%
 
 %% ------------------------------------------------------------------------------------ %%
-\title{HSC Synthetic Pipeline I: Basic Design and Characterization of the
-       Photometric Performance of HSC}
+\title{HSC Synthetic Pipeline I: Basic Design and Characterization of HSC
+       Photometric Performance}
 
 \author{Song Huang \altaffilmark{1,2}
         Alexie Leauthaud \altaffilmark{1,2},
@@ -148,34 +149,34 @@
 %% ------------------------------------------------------------------------------------ %%
 \begin{abstract}
 
-    The Subaru Strategy Survey Program (SSP) is an ambitious wide-area, multi-band
-    survey using the Hyper Suprime-Cam (HSC) on Subaru telescope.
-    At the imaging depth of this survey, it becomes challenging to achieve accurate,
-    unbiased, and consistent photometry across all five bands.
-    In this work, we present \synpipe{}, a \texttt{Python}-based, flexible framework
-    that interfaces with the HSC data reduction pipeline (\hscpipe{}) and test its
-    performance via injecting synthetic objects to the single-\texttt{visit} HSC images.
-    We use coadd images in two \tracts{} from the Wide layer with representative
-    seeing conditions to demonstrate the implementation of \synpipe{} and examine the 
-    general photometric performance of \texttt{hscpipe}.
-    We find that the typical uncertainties of HSC \forced{} PSF photometry for stars
+   The Subaru Strategic Program (SSP) is an ambitious wide-area, multi-band
+    survey using the Hyper Suprime-Cam (HSC) on the Subaru telescope.
+      At SSP's imaging depth \susan{quantify?}, it is challenging to achieve accurate,
+    unbiased, and consistent photometry across all five bands. To improve data processing and achieve accurate photometric measurements, we have developed
+   \synpipe{}, a \texttt{Python}-based, flexible framework
+    that interfaces with the HSC data reduction pipeline (\hscpipe{}) to process data from the first public HSC--SSP data release. \susan{I expected to see something in the abstract that clarifies why this is Pipeline I; does this suggestion accomplish that?} We test  \synpipe{}
+    performance by injecting synthetic objects into single-\texttt{visit} HSC images.
+    We use coadded images in two Wide layer \tracts{} with representative
+    seeing conditions to demonstrate  \synpipe{} implementation and to examine  \texttt{hscpipe}'s 
+    general photometric performance.
+    We find that uncertainties of HSC \forced{} PSF photometry for stars typically
     range from ${\sim}0.01$ mag at $i{\sim}18.0$ mag to ${\sim}0.06$ at $i{\sim}25.5$
-    mag (1\%-7\% accuracy in the $i$-band).
-    For synthetic galaxies with single-\ser{} model, typical uncertainties of the
-    forced \cmodel{} photometry range from 0.14 mag at $i{\sim}20.0$ mag to
+    mag (1\%-7\% accuracy in the $i$-band). 
+    For synthetic galaxies based on a single-\ser{} model, uncertainties of the
+    forced \cmodel{} photometry typically range from 0.14 mag at $i{\sim}20.0$ mag to
     0.20 mag at $i{\sim} 25.2$ mag.
-    Over the colors and magnitudes ranges used in these tests, we find that both 
-    \forced{} PSF and \cmodel{} photometry provide unbiased estimates of colors that 
+    Over the color and magnitude ranges used in the  \synpipe{} tests, we find that both 
+    \forced{} PSF and \cmodel{} photometry provide unbiased color estimates that 
     are robust in different seeing conditions.
-    Finally, we notice a few issues in the current \hscpipe{} that are worth keeping
+    We also notice a few issues in the current \hscpipe{} that are worth keeping
     in mind when using HSC data: 
-    1) the degree that a object is blended with others impacts the photometric 
+    1) The degree to which an object is blended with others impacts the photometric 
     accuracy, especially for point sources.
-    Highly blended object tends to have larger photometric uncertainty, systematically
+    Highly blended objects tend to have larger photometric uncertainty, systematically
     underestimated flux, and slightly biased color.
-    2) a relative high fraction of faint stars (${\sim}16$\% at $i>22.5$ mag) can be
+    2) A relatively high fraction of faint stars (${\sim}16$\% at $i>22.5$ mag) can be
     misclassified as extended objects.
-    3) the shape and size estimates for galaxies using \cmodel{} suffer from strong
+    3) The shape and size estimates for galaxies using \cmodel{} suffer from strong
     biases.
 
 \end{abstract}
@@ -189,86 +190,84 @@
 
     %% Background
     Wide-field, multi-band imaging surveys have stepped onto the central stage of
-    modern astrophysics and cosmology in the past decade.
-    They also have a bright future as many ambitious projects are being carried out
-    or planned, like the Large Synoptic Survey Telescope
+    modern astrophysics and cosmology over the past decade.
+    They also have a bright future on many current and planned ambitious projects, such as the Large Synoptic Survey Telescope
     (LSST)\footnote{\url{https://www.lsst.org/}}, the Wide-Field Infrared Survey
     Telescope
     (WFIRST; \citealt{Dressler2012})\footnote{\url{https://wfirst.gsfc.nasa.gov/}},
     and the \textit{Euclid} project
     (\citealt{Laureijs2012})\footnote{\url{http://sci.esa.int/euclid/}}.
     Among many ongoing efforts, the Subaru Strategic Program
-    (SSP; \citealt{HSCDR1})\footnote{\url{http://hsc.mtk.nao.ac.jp/ssp/}}
-    using the Hyper Suprime-Cam (HSC; \citealt{Miyazaki2012}) on the prime focus of
-    the Subaru telescope is the most efficient one in term of Etendue.
-    These surveys together will greatly help us test cosmological models, trace the
+    (SSP; \citealt{HSCDR1})\footnote{\url{http://hsc.mtk.nao.ac.jp/ssp/}}, which
+    uses the Hyper Suprime-Cam (HSC; \citealt{Miyazaki2012}) on the prime focus of
+    the Subaru telescope, is the most efficient in terms of etendue.
+    Together, these surveys will greatly help us test cosmological models, trace the
     evolution of galaxies, study the stellar structure of our Milky Way, and discover
-    large number of interesting transient objects.
+    a large number of interesting transient objects.
 
     %% Challenges
-    Before we can tackle any outstanding scientific question, we first need to learn
-    how to handle the huge amount of data generated by these projects, and achieve
+    Before we can tackle any outstanding scientific questions, we must first learn
+    how to handle the huge \susan{quantify? Or is "huge" a common descriptor for data in your field?} amount of data generated by these projects as well as achieve
     accurate photometric measurements of different types of objects.
-    This target becomes increasingly challenging in the age of modern imaging
-    surveys.
-    The cameras that carry these surveys are often made up of multiple
-    charge-coupled devices (CCDs) with slightly different characteristics and have
-    large field-of-view (FoV) over not perfectly flat focus plane.
-    During the observation, the seeing and background conditions always show spatial
+    Data handling becomes increasingly challenging in the age of modern imaging
+    surveys, in part due to variations and effects related to the cameras' charge-coupled devices (CCDs).
+    The cameras are often made up of multiple
+  CCDs, each with slightly different characteristics, and have
+    large fields-of-view (FoV) over not perfectly flat focus planes.
+    During  observation, the seeing and background conditions always show spatial
     and temporal variations across the FoV.
-    The full-depletion, thick CCD adopted by these cameras enables long exposure time
+    The full-depletion, thick CCDs selected for the cameras enable long exposure times
     and excellent sensitivity in the red-end, but they often have the so-called
-    ``brighter-fatter'' effect (\citealt{Antilogus2014}) which means the size of bright
-    stars are enlarged.
-    All these issues make accurate astrometric and photometric calibration,
+    ``brighter-fatter'' effect (\citealt{Antilogus2014}), which means that bright
+    stars appear larger than they are.
+   These variations and effects make accurate astrometric and photometric calibration,
     background subtraction, and point spread function (PSF) modeling intrinsically
-    difficult (e.g. \citealt{Schlafly2012}).
-    In addition, the multi-epoch, multi-band nature of these surveys also complicate
-    the data reduction as one needs to pay special attentions to the processes of
-    image stacking, multi-band object detection and measurements.
-    Furthermore, as ongoing surveys reach to much deeper surface brightness level,
-    the number of objects in unit area, especially faint object, becomes much higher.
-    Not only that, it is much more common to have objects that overlap each other at
-    different levels (which is often referred to as ``blended'').
-    Both situations ask for improved methods for photometric measurements than the ones
+    difficult (e.g., \citealt{Schlafly2012}).
+    The multi-epoch, multi-band nature of the surveys also complicate
+    data reduction because the scientist must pay special attention to
+    image stacking, multi-band object detection, and measurement processes.
+     Furthermore, as ongoing surveys reach to increasingly deeper surface brightness levels,
+    the number of objects, especially faint objects, in a unit area, becomes much higher.
+   In addition, it is much more common to observe objects that overlap each other at
+    different levels (a phenomenon often referred to as ``blended'').
+    These modern imaging survey challenges call for photometric measurement methods that are more powerful and precise than those
     used in previous, shallower surveys.
 
 %% ------------------------------------------------------------------------------------ %%
     %% Reason
-    These challenges mentioned above are not just technical details, they are crucial
-    systematics to key scientific goals of these surveys.
+    The challenges are not merely technical details; their resolution is crucial
+     to achieving the surveys' key scientific goals.
     For instance, weak gravitational lensing (WL; \citealt{Kaiser1993, Bartelmann2001})
-    is a powerful tool to measure the large-scale distribution of dark matter and
-    follow its evolution.
-    The WL measurements critically depend on the ability to model PSF and measure the
-    shape of background galaxies in high precision (e.g. \citealt{Mandelbaum2015}).
-    Also, photometric redshift measurement (e.g. \citealt{Benitez2000, Bolzonella2000,
-    Ilbert2009}) is fundamentally important for studying the evolution of galaxies;
+    is a powerful tool for measuring the large-scale distribution of dark matter and
+    following its evolution.
+    However, WL measurements critically depend on the ability to model PSF and measure the
+    shape of background galaxies with high precision (e.g., \citealt{Mandelbaum2015}).
+    The photometric redshift measurement (e.g., \citealt{Benitez2000, Bolzonella2000,
+    Ilbert2009}) is fundamentally important for studying the evolution of galaxies,
     and the ``drop-out'' method is very useful in selecting high-redshift galaxies
-    (e.g. \citealt{Steidel1996}).
-    Both methods are based on accurate multi-band photometric measurements.
-    The list goes on and on, but it becomes clear that we need to develop frameworks
+    (e.g., \citealt{Steidel1996}).
+    However, both of those methods are based on accurate multi-band photometric measurements.
+    There are many other examples, but these are sufficient to demonstrate that we need to develop new frameworks
     to oversee the data reduction process of modern imaging surveys.
-    Several tools with similar goals have been developed (e.g. \citealt{Chang2015,
-    Suchyta2016}) for the Dark Energy Survey (DES; \citealt{DES2005}).
+    Several tools with similar goals have been developed (e.g., \citealt{Chang2015,
+    Suchyta2016}) for the Dark Energy Survey (DES; \citealt{DES2005}). \susan{Clarify why you mention the DES tools; e.g., does synpipe build on these tools? Do they demonstrate the effectiveness of developing new frameworks? Why are they insufficient for the HSC survey tasks?}
 
     %% Organization
-    In this work, we present \synpipe{}, a \texttt{Python}-based
-    software to test the data reduction quality of the HSC--SSP (will be referred to
-    as the HSC survey) using synthetic objects.
-    \synpipe{} is designed to be a flexible framework that has many applications
-    and can help future developments of the HSC data reduction pipeline.
-    Here, after briefly introducing the HSC survey and the current status of
-    data reduction (Section \ref{sec:ssp}), we explain the design and implementation
-    of \synpipe{} (Section \ref{sec:synpipe}), then we demonstrate its usage via
+  To test the data reduction quality of the HSC--SSP (hereafter referred to
+    as the HSC survey) using synthetic objects, we have designed \synpipe{}, a \texttt{Python}-based
+    software that
+  is a flexible framework with many applications
+    that can help future developments of the HSC data reduction pipeline as well as HSC Synthetic Pipeline I.
+    Below, we briefly introduce the HSC survey and the current status of
+    data reduction (Section \ref{sec:ssp}),  explain  \synpipe{}  design and implementation (Section \ref{sec:synpipe}), and demonstrate \synpipe{} usage via
     straightforward tests (Section \ref{sec:test}) that focus on the general
     photometric quality for both synthetic stars and galaxies
     (Section \ref{sec:result}).
-    Finally, we summary the work and discuss future developments in the
+ We then summarize the work and discuss future developments in 
     Section \ref{sec:summary}.
 
-    \synpipe{} code, along with basic documents and a few examples are available
-    on GitHub at: \url{https://github.com/dr_guangtou/synpipe}.
+   The  \synpipe{} code, along with basic documents and a few examples, is available
+    on GitHub at: \url{https://github.com/dr_guangtou/synpipe}. \susan{Is this URL correct? I got a 404 Page Not Found when I tried it. I think the underscore needs to be replaced with a hyphen: https://github.com/dr-guangtou/synpipe}
 %% ------------------------------------------------------------------------------------ %%
 
 %% ------------------------------------------------------------------------------------ %%
@@ -278,145 +277,141 @@
         \includegraphics[width=\textwidth]{fig/synpipe_flowchart_new}
     \end{center}
     \caption{
-        Illustration of the basic procedures of \synpipe{}.
-        Grey color boxes indicate the required inputs at different stages.
-        Blue box is for the \texttt{addFakes.py} step when \synpipe{} injects simulated
-        images of synthetic objects onto single frame image.
+        Illustration of  \synpipe{} basic procedures.
+        Grey  boxes indicate the required inputs at different stages.
+        The blue box identifies the \texttt{addFakes.py} step, when \synpipe{} injects simulated
+        images of synthetic objects onto a single-frame image. 
         We show an example CCD image with and without synthetic objects on it
         (highlighted by green circles).
-        Red boxes are for the following image coadding and multiband measurement steps
+        Red boxes depict the subsequent image coadding and multiband measurement steps
         using \texttt{stack.py} and \texttt{multiBand.py} from \hscpipe{}.
-        We show a small piece of coadd image with synthetic objects on it.
+        We show a small piece of coadded image with synthetic objects on it.
         The figure on the right side of the middle row shows the spatial relation
         between \tract{} (outlined by the black dashed lines; each small region
-        is a \texttt{Patch}) and all the \visits{} that contribute to it
-        (each \visit{} has its own unique color; each small region has the size
-        of a CCD).
+        is a \texttt{Patch}) and all the \visits{} that contribute to it. (Each \visit{} has a  unique color; each small region is the size
+        of a CCD.)
         }
     \label{fig:flowchart}
 \end{figure*}
 %% ------------------------------------------------------------------------------------ %%
 
 %% ------------------------------------------------------------------------------------ %%
-\section{Hyper-Suprime Cam Subaru Strategic Program}
+\section{Hyper-Suprime Cam Subaru Strategic Program (HSC Survey)}
     \label{sec:ssp}
 
     %% Basic
-    Taking advantage of the new prime focus camera on the 8.2m Subaru telescope,
-    the ambitious HSC survey consists of three layers.
-    The Wide layer will map a total of ${\sim}1400$ deg$^2$ of sky in five broadband
+    Taking advantage of the new prime focus camera on the 8.2 m \susan{Style preference: space between value and m? Hyphenate?} Subaru telescope,
+    the ambitious HSC survey consists of three layers: Wide, Deep, and UltraDeep.
+    The Wide layer will map a total of ${\sim}1400$ deg$^2$ of sky in five broad bands
     ($grizy$; Kawanomoto\etal in prep.).
     The Deep (4 separated fields; ${\sim}27$ deg$^2$) and UltraDeep (2 separated
     fields; ${\sim}3.5$ deg$^2$) layers will use a few additional narrow-band filters
-    and employ slightly different survey strategy.
-    Please refers to the survey description paper for more detailed information
-    (Strauss\etal in prep.).
+    and employ a slightly different surveying strategy.
+     Strauss\etal (in prep.) describes the HSC survey in more detail, and identifies the HSC collaborators.
+  
 
-    The HSC camera (\citealt{Miyazaki2012}) is made up of 112 full-depletion thick CCDs
-    for science and another 12 for guiding and focusing.
-    It provides a circular FoV with 1.5 deg diameter.
+    The HSC camera (\citealt{Miyazaki2012}) is made up of 124 full-depletion thick CCDs: 112 for science and another 12 for guiding and focusing.
+    The camera has a circular FoV with a 1.5 deg diameter.
     Each CCD contains 2048$\times$4096 pixels distributed in 4 amplifiers.
-    The pixel size equals to 0.168\asec{} on the sky.
+    The pixel size is equal to 0.168\asec{} on the sky.
 
-    The HSC collaboration just released the first 1.7 years of data to public (DR1;
-    \citealt{HSCDR1})\footnote{\url{https://hsc_release.mtk.nao.ac.jp}}.
-    For this work, we will focus on the Wide layer whose major scientific goals include
+   In February 2017, the HSC collaboration  released the first 1.7 years of data to the public (DR1;
+    \citealt{HSCDR1})\footnote{\url{https://hsc_release.mtk.nao.ac.jp }}.\susan{URL is incorrect. Replace underscore with hyphen and add /doc: https://hsc-release.mtk.nao.ac.jp/doc/}
+    For our work, we  focused on data from the Wide layer and the related major scientific goals, which include
     WL cosmology, galaxy evolution since $z{\sim}1$, and studies of galaxy clusters.
-    The current Wide layer includes ${\sim}108$ deg$^2$ of sky that are isolated in
+    The current Wide layer includes ${\sim}108$ deg$^2$ of sky isolated in
     6 different regions (XMM--LSS, GAMA09H, WIDE12H, GAMA15H, HECTOMAP, and VVDS)
-    \footnote{A small AEGIS field is also observed for calibration purpose.}.
-    Most of these fields are close to the equator with the exception of the HECTOMAP
-    field.
-    In the Wide layer, the $g$ and $r$ bands have 10 mins exposure broken into 4
-    dithers\footnote{Large, ${\sim}1/3$ of FoV dither pattern is used to ensure
-    uniform coverage.}; for the rest 3 bands, 20 mins exposure time and 6 dithers are
-    used\footnote{Several 30s exposures are taken to improve the dynamic range.}.
+    \footnote{A small AEGIS field is also observed for calibration purposes.}.
+    Except for the HECTOMAP field, the regions are all close to the equator. 
+        In the Wide layer, the $g$ and $r$ bands have 10 mins of exposure broken into 4
+    dithers\footnote{Large, ${\sim}1/3$ of the FoV dither pattern is used to ensure
+    uniform coverage.}; for the remaining 3 bands, 20 mins of exposure time and 6 dithers are
+    used\footnote{Several 30 s exposures are taken to improve the dynamic range.}.
     The survey prioritizes the observations so that the $i$-band can have excellent
-    seeing condition to help accurate shape measurements for WL.
+    seeing conditions to help make accurate WL shape measurements.
     The current Wide layer has impressive median seeing with FWHM${\sim}0.6$\asec{},
-    and has a $i{\sim} 26.4$ mag $5\sigma$ point source detection limit.
-    For more details of the data status, please see the data release paper
-    (\citealt{HSCDR1}).
+    and has a $i{\sim} 26.4$ mag $5\sigma$ point source detection limit. 
+    \citealt{HSCDR1} provides details on the first data release and data status.
+ .
 %% ------------------------------------------------------------------------------------ %%
 
 %% ------------------------------------------------------------------------------------ %%
 \section{The HSC Data Reduction Pipeline}
     \label{ssec:hscpipe}
 
-    The HSC survey data is currently reduced by \hscpipe{} \texttt{v4.0.5}, a
+    The HSC survey data are \susan{Style preference: data plural or singular? Later you use plural, and that's my preference, so I've changed the verb here.} currently reduced by \hscpipe{} \texttt{v4.0.5}, a
     version of the LSST reduction pipeline (\citealt{Ivezic2008, Axelrod2010,
     Juric2015}), which is described in detail in Bosch\etal (in prep.).
     Since \synpipe{} is intrinsically connected to the complex data reduction
-    processes in \hscpipe{}, here we briefly introduce the main steps along with
-    a few key HSC/LSST terminologies.
+    processes in \hscpipe{},  we briefly introduce the main steps below, along with
+    a few key HSC/LSST terms.
 
     \begin{enumerate}
 
         \item \textbf{Single-\texttt{Visit~}Processing}:
-            Each individual exposure is called a \term{Visit} and is assigned with
+            Each individual exposure is called a \term{Visit} and is assigned 
             an even integer.
-            After initial data screening (in background, seeing, and transparency;
+            After initial data screening (in background, seeing, and transparency
             Furusawa\etal in prep.), \hscpipe{} detrends these data (subtraction
             of overscan, bias, and dark; flatfielding), generates variance and mask
             images, subtracts background, and provides initial astrometric and
             photometric calibrations.
-            \textbf{The spatially varying PSF models, photometric zeropoints, and the
+            \textbf{\synpipe{} will use the spatially varying PSF models, photometric zeropoints, and the
             World Coordinate System (WCS; \citealt{WCS1, WCS2}) corrected for optical
-            distortion will be used by \synpipe{}}.
+            distortion.}.
 
         \item \textbf{Multi-\texttt{Visit~}Processing}:
-            Then, \hscpipe{} then warps and mosaics these reduced CCD images into
-            much deeper \texttt{coadd} images while improving the astrometric and
+            After single-\texttt{Visit~} processing, \hscpipe{}  warps and mosaics the reduced CCD images into
+            much deeper \texttt{coadded} images while improving the astrometric and
             photometric calibrations via processes similar to the \"{u}ber-calibration
-            in SDSS \citep{Padmanabhan2008}.
+            in the Sloan Digital Sky Survey (SDSS) \citep{Padmanabhan2008}.
             \textbf{\synpipe{} will use these improved calibrations.}
-            \hscpipe{} organizes these \texttt{coadd} images into equi-area
-            rectangular regions that are pre-defined as an iso-latitude tessellation
-            and are referred to as \tract{}.
+            \hscpipe{} organizes these \texttt{coadded} images into equiareal \susan{or equal-area but not equi-area}
+            rectangular regions, or \tracts{}, which are predefined as iso-latitude tessellations.
             One \tract{} covers approximately $1.7\times 1.7$ deg$^2$ of
             sky, and adjacent \tracts{} overlap each other by ${\sim}1$\amin{}.
             Each \tract{} is further divided into $9\times9$ \texttt{Patches}.
             A \texttt{Patch} is a $4200\times4200$ pixels rectangular region, and
             adjacent \texttt{Patches} overlap each other by 100 pixels.
             \textbf{The \tract{} and \texttt{Patch} are basic units to deal
-            with HSC \texttt{coadd} images and \synpipe{} tests.}
+            with HSC \texttt{coadded} images and \synpipe{} tests.}
 
         \item \textbf{Multi-band Measurements}:
             To achieve consistent photometry across all filters, \hscpipe{} first
-            detects and deblends objects on \texttt{coadd} images in each band
+            detects and deblends objects on \texttt{coadded} images in each band
             independently (the \unforced{} measurements).
-            The above-threshold pixels for each object is referred to as
-            \texttt{footprint}.
-            Then, \hscpipe{} merges the \texttt{footprints} and flux peaks in different
-            bands, and selects a reference band for each object based on its $S/N$ in
+            The collection of above-threshold pixels for each object is referred to as
+          a  \texttt{footprint}.
+           \hscpipe{} merges the \texttt{footprints} and flux peaks in the different
+            bands and then selects a reference band for each object based on its $S/N$ in
             each band (usually it is the $i$-band).
             With the centroids, shape, and other non-amplitude parameters fixed at the
-            reference values, \hscpipe{} perform \forced{} photometry which is
+            reference values, \hscpipe{} performs \forced{} photometry, which is
             optimized to generate accurate colors.
 
         \item \textbf{HSC Photometry}:
-            The multiband catalogs generated by \hscpipe{} contains various photometric
+            The multi-band catalogs generated by \hscpipe{} contain a variety of photometric
             information (see \citealt{HSCDR1} for details).
             \textbf{Here, we focus on the \forced{} \texttt{psf} and \cmodel{}
             photometry.}
             \texttt{psf} photometry should provide the most appropriate magnitudes and
             colors for point sources.
-            Improved based on the SDSS version (\citealt{Lupton2001, Abazajian2004}),
-            the HSC \cmodel{}{} algorithm (described in Bosch\etal in prep.) fits the
-            flux distribution of each object using a combination of a de~Vaucouleur
-            and an exponential component taking the PSF convolution into accounts.
+            Improved over the SDSS version (\citealt{Lupton2001, Abazajian2004}),
+            the HSC \cmodel{}{} algorithm (described in Bosch\etal, in prep.) fits 
+           each object's flux distribution using a combination of the de Vaucouleur
+            profile and an exponential component that takes the PSF convolution into account.
             \cmodel{} is designed to yield accurate colors for galaxies.
             In addition, the star--galaxy separation task is performed based on the
             difference between the \texttt{psf} and \cmodel{}{} magnitudes.
 
     \end{enumerate}
 
-    The quality of the DR1 data have been vetted in \citet{HSCDR1} via cross-checking
+    DR1 data quality has been vetted in \citet{HSCDR1} via cross-checking
     with the Panoramic Survey Telescope and Rapid Response System (Pan-STARRS) 1
-    imaging survey (\citealt{Schlafly2012, Tonry2012, Magnier2013}), examining the
+    imaging survey (\citealt{Schlafly2012, Tonry2012, Magnier2013}) to examine the
     behaviors of the stellar sequence and the shape of the PSF models.
     Generally speaking, the PSF photometry is accurate to 1--2\% level, and the
-    astrometry is accurate to ${\sim}10$ and 40 mas internally and externally.
+    astrometry is accurate to ${\sim}10$ and 40 max internally and externally.
 
 %% ------------------------------------------------------------------------------------ %%
 
@@ -425,99 +420,93 @@
     \label{sec:synpipe}
 
 %% ------------------------------------------------------------------------------------ %%
-\subsection{Basic Design of \synpipe{}}
+\subsection{ \synpipe{} Basic Design}
     \label{ssec:design}
 
-    As summarized above and described in greater detail in Bosch\etal (in prep.),
-    \hscpipe{} is a complex data reduction pipeline that still faces many challenges
-    and is under active development.
-    Unlike most photometric pipeline on the market, it involves high-level reduction
-    processes that produce not only deep \texttt{coadd} images but also a series of
+     \hscpipe{} is a complex data reduction pipeline that still faces many challenges
+    and is under active development. 
+    Unlike most photometric pipelines on the market, it involves high-level reduction
+    processes that produce not only deep \texttt{coadded} images but also a series of
     science-ready catalogs.
-    To faithfully test \hscpipe{} and these data products, we make sure the
+    To faithfully test \hscpipe{} and the related data products, we have designed an approach that ensures
     \synpipe{} satisfies a few basic standards:
 
     \begin{itemize}
 
         \item \textbf{Realistic Images}:
             Instead of using the fully generative approach to simulate full HSC-like
-            images from the ground up (e.g. \citealt{Chang2015}), \synpipe{} injects
-            synthetic objects to the observed image so that all the realistic
-            features of the real data (e.g. blended objects; approximity to bright
-            object, bleeding trails, other optical artifacts \etal) can be included
+            images from the ground up (e.g., \citealt{Chang2015}), \synpipe{} injects
+            synthetic objects into the observed image so that all the realistic
+            features of the real data (e.g., blended objects; proximity to bright
+            objects, bleeding trails, other optical artifacts \susan{It's redundant to use etc. (or et al, which is incorrect here) with e.g.}) can be included
             in the test.
-            The impact of these features can be important to any topic that cares
-            about the selection function and completeness of samples
-            (e.g. WL analysis; stellar mass function of galaxies).
+            The impact of these features can be important to any topic (e.g., WL analysis; stellar mass function of galaxies) that cares
+            about the selection function and completeness of samples.
             In \synpipe{}, point source is simulated using the HSC PSF model,
-            and realistic model of galaxy is modelled by the modular galaxy image
+            and a realistic galaxy model is created by the modular galaxy image
             simulation toolkit, \galsim{} (\citealt{Rowe2015})
-            \footnote{\url{https://github.com/GalSim_developers/GalSim}}.
+            \footnote{\url{https://github.com/GalSim_developers/GalSim}} \susan{I got 404 Page Not Found when I tested the URL. Change underscore to hyphen: https://github.com/GalSim-developers/GalSim}.
 
         \item \textbf{Authentic Data Processing}:
-            To follow the data reduction process as close as possible, we choose to
+            To follow the data reduction process as closely as possible, we choose to
             start from the single-\visit{} images instead of directly putting
-            synthetic objects on the final \texttt{coadd} images
-            (e.g. \citealt{Suchyta2016}).
-            Through this approach, subtle effects like the seeing differences among
+            synthetic objects on the final \texttt{coadded} images
+            (e.g., \citealt{Suchyta2016}).
+            Through this approach, subtle effects like seeing differences among
             \visits{} and small errors in astrometric calibration can be taken
-            into accounts.
-            All the synthetic objects will experience all the steps for detection,
-            deblending, stacking, and measurement just like any real object.
+            into account.
+            Every synthetic object will experience all the steps we would use for any real object: detection,
+            deblending, stacking, and measurement.
             This can be important for challenging tasks like the WL measurements
             or the detection of high-$z$ galaxies.
             The only downside of this choice is that it will certainly slow down the
-            test for \texttt{coadd} images as it needs to inject synthetic object
-            to all the \visits{} that contribute to a \tract{}.
+            test for \texttt{coadded} images because in this approach we need to inject synthetic objects
+            into all the \visits{} that contribute to a \tract{}.
 
         \item \textbf{Flexible Capabilities}:
-            To make \synpipe{} useful for HSC users with various scientific goals,
-            we make sure it is flexible enough.
-            Although we provide default catalogs to generate samples of synthetic stars
+            We must make \synpipe{} flexible enough to be useful for HSC users with various scientific goals.
+            We provide default catalogs to generate samples of synthetic stars
             and galaxies with realistic magnitude and color distributions along with
-            tools to help work on data release of HSC survey, the user is allowed to
-            be creative in term of providing input catalogs and design the tests.
-            As we are speaking, \synpipe{} is being used in a wide range of
+            tools to help the user work on HSC DR1 data; however, the user is allowed to be creative in terms of providing input catalogs and designing the tests.
+             \synpipe{} is already being used in a wide range of
             scientific applications (see Section \ref{sec:summary} for details).
 
     \end{itemize}
 %% ------------------------------------------------------------------------------------ %%
 
 %% ------------------------------------------------------------------------------------ %%
-\subsection{Implementation of \synpipe{}}
+\subsection{\synpipe{} Implementation }
     \label{ssec:flowchart}
 
-    In this section, we will go through the implementation of \synpipe{} tests in
-    details (see Fig \ref{fig:flowchart}).
+    In this section, we describe the \synpipe{} test implementation depicted in Fig \ref{fig:flowchart}.
 
 %% ------------------------------------------------------------------------------------ %%
 \subsubsection{Preparation}
     \label{sssec:prep}
 
-    To start a \synpipe{} test, the user needs to provide:
+    To start a \synpipe{} test, the user needs to provide information about the data and an input catalog, as discussed below:
 
     \begin{itemize}
 
-        \item \textbf{Information about the data}: User needs to provide the
+        \item \textbf{Information about the data} includes the
             location of the HSC images and a list of \visits{} for the
             test.
-            For test of the \texttt{coadd} images, \synpipe{} can help user identify
-            all the \visits{} that contribute to one \tract{} in certain
+            To test the \texttt{coadded} images, \synpipe{} can help the user identify
+            all the \visits{} that contribute to one \tract{} in any given
             band.
-            It also provides tools to create optional bad-pixel mask (e.g. bright
-            object, bleeding trail, \etal) for specific \tract{} to avoid
+            \synpipe{} also provides tools to create an optional bad-pixel mask (e.g., bright
+            object, bleeding trail) for a specific \tract{} so that the user can avoid
             putting synthetic objects on problematic regions.
 
-        \item \textbf{Input catalog} in \texttt{FITS} format that contain necessary
-            information like the coordinate, magnitude, and other model parameters.
-            For certain sample of synthetic objects, \synpipe{} can help randomly
-            distribute them in a selected rectangular region with desired number
+        \item \textbf{Input catalog} in  \texttt{FITS} format contains the necessary
+            information, including the coordinate, magnitude, and other model parameters.  susan{Define FITS at first use? Flexible Image Transport System (FITS); I didn't change it because I didn't want to jeopardize the LaTeX coding on FITS.} 
+            For any given sample of synthetic objects, \synpipe{} can help the user randomly
+            distribute the objects in a selected rectangular region with the desired 
             density.
-            If necessary, overlaps of synthetic objects can be greatly reduced
-            via setting a minimum distance between any two of them.
+            If necessary,  \synpipe{}  can reduce overlaps of synthetic objects by setting a minimum distance between any two of them. \susan{Unclear: does the user set the minimum distance, or does synpipe? If the user, change to If necessary,  the user can reduce overlaps of synthetic objects by setting a minimum distance between any two of them. } 
             \synpipe{} can also help put synthetic objects on an evenly separated
-            coordinate grid, which is very useful for certain test
-            (e.g. Murata\etal in prep.).
+            coordinate grid, which is very useful for certain tests
+            (e.g., Murata\etal in prep.).
 
     \end{itemize}
 
@@ -526,115 +515,112 @@
     \begin{itemize}
 
         \item \textbf{Point source}:
-            \synpipe{} simply uses the PSF model from \hscpipe{} as model for
-            point source like star or QSO.
+            \synpipe{} simply uses the PSF model from \hscpipe{} as the model for
+            a point source such as a star or a quasi-stellar object (QSO).
             \hscpipe{} uses a special version of \texttt{PSFEx}
-            (\citealt{Bertin2011, Bertin2013}) to characterize the PSF as a function
-            of the position so that a PSF model can be reconstructed for any location
+            (\citealt{Bertin2011, Bertin2013}) to characterize PSF as a function
+            of the point source's position so that a PSF model can be reconstructed for any location
             on the image.
-            User only needs to provide the integrated magnitude to simulate
+           The user only needs to provide the integrated magnitude to simulate
             point sources.
 
         \item \textbf{Single- or Double-\ser{} model for galaxy}:
             \texttt{SynPipe} uses \galsim{} \texttt{v1.4} (\citealt{Rowe2015}) to
-            simulate galaxy.
+            simulate a galaxy.
             \galsim{} is an image simulation tool that has been well tested during
-            the GRavitational lEnsing Accuracy Testing 3 (GREAT3;
-            \citealt{Mandelbaum2014}).
-            Right now, \synpipe{} allows synthetic galaxy to be modelled by single
+            the GRavitational lEnsing Accuracy Testing 3 (GREAT3) challenge 
+            (\citealt{Mandelbaum2014}).
+           Currently, \synpipe{} allows a synthetic galaxy to be modeled by single
             or double components that are described by the \citet{Sersic1963}
-            profile.
+            profile. \susan{You say "right now" (which I changed to currently); do you plan to change that capability? If not, perhaps delete currently?}
             The \ser{} profile is flexible enough to describe the overall flux
-            distributions of galaxies near and far, early-type or late-type.
-            Double-\ser{} model can further simulate galaxy with more realistic
-            structural details (e.g. bulge$+$disk).
-            For each \ser{} component, user needs to provide the magnitude,
+            distributions of galaxies near and far, both early-type or late-type.
+            A Double-\ser{} model can simulate a galaxy with even more realistic
+            structural details (e.g., bulge$+$disk).
+            For each \ser{} component, the user needs to provide the magnitude,
             effective radius ($R_{\mathrm{e}}$; in unit of arcsec), \ser{} index
             ($n_{\mathrm{Ser}}$), axis ratio ($\mathrm{b}/\mathrm{a}$), and position
             angle (PA).
-            External shear can also be applied to synthetic galaxy ($g_1$ and $g_2$;
+            External shear can also be applied to a synthetic galaxy ($g_1$ and $g_2$;
             see \citealt{Rowe2015} for more details).
 
-        \item \textbf{Models or real images of galaxy from the GREAT3 challenge}:
-            In stead of providing detailed model information for each galaxy, \synpipe{}
-            also allows users to choose from the parametric models or real
-            high-resolution images of galaxies used in the GREAT3 WL challenge.
-            The images are from the \hst{}/ACS F814W ($I$-band) images of the galaxies
-            in the COSMOS field (e.g. \citealt{Scoville2007}).
-            These ACS exposures are 50\% completed down to $I=26.0$ mag in aperture with
+        \item \textbf{Models or real images of a galaxy from the GREAT3 challenge}:
+            In addition to providing detailed model information for each galaxy, \synpipe{}
+            also allows users to choose from parametric models or real
+            high-resolution galaxy images used in the GREAT3 WL challenge.
+            The  images are from the \hst{}/ACS F814W ($I$-band) images of the galaxies
+            in the COSMOS field (e.g., \citealt{Scoville2007}).
+            These Advanced Camera for Surveys (ACS) exposures are 50\% completed down to $I=26.0$ mag in aperture with
             0.5\asec{} diameter.
-            The depth and excellent resolution (0.09\asec FWHM) make it adequate to test
-            galaxies at Wide depth in HSC survey.
-            In addition to the real cutout image, the COSMOS galaxies with
-            $I_{\mathrm{Auto}}\leq25.2$ mag are modelled via method developed by
-            \citet{Lackner2012}, and the best parametric model for each of them is
-            selected between the single-\ser{} and the \ser{} bulge$+$Exponential disk
-            ones.
-            Information for these models are stored in the
+            The depth and high resolution (0.09\asec FWHM) make the exposures adequate to test
+            galaxies at Wide depth in the HSC survey.
+            In addition to the real cutout image, \synpipe{} models the COSMOS galaxies with
+            $I_{\mathrm{Auto}}\leq25.2$ mag via a method developed by
+            \citet{Lackner2012}, and selects between the single-\ser{} and the \ser{} bulge$+$Exponential disk
+            values for the best parametric model.
+            Information for these models is stored in the
             \texttt{GalSim.COSMOSCatalog()} catalogs.
-            To use them, user can provide the ID number of the COSMOS galaxies in the
-            input catalog, or simply let \synpipe{} randomly select them for you.
+            To access them, the user can provide the ID number of the COSMOS galaxies in the
+            input catalog, or simply let \synpipe{} randomly select the galaxies.
 
     \end{itemize}
 %% ------------------------------------------------------------------------------------ %%
 
 %% ------------------------------------------------------------------------------------ %%
-\subsubsection{Injection of Synthetic Objects to Single-\visit{} Image}
+\subsubsection{Injection of Synthetic Objects into Single-\visit{} Image}
     \label{sssec:addFakes}
 
-    With the input catalog and information about the test data, \synpipe{} first
-    injects synthetic objects to single exposure images (step \texttt{addFakes.py};
+    With the input catalog and test data information, \synpipe{} first
+    injects synthetic objects into single-exposure images (step \texttt{addFakes.py};
     see the middle panel of Fig \ref{fig:flowchart}).
-    For each \visit{}, \synpipe{} goes through all the individual CCD images
-    that belong to it, and decides which synthetic objects from the input catalog need
+     \synpipe{} goes through all the individual CCD images
+    that belong to each \visit{} and decides which synthetic objects from the input catalog need
     to be injected.
-    \synpipe{} makes use of the \textit{initial astrometric calibration} of each single
+    \synpipe{} uses the \textit{initial astrometric calibration} of each single
     \visit{} to convert the input coordinates into locations on the CCD image.
-    Using the available models, \synpipe{} will reconstruct the PSF at the position of
+    Using the available models, \synpipe{} reconstructs the PSF at the position of
     each injected object.
     To convert the input magnitudes of synthetic objects into fluxes on the image,
-    \synpipe{} also uses the photometric zeropoint from single-\visit{}
+    \synpipe{} also uses the photometric zero point from the single-\visit{}
     calibration.
 
     For point sources, \synpipe{} generates a rectangular cutout image of the PSF model
     with appropriate size and correct total flux.
-    For galaxy described by single- or double-\ser{} models, \synpipe{} passes the input
+    For a galaxy described by single- or double-\ser{} models, \synpipe{} passes the input
     \ser{} index and effective radius to the \galsim{}\texttt{.Sersic} function to
     create a \ser{} component.
-    After stretching and rotating it to expected axis ratio and position angle
-    via the \texttt{shear} and \texttt{rotate} methods, \synpipe{} assigns correct flux
+    After stretching and rotating the galaxy to the expected axis ratio and position angle
+    via the \texttt{shear} and \texttt{rotate} methods, \synpipe{} assigns the correct flux
     to this component.
-    For double-\ser{} model, \galsim{}\texttt{.Add} method is used to combine the two
-    \ser{} components together.
-    For parametric models from the GREAT3 catalog, \synpipe{} utilizes the
-    \texttt{COSMOSCatalog.makeGalaxy} method to generate corresponding model,
-    and the \galsim{}\texttt{.RealGalaxy} method is used for the case of real
-    high-resolution image.
+    For a double-\ser{} model, \synpipe{} uses the \galsim{}\texttt{.Add} method to combine the two
+    \ser{} components.
+    For parametric models from the GREAT3 catalog, \synpipe{} uses the
+    \texttt{COSMOSCatalog.makeGalaxy} method to generate a corresponding model; in the case of a real high-resolution image, \synpipe{} uses the \galsim{}\texttt{.RealGalaxy} method.
     If necessary, additional shear ($g_1$ and $g_2$) can be applied to the model at this
     point.
     Then, \synpipe{} passes the reconstructed PSF image into a
     \galsim{}\texttt{InterpolatedImage} object and convolves it with the galaxy model
     using \galsim{}\texttt{.Convolve}.
-    After this, \synpipe{} uses \galsim{}\texttt{.drawImage} method to create the image
+    After this, \synpipe{} uses the \galsim{}\texttt{.drawImage} method to create the image
     of the simulated galaxy.
-    Component with high \ser{} index ($n_{\mathrm{Ser}} > 4$) often requires large image
-    size to cover most of its total flux, so \synpipe{} allows user to truncate model
-    at certain radius (N$\times R_{\mathrm{e}}$).
-    It will also give warning information when component with $n_{\mathrm{Ser}} > 6$ is
-    encountered.
-    Such model takes much longer time to achieve accurate PSF convolution, and is usually
-    not realistic galaxy model.
+    A component with a high \ser{} index ($n_{\mathrm{Ser}} > 4$) often requires a large image
+    size to cover most of its total flux, so \synpipe{} allows the user to truncate the model
+    at a given radius (N$\times R_{\mathrm{e}}$).
+    \synpipe{} will also give warning information when a component with $n_{\mathrm{Ser}} > 6$ is
+    encountered because it takes much longer to achieve accurate PSF convolution in such a model; and the result is, therefore, 
+    not a realistic galaxy model.
 
-    \synpipe{} then shifts the image of synthetic object according to is location on the
-    CCD on a pixel-by-pixel basis; it also crops the images when necessary.
-    Afterwards, \synpipe{} adds appropriate noise to the image based on the pixels it
-    covers and the calibration information of the detector, and create a variance image
+ After \synpipe{} creates the image
+    of the simulated galaxy, it then shifts the image according to is location on the
+    CCD on a pixel-by-pixel basis; \synpipe{} also crops the images when necessary.
+    When that task is complete, \synpipe{} adds appropriate noise to the image based on the pixels it
+    covers and the calibration information of the detector, and creates a variance image
     that reflects the influence of the synthetic object.
-    Since each HSC CCD consists of four amplifiers with different characteristics,
-    \synpipe{} carefully creates corresponding gain map to provide accurate noise level.
-    Finally, \synpipe{} adds the noise-added image and the variance map to the original
+    Since each HSC CCD consists of 4 \susan{Style preference: spell out numbers? Earlier you've used figures, so changed four to 4 here. (My preference would be to spell out if fewer than 10.)} amplifiers, each with different characteristics,
+    \synpipe{} carefully creates a corresponding gain map to provide taccurate noise level.
+    In the final step, \synpipe{} adds the noise-added image and the variance map to the original
     CCD data while also adding a new \texttt{FAKE} mask bit to the mask plane.
-    On the middle panel of Fig \ref{fig:flowchart}, we demonstrate the result of the
+   The middle panel of Fig \ref{fig:flowchart} depicts the result of the
     \texttt{addFakes.py} step by showing an example CCD image before and after the
     synthetic objects are injected.
 %% ------------------------------------------------------------------------------------ %%
@@ -643,30 +629,28 @@
 \subsubsection{Stacking and Multi-band Measurements}
     \label{sssec:multiband}
 
-    These newly generated sing-\visits{} images have the same format and data
-    structure of the real HSC data, therefore \synpipe{} can directly feed them
-    to the rest steps of \hscpipe{}.
+    The newly generated single-\visit{} images have the same format and data
+    structure as the real HSC data; therefore, \synpipe{} can directly feed them
+    to the other \hscpipe{} steps.
     The \texttt{stack.py} step takes the improved astrometric and photometric
-    calibrations for each \visit{} from the original reduction and create
-    \texttt{coadd} images with synthetic objects on them.
-    Then the \texttt{multiBand.py} step will process these \texttt{coadd} images and
-    provide standard mulit-band measurements in FITS catalogs that are grouped by
+    calibrations for each \visit{} from the original reduction and creates
+    \texttt{coadded} images with synthetic objects on them.
+    Then the \texttt{multiBand.py} step processes these \texttt{coadded} images and
+    provides standard multi-band measurements in FITS catalogs that are grouped by
     \texttt{Patch} ID.
 
-    Using the infrastructures provided by \hscpipe{}, the above processes can be
-    easily parallelized, and the overall efficiency of \synpipe{} is similar to the
+    Using the infrastructures provided by \hscpipe{}, the user can easily perform the above processes in parallel, and the overall efficiency of \synpipe{} is similar to the
     real data reduction process.
-    They also generate the same amount of images and catalog data with the original
-    one.
+    The processes also generate the same amount of images and catalog data as the original
+    one \susan{Unclear what "one" refers to: original data reduction process?}.
 
     As the last step, \synpipe{} matches the input catalog to the results within a
     radius that is specified by the user, and merge all the \unforced{} and
-    \forced{} measurements from all the \texttt{Patches} together.
-    Unmatched object from the input catalog is also passed to the result catalog with
-    special label.
-    In case of multiple matches, user can choose between only returning the nearest
-    one or returning all objects within the matching radius (the nearest one is
-    labeled).
+    \forced{} measurements from all the \texttt{Patches}.
+    Each unmatched object from the input catalog is also passed to the results catalog with a unique label.
+    In case of multiple matches, the user can choose between returning only the closest match or returning all objects within the matching radius (the nearest one is
+    labeled as such).
+    \susan{Susan stopped editing here.}
 %% ------------------------------------------------------------------------------------ %%
 
 %% ------------------------------------------------------------------------------------ %%
@@ -1543,20 +1527,20 @@
 
 %% ------------------------------------------------------------------------------------ %%
 %% Fig: Compare with the behaviours of the Kron photometry for galaxies
-\begin{figure*}
-    \begin{center}
-        \includegraphics[width=\textwidth]{fig/synpipe_galaxy_kron}
-    \end{center}
-    \caption{
-        Basic performance of the Kron photometry for synthetic galaxies.
-        \textbf{Left} shows the accuracy in $i$-band.
-        magnitude. The format is identical to Fig \ref{fig:galaxy_mag}.
-        \textbf{Right} shows the accuracy of the $(g-i)$ color using
-        Kron photometry.
-        Other formats are identical to Fig \ref{fig:cmodel_color}.
-        }
-    \label{fig:galaxy_kron}
-\end{figure*}
+%\begin{figure*}
+%    \begin{center}
+%        \includegraphics[width=\textwidth]{fig/synpipe_galaxy_kron}
+%    \end{center}
+%    \caption{
+%        Basic performance of the Kron photometry for synthetic galaxies.
+%        \textbf{Left} shows the accuracy in $i$-band.
+%        magnitude. The format is identical to Fig \ref{fig:galaxy_mag}.
+%        \textbf{Right} shows the accuracy of the $(g-i)$ color using
+%        Kron photometry.
+%        Other formats are identical to Fig \ref{fig:cmodel_color}.
+%        }
+%    \label{fig:galaxy_kron}
+%\end{figure*}
 %% ------------------------------------------------------------------------------------ %%
 
 %% ------------------------------------------------------------------------------------ %%
@@ -1666,24 +1650,52 @@
     greater caution.
     
 %% ------------------------------------------------------------------------------------ %%
-\subsection{Comparing to Kron photometry}
+%\subsection{Comparing to Kron photometry}
 
-    \plan{Uses $i$-band as example to briefly discuss Kron photometry}
+%    \plan{Uses $i$-band as example to briefly discuss Kron photometry}
 
-    \plan{Although magnitude for galaxies is Ok, the color becomes worse}
+%    \plan{Although magnitude for galaxies is Ok, the color becomes worse}
 
 %% ------------------------------------------------------------------------------------ %%
 \subsection{Shape and Structural Parameters of Galaxies}
     \label{ssec:shape}
 
-    In SDSS, the structural parameters 
+    In SDSS, the structural parameters like size and shape from \cmodel{} are often 
+    used to study the evolution galaxies. 
+    Although the \cmodel{} in \hscpipe{} follows very similar algorithm, its primary 
+    goal now is to provide accurate and consistent magnitude and color in all five 
+    HSC filters for a vast majority of faint, small galaxies.  
+    To improve the stability of \cmodel{} for these low \s2n{} and barely-resolved 
+    galaxies, it utilizes Bayesian priors on radius and axis ratio that strongly 
+    favour these galaxies. 
+    However, the current implementation of these priors has a flaw that leads to 
+    severely underestimated size and overestimated axis ratio for most galaxies.  
     
-    The CModel galaxy fitting algorithm utilizes a Bayesian prior on radius and ellipticity, largely as a way to regularize fits to low S/N and/or poorly-resolved galaxies. When combining this with the likelihood to form the posterior probability (which is then
-    \plan{Explain why the current \cmodel{}{} algorithm has problem with measuring
-          the size and shape of galaxies}
-
-    \plan{Briefly showcase the problem, and how small change of \hscpipe{}
-          configuration can improve the situation}
+    In Fig \ref{fig:galaxy_ba}, we demonstrate this issue using the difference between 
+    the \cmodel{} axis ratio and the input values as example.
+    Here, $({\mathrm{b}/\mathrm{a}})_{\mathrm{CModel}}$ is a combination of the 
+    axis ratios estimated by the exponential and de~Vaucouleurs models weighted by 
+    their flux ratio. 
+    
+    During the investigation, we notice that one of the problem relates to the 
+    \texttt{usePixelWeight} configuration of \cmodel{} that decides whether to 
+    use per-pixel variances as weights in the nonlinear fit. 
+    By default, \hscpipe{} chooses \texttt{usePixelWeight}$=$\texttt{False}. 
+    As one can see, this leads to significantly overestimated axis ratio for almost 
+    all galaxies with $i_{\mathrm{Input}}>21.5$ mag\footnote{It also leads to 
+    underestimated half-light radius for these galaxies.}.
+    At the same time, we also repeat the \synpipe{} run for galaxies with 
+    \texttt{usePixelWeight}$=$\texttt{True}, and this change clearly mitigates
+    this problem. 
+    Now $({\mathrm{b}/\mathrm{a}})_{\mathrm{CModel}}$ can provide unbiased estimation 
+    of axis ratio for galaxies with $i_{\mathrm{Input}}< 24.0$ mag. 
+    
+    For the current HSC data release, we warn the users against using the \cmodel{} 
+    size and shape to study galaxy with $i_{\mathrm{Input}}>21.5$. 
+    At the same time, \synpipe{} will try to help \hscpipe{} improve the details 
+    of the \cmodel{} so that it can provide more useful structural information without
+    hurting its photometric performance.  
+    
 %% ------------------------------------------------------------------------------------ %%
 
 %% ------------------------------------------------------------------------------------ %%
@@ -1825,8 +1837,8 @@
 
 %% ------------------------------------------------------------------------------------ %%
 
-%% ------------------------------------------------------------------------------------ %%
 
+%% ------------------------------------------------------------------------------------ %%
 \begin{ack}
     \label{sec:ack}
 
