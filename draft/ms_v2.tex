@@ -150,25 +150,27 @@
 %% ------------------------------------------------------------------------------------ %%
 \begin{abstract}
 
-   The Subaru Strategic Program (SSP) is an ambitious wide-area, multi-band
-    survey using the Hyper Suprime-Cam (HSC) on the Subaru telescope.
-      At SSP's imaging depth \susan{quantify?}, it is challenging to achieve accurate,
-    unbiased, and consistent photometry across all five bands. To improve data processing and achieve accurate photometric measurements, we have developed
-   \synpipe{}, a \texttt{Python}-based, flexible framework
-    that interfaces with the HSC data reduction pipeline (\hscpipe{}) to process data from the first public HSC--SSP data release. \susan{I expected to see something in the abstract that clarifies why this is Pipeline I; does this suggestion accomplish that?} We test  \synpipe{}
-    performance by injecting synthetic objects into single-\texttt{visit} HSC images.
-    We use coadded images in two Wide layer \tracts{} with representative
-    seeing conditions to demonstrate  \synpipe{} implementation and to examine  \texttt{hscpipe}'s 
-    general photometric performance.
+    The Subaru Strategic Program (SSP) is an ambitious wide-area, multi-band survey 
+    using the Hyper Suprime-Cam (HSC) on the Subaru telescope.
+    As SSP reaches to detection limit of $i>26.0$ mag in the Wide field, it is 
+    challenging to achieve accurate, unbiased, and consistent photometry across all 
+    five bands.
+    To improve data processing and achieve accurate photometric measurements, we have 
+    developed \synpipe{}, a \texttt{Python}-based, flexible framework that interfaces 
+    with the HSC data reduction pipeline (\hscpipe{}) to process data from the first 
+    public HSC--SSP data release. 
+    In the first paper of this series, we explain the design and implementation of 
+    \synpipe{}, and use coadd images in two Wide layer \tracts{} with representative 
+    seeing conditions to examine the photometric performance of \hscpipe{}.
     We find that uncertainties of HSC \forced{} PSF photometry for stars typically
     range from ${\sim}0.01$ mag at $i{\sim}18.0$ mag to ${\sim}0.06$ at $i{\sim}25.5$
     mag (1\%-7\% accuracy in the $i$-band). 
     For synthetic galaxies based on a single-\ser{} model, uncertainties of the
-    forced \cmodel{} photometry typically range from 0.14 mag at $i{\sim}20.0$ mag to
-    0.20 mag at $i{\sim} 25.2$ mag.
-    Over the color and magnitude ranges used in the  \synpipe{} tests, we find that both 
-    \forced{} PSF and \cmodel{} photometry provide unbiased color estimates that 
-    are robust in different seeing conditions.
+    forced \cmodel{} photometry typically range from 0.14 mag at $i{\sim}20.0$ mag 
+    to 0.20 mag at $i{\sim} 25.2$ mag.
+    Over the color and magnitude ranges used in these \synpipe{} tests, we find that 
+    both \forced{} PSF and \cmodel{} photometry provide unbiased color estimates 
+    that are robust in different seeing conditions.
     We also notice a few issues in the current \hscpipe{} that are worth keeping
     in mind when using HSC data: 
     1) The degree to which an object is blended with others impacts the photometric 
