@@ -776,7 +776,6 @@
     For stars, we use a number density of 1,000 per CCD; for galaxies, we use a number
     density of 500 per CCD.
 
-    \song{Song Huang's edit}
     For star selection, we use the sample from \citet{Leauthaud2007}.
     We use not only the \texttt{SExtractor} stellar classification index
     (\texttt{CLASS\_STAR}) but also the peak surface brightness above background
@@ -824,26 +823,29 @@
 \subsection{Running the \synpipe{} Tests}
     \label{ssec:running}
 
-    We use HSC DR1 data stored at Kavli Institute for the Physics and Mathematics of the Universe (Kavli IPMU) to conduct the \synpipe{} tests on the cluster (\texttt{Master}).
+    We use HSC DR1 data stored at Kavli Institute for the Physics and Mathematics of 
+    the Universe (Kavli IPMU) to conduct the \synpipe{} tests on the cluster 
+    (\texttt{Master}).
     The \texttt{addFakes.py} step takes ${\sim}1.5$ hours per \tract{} in each
     band; the same process takes longer for the galaxy tests (${\sim}3.0$ hours per
     \tract{} in each band) because the \galsim{} simulation is more time consuming.
-    The \texttt{stack.py} step and \texttt{multiBand.py} step together take ${\sim}3.5$ hours
-    per \tract{}.
+    The \texttt{stack.py} step and \texttt{multiBand.py} step together take 
+    ${\sim}3.5$ hours per \tract{}.
 
     We match the results with the input catalogs using a 2--pixel matching radius
     to generate output catalogs for \forced{} and \unforced{} photometry
     in each band.
     We also match the input catalogs with the original HSC catalogs to identify the
-    ``ambiguously blended'' objects that are right on top of the flux peak of a real
-    object. \susan{Is ambiguously blended well-understood by your reader? Or is the definition that they are objects that are right on top of the flux peak of a real object? If so, change sentence to the following: We also match the input catalogs with the original HSC catalogs to identify the  ``ambiguously blended'' objects, which are defined as those objects that are right on top of the flux peak of a real
-    object.}
-    The ambiguously blended objects are useful in the WL-related statistical tests (see Murata et al.
-    in prep. for more details); but since they will not help test photometry, they will be excluded later.
+    ``ambiguously blended'' objects, which are defined as so extreme blends that 
+    some objects are detected as a single object.
+    The ambiguously blended objects are useful in the WL-related statistical tests 
+    (see Murata et al. in prep. for more details); but since they will not help test 
+    photometry, they will be excluded later.
 
-    The detailed log of the entire tests can be found at
-    \url{goo.gl/VINOVP}.
-    The user should be able to reproduce the results presented in this work using this information. It can also serve as a brief manual for running a \synpipe{} test.
+    The detailed log of the entire tests can be found at \url{goo.gl/VINOVP}.
+    The user should be able to reproduce the results presented in this work using 
+    this information. It can also serve as a brief manual for running a \synpipe{} 
+    test.
 
 %% ------------------------------------------------------------------------------------ %%
 
@@ -851,10 +853,13 @@
 \section{Photometric Performance Results}
     \label{sec:result}
 
-    Here we discuss \hscpipe{}'s general performance, assessed mainly through  \forced{} PSF photometry (for stars) and (\cmodel{}) photometry (for galaxies).
- Although  \hscpipe{} does provide other options (e.g., aperture and Kron photometry),
-these two are the only options that consider the effects of PSF in different bands and are consistent across all bands in terms of position and shape. Therefore, they are the most appropriate and relevant to star and galaxy magnitudes and colors.
-
+    Here we discuss \hscpipe{}'s general performance, assessed mainly through \forced{} 
+    PSF photometry (for stars) and (\cmodel{}) photometry (for galaxies).
+    Although \hscpipe{} does provide other options (e.g., aperture and Kron photometry),
+    these two are the only options that consider the effects of PSF in different bands 
+    and are consistent across all bands in terms of position and shape. T
+    Therefore, they are the most appropriate and relevant methods for star and galaxy.
+    \song{Edit stops here}
 %% ------------------------------------------------------------------------------------ %%
 
 %% ------------------------------------------------------------------------------------ %%
@@ -870,7 +875,7 @@ these two are the only options that consider the effects of PSF in different ban
         Hexagonal binned density plots and contours show the distributions for
         stars in both the good- and bad-seeing \tracts{}.
         The highly blended stars are highlighted using scatter plots.
-        The gray dashed line marks $S/N = 5$. \susan{"grey" is an acceptable spelling; however, gray is more commonly used in the United States.}
+        The gray dashed line marks $S/N = 5$.
         }
     \label{fig:star_sn}
 \end{figure*}
@@ -968,11 +973,10 @@ these two are the only options that consider the effects of PSF in different ban
     The error of the PSF magnitude from \hscpipe{} only considers the per-pixel noise,
     and does not include centroid uncertainty.
     \hscpipe{} also estimates aperture correction for PSF photometry.
-    For more details please see Bosch\etal (in prep.). \susan{Suggest you not include a section number for a document in preparation; section numbers can change before a text is published. }
+    For more details please see Bosch\etal (in prep.).
 
     In our tests, we randomly inject ${\sim}100,000$ stars into each \tract{} in all
-    five bands. Approximately \susan{Spell out approximately and delete approximate sign before 3-4.}
- ${\sim}3$--$4$\% of the stars are located within 2 pixels of the centroids
+    five bands. Approximately ${\sim}3$--$4$\% of the stars are located within 2 pixels of the centroids
     of real objects; we remove those stars from the sample to avoid confusion in the comparisons.
     After this step, ${\sim}1$--$3$\% of the remaining synthetic stars still have no match in the \synpipe{} outputs.
     They could either be below the detection threshold or ambiguously blended with real objects.
@@ -997,8 +1001,8 @@ these two are the only options that consider the effects of PSF in different ban
 
     In the following comparisons, we show the results from the
     \textbf{good-seeing} and \textbf{bad-seeing} \tracts{} separately because it
-    is important to understand how the seeing condition affects photometric accuracy as well as to test whether \hscpipe{} can deliver unbiased photometry under different  seeing conditions. \susan{Later you use "slightly worse" and "better" seeing; if you want to use those terms, perhaps define here where you make the distinction? For example, can you quantify slightly worse and better?}
-
+    is important to understand how the seeing condition affects photometric accuracy as well as to test whether \hscpipe{} can deliver unbiased photometry under different  seeing conditions.
+    
     Besides seeing, ``blendedness'' ($b$; parameter that describes on what level
     the flux distribution of one object is affected by others; please see
     Appendix \ref{app:defineb} for precise definition, and see Murata\etal in prep.
@@ -1009,7 +1013,7 @@ these two are the only options that consider the effects of PSF in different ban
     within the  $A$ \texttt{Footprint} that comes from other objects.
     Ideally, $b=0$, which means perfect isolation; $b{\sim}1$ means completely
     confused with another object.
-    Here we use $b>0.05$ to define highly \susan{Later you say that $b>0.05$ is "highly blended"; it needs to be consistent. If inserting "highly" is incorrect here, please define b for highly blended stars since you use highly blended throughout the text.} blended stars (${\sim}4$--$9$\% are blended).
+    Here we use $b>0.05$ to define highly blended stars (${\sim}4$--$9$\% are blended).
     The fraction of highly blended stars slightly increases in the bad seeing \tract{}.
     We highlight these stars separately as well, and will discuss more about the
     impact of blendedness in Section \ref{ssec:blendedness}.
@@ -1041,8 +1045,8 @@ these two are the only options that consider the effects of PSF in different ban
     process and photometric quality of blended objects also depend on seeing condition.
 
     At \s2n{}$=5$, HSC Wide can detect stars as faint as ${\sim}26.5$ mag in both $g$- and
-    $i$-bands at average seeing conditions, which is consistent with the values found
-    in \citet{HSCDR1}. \susan{Is there a value for "average seeing conditions"?}
+    $i$-bands, which is consistent with the values found
+    in \citet{HSCDR1} for average seeing conditions.
     At the same time, it is worth reminding HSC data users that the detection
     limit will show spatial variations due to the seeing conditions.
 
@@ -1095,7 +1099,7 @@ these two are the only options that consider the effects of PSF in different ban
     differences, which indicates \hscpipe{} tends to underestimate the fluxes of stars
     in these bands by ${\sim}0.01-0.02$ mag.
     Although the exact cause of this offset is unclear (it could be related to
-    differences in seeing), it will not affect the accuracies of magnitudes of \susan{should "of" be "or"?} colors.
+    differences in seeing), it will not affect the accuracies of magnitudes or colors.
 
     At the same time, the story for highly blended stars is very different.
     \hscpipe{} on average systematically underestimates their total fluxes by
@@ -1144,9 +1148,9 @@ these two are the only options that consider the effects of PSF in different ban
     We further illustrate the accuracies of PSF colors via comparing the distributions
     of colors for the input synthetic stars and the stars recovered by \hscpipe{}
     (see Fig \ref{fig:psf_cdist}).
-    Using four different colors and two \susan{2-D?} color--color planes, we show that the \forced{}
+    Using four different colors and two 2--D color--color planes, we show that the \forced{}
     PSF colors can accurately reproduce the distributions of all four colors and the
-    2-D \susan{or two?} color-color distributions.
+    2-D color-color distributions.
 
     As for the highly blended stars, on Fig \ref{fig:psf_color}, we see that on average
     they still have larger uncertainties in colors compared to the relatively isolated
@@ -1258,7 +1262,7 @@ these two are the only options that consider the effects of PSF in different ban
   For galaxies, \hscpipe{} uses a \cmodel{} photometry algorithm
      that is an improved version of the SDSS \cmodel{}
     photometry.
-    For more details, please see Bosch\etal (in prep.).\susan{Suggest you not include a section number for a document in preparation; section numbers can change before a text is published. }
+    For more details, please see Bosch\etal (in prep.).
     In short, \cmodel{} tries to fit each object using a combination of de Vaucouleurs
     and exponential profiles that are approximated by multiple Gaussian profiles.
     Despite the limitation of the \cmodel{} method (e.g., sensitive to background
@@ -1292,7 +1296,7 @@ these two are the only options that consider the effects of PSF in different ban
     Due to the extended nature of the galaxies, the $b$ distributions for synthetic galaxies are
     very different from the  $b$ distributions for synthetic stars, and they also skew toward higher values (especially for the
     bad-seeing \tract{}).
-    About ${\sim}7$--$9$\% \susan{Delete the approximately symbol when you use "About"; it's redundant.} of synthetic galaxies are highly blended by this standard.
+    About $7$--$9$\% of synthetic galaxies are highly blended by this standard.
     The fraction is only slightly higher in the bad-seeing \tract{}, and the
     $g$-band has the highest fraction of highly blended galaxies.
     We highlight the highly blended ones in comparisons, and there are other relevant
@@ -1336,8 +1340,8 @@ these two are the only options that consider the effects of PSF in different ban
     keep this in mind.
 
     Similar to the synthetic stars, the worse the seeing condition, the more
-    we noticed a decrease in \s2n{} at the same magnitude (see the figure \susan{cite actual figure number.} for
-    $i$-band).
+    we noticed a decrease in \s2n{} at the same magnitude (see Fig \ref{fig:psf_s2n}) 
+    for $i$-band).
     Meanwhile, the highly blended synthetic galaxies do not show significantly
     different \s2n{} distributions here.
 
@@ -1608,7 +1612,7 @@ these two are the only options that consider the effects of PSF in different ban
     value, which is measured by the magnitude difference between PSF and \cmodel{}
     photometry in $i$-band.
     For more details about this algorithm, please see Bosch\etal
-    (in prep.). \susan{Suggest you not include a section number for a document in preparation; section numbers can change before a text is published. }
+    (in prep.).
 
     In Fig \ref{fig:sg}, we show the current status of star--galaxy classification
     via comparing the input magnitude with the difference between PSF and \cmodel{}
@@ -1744,7 +1748,7 @@ these two are the only options that consider the effects of PSF in different ban
             seeing conditions, despite the fact that worse seeing leads to a lower
             $\mathrm{S}/\mathrm{N}$ at fixed input magnitude.
 
-        \item High blendedness ($b>0.1$) \susan{This is the value you've given for highly blended galaxies; should the text in the parentheses read ($b>0.1$ for galaxies and $b>0.05$ for stars)}impacts the accuracy of both PSF and \cmodel{}
+        \item High blendedness ($b>0.1$) impacts the accuracy of both PSF and \cmodel{}
             photometry, especially for stars.
             For highly blended stars, the \forced{} PSF photometry on average
             overestimates the magnitudes of stars by 0.1–-0.2 mag.
@@ -1784,7 +1788,7 @@ these two are the only options that consider the effects of PSF in different ban
     \synpipe{} is quite flexible and has many other applications for any HSC
     dataset.
     For instance,  Murata\etal (in prep.) uses \synpipe{} to test
-    the impacts of extremely blended \susan{Quantify? Is "extremely blended" more blended than "highly blended"?} objects on the WL measurements.
+    the impacts of the ambiguously blended objects on the WL measurements.
     Also, \citep{Niikura2017} applies \synpipe{} to the high-cadence M31 HSC observations
     to help users search for interesting microlensing events.
   \synpipe{} is also currently being used to estimate the completeness of the selections
@@ -1809,7 +1813,8 @@ these two are the only options that consider the effects of PSF in different ban
             uses it as a model of point source and PSF convolution for a galaxy.
             Hence, it cannot be used to test how the uncertainty of the PSF modeling
             affects the photometry and shape measurements.
-            This could be important for regions with exquisite seeing \susan{Quantify "exquisite"? Is it better than "good" or "better" seeing? Suggest using consistent adjectives.}  that makes the
+            This could be important for regions with exquisite seeing 
+            (e.g. FWHM${\sim}0.4$\asec{}) that makes the
             PSF modeling difficult, and for accurate WL measurements.
 
         \item \synpipe{} works in a ``unit'' of \visit{} for a single-exposure
@@ -1885,7 +1890,7 @@ these two are the only options that consider the effects of PSF in different ban
         \url{http://matplotlib.org/}); and
     {\texttt{scikit-learn}},
         a machine learning library in Python (\citealt{scikit-learn};
-        \url{http://scikit_learn.org/} \susan{I think correct URL is http://scikit-learn.org/ (hyphen, not underscore.}).
+        \texttt{http://scikit-learn.org/}.
 
 \end{ack}
 %% ------------------------------------------------------------------------------------ %%
@@ -1898,7 +1903,6 @@ these two are the only options that consider the effects of PSF in different ban
 \bibliographystyle{apj}
 
 %% ------------------------------------------------------------------------------------ %%
-\susan{Susan did not review bibliographic citations.}
 \begin{thebibliography}{}
     \label{sec:ref}
     \expandafter\ifx\csname natexlab\endcsname\relax\def\natexlab#1{#1}\fi
