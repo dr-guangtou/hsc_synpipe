@@ -102,7 +102,8 @@
 %%%%%%%%%%%%: Title and Affiliations %%%%%%%%%%%%
 
 %% ------------------------------------------------------------------------------------ %%
-\title{Characterization and Photometric Performance of the Hyper Suprime-Cam Software Pipeline.}
+\title{Characterization and Photometric Performance of the Hyper Suprime-Cam 
+       Software Pipeline.}
 
 \author{Song Huang \altaffilmark{1,2}
         Alexie Leauthaud \altaffilmark{1,2},
@@ -157,16 +158,39 @@
 \begin{abstract}
 
     The Subaru Strategic Program (SSP) is an ambitious wide-area, multi-band survey
-    using the Hyper Suprime-Cam (HSC) on the Subaru telescope. The  Wide layer of the SSP is both wide and deep, reaching a detection limit of $i>26.0$ mag. At these depths, it is challenging to achieve accurate, unbiased, and consistent photometry across all
-    five bands. The HSC data are reduced using a pipeline that builds on the prototype pipeline being designed by the Large Synoptic Survey Telescope’s Data Management system. We have developed a \texttt{Python}-based, flexible framework to inject synthetic galaxies into real HSC images called \synpipe{}. In this paper, we explain the design and implementation of \synpipe{} and we generate a sample of synthetic galaxies to examine the photometric performance of the HSC pipeline. For stars, we achieve 1\% photometry at $i{\sim}18.0$ mag and 7\% photometry at $i{\sim}25.5$ in the $i$-band (corresponding to uncertainties of ${\sim}0.01$ and ${\sim}0.06$ mag respectively). \alexie{Put numbers in here using this phrase format} For synthetic galaxies with single-\ser{} profiles, forced \cmodel{} photometry achieves 1\% photometry at $i{\sim}18.0$ mag and 7\% photometry at $i{\sim}25.5$ in the $i$-band (corresponding to uncertainties of ${\sim}0.01$ and ${\sim}0.06$ mag respectively). 
-    %For synthetic galaxies based on a single-\ser{} model, uncertainties of the
-    %forced \cmodel{} photometry typically range from 0.14 mag at $i{\sim}20.0$ mag
-    %to 0.20 mag at $i{\sim} 25.2$ mag.
-    we show that
-    both \forced{} PSF and \cmodel{} photometry yield unbiased color estimates
-    that are robust to seeing conditions. We identify several caveats that apply to version xxx of the  HSC pipeline and than need to be considered when using data from the first public HSC data release. First, the degree to which an object is blended with other objects impacts the overall photometric performance.  This is especially true for point sources \alexie{quanityf here}. Highly blended objects tend to have larger photometric uncertainties, systematically underestimated fluxes \alexie{Should be overestimated here no?}, and slightly biased colors. Second, a relatively high fraction of faint stars (${\sim}16$\% at $i>22.5$ mag) can be
-    misclassified as extended objects \alexie{need to quantify here}. Third, the shape and size estimates for galaxies using \cmodel{} suffer from strong
-    biases \alexie{quantify here}.
+    using the Hyper Suprime-Cam (HSC) on the Subaru telescope. 
+    The Wide layer of the SSP is both wide and deep, reaching a detection limit of 
+    $i>26.0$ mag. 
+    At these depths, it is challenging to achieve accurate, unbiased, and consistent
+    photometry across all five bands. 
+    The HSC data are reduced using a pipeline that builds on the prototype pipeline 
+    being designed by the Large Synoptic Survey Telescope’s Data Management system. 
+    We have developed a \texttt{Python}-based, flexible framework to inject synthetic
+    galaxies into real HSC images called \synpipe{}. 
+    In this paper, we explain the design and implementation of \synpipe{} and generate 
+    a sample of synthetic galaxies to examine the photometric performance of the HSC
+    pipeline. 
+    For stars, we achieve 1\% photometry at $i{\sim}18.0$ mag and 7\% photometry at
+    $i{\sim}25.5$ in the $i$-band (corresponding to uncertainties of ${\sim}0.01$ and 
+    ${\sim}0.06$ mag respectively).  
+    For synthetic galaxies with single-\ser{} profiles, forced \cmodel{} photometry
+    achieves 7\% photometry at $i{\sim}20.0$ mag and 11\% photometry at $i{\sim}25.0$ 
+    in the $i$-band (corresponding to uncertainties of ${\sim}0.14$ and ${\sim}0.20$ 
+    mag respectively). 
+    We show that both \forced{} PSF and \cmodel{} photometry yield unbiased color 
+    estimates that are robust to seeing conditions. 
+    We identify several caveats that apply to version \texttt{4.0.2} of the HSC 
+    pipeline and they need to be considered when using data from the first public 
+    HSC data release. 
+    First, the degree to which an object is blended with other objects impacts the 
+    overall photometric performance.  
+    This is especially true for point sources. 
+    Highly blended objects tend to have larger photometric uncertainties, 
+    systematically underestimated fluxes and slightly biased colors. 
+    Second, $>20$\% of stars at $22.5< i < 25.0$ mag can be misclassified as 
+    extended objects.
+    Third, the current \cmodel{} algorithm tends to strongly underestimate the 
+    half-light radius and ellipticity of galaxies with $i>21.5$ mag.
 
 \end{abstract}
 %% ------------------------------------------------------------------------------------ %%
