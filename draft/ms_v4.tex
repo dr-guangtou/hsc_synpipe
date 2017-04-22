@@ -852,15 +852,13 @@ We use a synthetic star sample built using data from  the HST/ACS catalog of \ci
     (see Appendix \ref{app:qc} for details).
     This gives us ${\sim}83,000$ stars in each \tract{}.
 
-    Next, we identify stars that are misidentified by \hscpipe{} as extended
+    Next, we exclude stars that are misidentified by \hscpipe{} as extended
     objects using the \texttt{classification.extendedness} parameter in each band.
-    The fraction of misclassification is ${\sim}8$--$15$\%, and clearly depends on
+    The fraction of misclassification is ${\sim}10$--$20$\%, and clearly depends on
     seeing conditions.
     For the same reason, $g$-band has the highest fraction of misclassification,
     while $i$-band is recommended for selecting point sources.
-    The misclassified stars are on average ${\sim}1$ mag fainter than the others \alexie{xx}.
-    We exclude them from the photometric comparison below, and further discuss
-    the star--galaxy separation issue in Section \ref{ssec:sg}.
+    The star--galaxy separation issue is discussed more in Section \ref{ssec:sg}.
 
     In the following comparisons, we show the results from the
     \textbf{good-seeing} and \textbf{bad-seeing} \tracts{} separately because it
@@ -872,30 +870,27 @@ We use a synthetic star sample built using data from  the HST/ACS catalog of \ci
 
 \subsubsection{Relationship between stellar magnitude and \s2n{}}
 
-\alexie{TO HERE}
+The \s2n{} for PSF photometry is defined as
+    $\mathrm{Flux}_{\mathrm{PSF}}/\mathrm{Flux\_Err}_{\mathrm{PSF}}$ in each band (no aperture corrections) \alexie{have you defined aperture correction?}. Figure  \ref{fig:star_sn} shows the relationship between stellar magnitude and \s2n{} in the $g$- and $i$-bands. This Figure  shows the expected  \s2n{} of stars as a function of magnitude for the Wide layer.
+    
+%    This helps us visualize
+%    1) the detection limit for point sources,
+%    2) the impact of seeing condition on PSF photometric,
+%    3) and the scatter of photometric accuracies at a fixed input magnitude given all
+%       the realistic features of HSC images (e.g., background subtraction, nearby
+%       objects, optical artifacts). \alexie{Why is this relevant in this figure? I wouldn't use SN to quantofy this?}
+ 
 
-We define the  \s2n{} for PSF photometry as
-    $\mathrm{Flux}_{\mathrm{PSF}}/\mathrm{Flux\_Err}_{\mathrm{PSF}}$ in each band
-    without considering aperture corrections.
-    This helps us visualize
-    1) the detection limit for point sources,
-    2) the impact of seeing condition on PSF photometric,
-    3) and the scatter of photometric accuracies at a fixed input magnitude given all
-       the realistic features of HSC images (e.g., background subtraction, nearby
-       objects, optical artifacts).
-    We show the results for $g$- and $i$-bands in Fig \ref{fig:star_sn}, and find close
-    relations in both bands.
-
-    As expected, we clearly see that the seeing condition impacts the \s2n{} of point
+    Figure \ref{fig:star_sn} show that seeing conditions impact the \s2n{} of point
     sources at fixed input magnitude.
     In  $i$-band, the bad-seeing (0.7\asec{}) \tract{}  shows systematically
     lower \s2n{} than the good-seeing (0.5\asec{}) \tract{}.
-     \s2n{} is similar for the two $g$-band \tracts{} because they share similar seeing conditions.
-    Our results show that blendedness can also affect the accuracy of PSF photometry.
-    In $i$-band, the highly blended synthetic stars scatter toward lower \s2n{} at
-    fixed magnitude.
-    Interestingly, the effect is not obvious in $g$-band, suggesting the deblending
-    process and photometric quality of blended objects also depend on seeing condition.
+     The \s2n{} is similar for the two $g$-band \tracts{} because they share similar seeing conditions. 
+    %Our results show that blendedness can also affect the accuracy of PSF photometry.\alexie{why use SN here?}
+    %In $i$-band, the highly blended synthetic stars scatter toward lower \s2n{} at
+    %fixed magnitude.
+    %Interestingly, the effect is not obvious in $g$-band, suggesting the deblending
+    %process and photometric quality of blended objects also depend on seeing condition.
 
     At \s2n{}$=5$, HSC Wide can detect stars as faint as ${\sim}26.5$ mag in both $g$- and
     $i$-bands, which is consistent with the values found
@@ -903,79 +898,55 @@ We define the  \s2n{} for PSF photometry as
     At the same time, it is worth reminding HSC data users that the detection
     limit will show spatial variations due to the seeing conditions.
 
-\subsubsection{Accuracy of PSF magnitude}
+%% ------------------------------------------------------------------------------------ %%
+\subsubsection{Accuracy of PSF magnitudes}
 
-    Now, we look into PSF magnitude accuracy in each of the five bands
-    independently.
-    Fig \ref{fig:psf_mag} shows the relation between the input magnitude and the
-    magnitude difference from the \hscpipe{} \forced{} PSF photometry.
-
-    The overall performance of PSF photometry is excellent.
-    In $i$-band, the median magnitude difference for \tract{} with 0.45\asec{} seeing is
-     ${\sim}0.015$ mag (${\sim}1.5$\% accuracy) at
-    $i_{\mathrm{Input}}{\sim}19.0$ mag.
-    At $i_{\mathrm{Input}}{\sim}24.0$ mag, the average accuracy of PSF
-    magnitude holds at ${\sim}3$\% level (${\sim}0.036$ mag average difference).
+    We now investigate the accuracy of the PSF magnitude in each of the five bands
+    independently. Fig \ref{fig:psf_mag} shows the difference between the input magnitude versus the  \hscpipe{} \forced{} PSF magnitude as a function of input magnitude. 
+    
+    The overall performance of the \hscpipe{} \forced{} PSF magnitude is excellent. The median $i$-band magnitude difference for the \tract{} with 0.45\asec{} seeing is
+     ${\sim}0.015$ mag (${\sim}1.5$\%) at
+    $i_{\mathrm{Input}}{\sim}19.0$ mag. At $i_{\mathrm{Input}}{\sim}24.0$ mag, the average accuracy of the PSF
+    magnitude is ${\sim}3$\% level (${\sim}0.036$ mag average difference).
     At $i_{\mathrm{Input}}{\sim}25.2$ mag, the average accuracy decreases to
-    ${\sim}7$\% level with an average ${\sim}0.072$ mag difference.
-    The bad-seeing \tract{} shows similar accuracy of PSF photometry at
-    $i_{\mathrm{Input}}<23.5$ mag.
-    At the faint end, the accuracy becomes slightly worse: ${\sim}5$\% accuracy around
-    $i_{\mathrm{Input}}{\sim}24.0$ mag and ${\sim}11$\% accuracy around
+    ${\sim}7$\% with an average ${\sim}0.072$ mag difference.
+    
+    The accuracy of the PSF photometry for the bad-seeing \tract{} shows a similar performance at  $i_{\mathrm{Input}}<23.5$ mag. At fainter magnitudes, the accuracy slightly degrades. The bad-seeing \tract{} displays a performance of ${\sim}5$\% accuracy at
+    $i_{\mathrm{Input}}{\sim}24.0$ mag and ${\sim}11$\% accuracy at
     $i_{\mathrm{Input}}{\sim}25.2$ mag.
     \citet{HSCDR1} evaluates the accuracy of PSF photometry via external comparisons
     with the PS1, PV2, and SDSS data at $i<21$ mag, and finds a 1-2\% level accuracy,
-    which is consistent with our results.
-    At fainter magnitude, external comparisons become difficult due to the lack of deep
-    imaging data at HSC level and also due to the impact of the color-term when comparing photometry
-    using different filters.
-    The results from \synpipe{} hence provide more useful evaluations down to the
-    detection limit\footnote{Strictly speaking, the uncertainties here should be
-    considered as the lower limit because \synpipe{} currently does not consider the uncertainties
-    in PSF modeling.}.
+    which is consistent with our results. At fainter magnitudes however, external comparisons become difficult due to the  lack of imaging matched to HSC depths.
+    The results from \synpipe{} hence provide  useful evaluations of  the accuracy of the HSC photometry  down to our detection limit\footnote{Strictly speaking, the uncertainties reported here should be
+    considered as the lower limit because \synpipe{} currently does not consider PSF modeling uncertainties}.
 
-    We also see that the accuracy of PSF photometry does not strongly depend on filters.
-    The accuracy of the forced PSF magnitude in $r$- and $z$-bands is similar to
-    $i$-band observations (1.5-4.0\% at $19.0 < r_{\mathrm{Input}} < 24.0$ mag, ${\sim}8$\% down to
-    $r_{\mathrm{Input}}{\sim}25.2$ mag;
-    1.0-5.0\% at $19.0 < z_{\mathrm{Input}} < 24.0$ mag, ${\sim}10$\% down to
+Figure \ref{fig:psf_mag} also shows that the accuracy of the PSF photometry is not filter dependent. The accuracy of forced PSF magnitudes in $r$ and $z$ is similar to the $i$-band. For $r$ band we find  1.5-4.0\% at $r_{\mathrm{Input}} < 24.0$ and ${\sim}8$\% at $r_{\mathrm{Input}}{\sim}25.2$. For $z$-band we find  \alexie{xxxxx reformat}
+        
+ 1.0-5.0\% at $19.0 < z_{\mathrm{Input}} < 24.0$ mag, ${\sim}10$\% down to
     $z_{\mathrm{Input}}{\sim}25.2$ mag).
-    The accuracies in $g$- and $y$-bands become slightly worse (1.5-7.0\% at $19.0 < g_{\mathrm{Input}} < 24.0$ mag, ${\sim}13$\% down to
+    
+    
+    The accuracy in the $g$ and $y$-bands becomes slightly worse (1.5-7.0\% at $19.0 < g_{\mathrm{Input}} < 24.0$ mag, ${\sim}13$\% down to
     $g_{\mathrm{Input}}{\sim}25.2$ mag;
     1.5-5.0\% at $19.0 < y_{\mathrm{Input}} < 23.0$ mag, ${\sim}12$\% down to
-    $y_{\mathrm{Input}}{\sim}24.0$ mag;); however, the differences can be attributed to the
-    differences in seeing conditions.
+    $y_{\mathrm{Input}}{\sim}24.0$ mag;). These differences are however consistent with the differences in the seeing conditions between the filters 
 
-    For relatively isolated stars, \hscpipe{} provides unbiased PSF photometry down to a
-    very faint magnitude in $i$- and $z$-bands.
-    For $g$-, $r$-, and $y$-bands, we find small offsets in the distributions of magnitude
-    differences, which indicates \hscpipe{} tends to underestimate the fluxes of stars
-    in these bands by ${\sim}0.01-0.02$ mag.
-    Although the exact cause of this offset is unclear (it could be related to
-    differences in seeing), it will not affect the accuracies of magnitudes or colors.
+The PSF photometry for relatively isolated stars is unbiased in the $i$- and $z$-bands down to faint magnitudes . For the $g$, $r$, and $y$-bands, we find small offsets between the  input and recovered magnitude. \hscpipe{} tends to underestimate the fluxes of stars
+    in these bands by ${\sim}0.01-0.02$ mag. The exact cause of this offset is unclear but the levels of bias is quite small and not a major concern.  
 
-    At the same time, the story for highly blended stars is very different.
-    \hscpipe{} on average systematically underestimates their total fluxes by
-    $0.05$--$0.10$ mag at a fixed input magnitude.
+	However, Figure \ref{fig:psf_mag} also shows that blending has a strong impact on photometry estimation.  On average, \hscpipe{} on average systematically underestimates the total fluxes of stars that are subject to blending effects by $0.05$--$0.10$ mag at a fixed input magnitude.
     We see the same effect in all bands, and the impact of blendedness becomes
-    increasingly significant at fainter magnitude.
-    It is important to keep this in mind when using PSF photometry for point
+    increasingly significant at fainter magnitudes.
+    It is important to bear this caveat in mind when using PSF photometry for point
     sources in HSC data.
 
-    We also test the \unforced{} PSF photometry in all five bands, and find very similar
-    accuracies.
-    While measuring \forced{} PSF photometry, \hscpipe{} fixes the centroid
-    of the PSF model across all five bands.
-    Therefore, the  difference between \forced{} and \unforced{} PSF magnitudes
-    indicates the photometric uncertainties induced by the differences in the accuracies of
-    astrometric calibrations and PSF modeling among different bands.
-    We highlight the differences between \forced{} and \unforced{} PSF photometry of
-    $g$- and $y$-bands in Fig \ref{fig:psf_diff}.
-    The overall difference is very small ($<0.01$ mag), but it also suggests that
-    \hscpipe{} \unforced{} PSF photometry systematically recovers slightly more fluxes
-    at the very faint end.
+	Finally, we also perform similar tests for the \unforced{} PSF photometry in all five bands, and find similar results.  To measure the \forced{} PSF photometry, \hscpipe{} fixes the centroid
+    of the PSF model across all five bands. A difference between \forced{} and \unforced{} PSF magnitudes would therefore be an indication of  photometric uncertainties  arising from  inaccurate astrometric calibrations and PSF modeling across different bands. Figure  \ref{fig:psf_diff} shows the difference between \forced{} and \unforced{} PSF photometry for the $g$ and the $y$ band. The overall differences are small ($<0.01$ mag) .
 
-\subsubsection{Accuracy of the PSF colors}
+%% ------------------------------------------------------------------------------------ %%
+\subsubsection{Accuracy of PSF colors}
+
+\alexie{ALEXIE EDITED TO HERE}
 
     PSF photometry is the most appropriate way to measure colors for point
     sources; therefore, the accuracy of the PSF color estimates is important to many scientific goals of the HSC survey
