@@ -1255,39 +1255,36 @@
     For galaxies, \hscpipe{} uses a \cmodel{} photometry algorithm that is an improved 
     version of the SDSS \cmodel{} photometry.
     For more details, please see Bosch\etal (in prep.).
-    In short, \cmodel{} tries to fit each object using a combination of de Vaucouleurs
-    and exponential profiles that are approximated by multiple Gaussian profiles.
+    In short, \cmodel{} tries to fit each object using the combination of a
+    de~Vaucouleurs and an exponential profiles that are approximated by multiple 
+    Gaussian profiles.
     Despite the limitation of the \cmodel{} method (e.g., sensitive to background
     subtraction and deblender failure), it can deliver robust PSF-corrected fluxes and
     colors for galaxies.
 
     In our tests, we randomly inject ${\sim}40,000$ synthetic galaxies into each
-    \tract{}; and, using an approach similar to that for star selection, we then select galaxy samples for photometric comparisons.
-    First, ${\sim}2$--$3$\% of the synthetic galaxies are ambiguously blended with
-    real objects, and are hence removed from the sample.
-    Among the rest of the sample, ${\sim}2$--$7$\% do not have any match in the
-    \synpipe{} results in different \tracts{} and filters.
-    The fraction of unmatched objects is slightly higher for the $g$- and $y$-bands.
-    For the same filter, the fraction is always higher for the bad-seeing \tract{}.
-    The magnitudes of the unmatched galaxies are systematically fainter than the
-    matched ones.
-    In $i$-band, the median input magnitudes for matched and unmatched galaxies are
-    $24.0$ mag and $24.6$ mag, respectively.
+    \tract{}; and, using an approach similar to that for synthetic stars, we select 
+    galaxy samples for photometric comparisons.
+    First, ${\sim}3$--$7$\% of the synthetic galaxies are located within 2 pixels 
+    of the centroids of real objects or do not show any match in the \synpipe{} 
+    results, they are hence removed from the sample.
+    The fraction of unmatched objects slightly increases with worse seeing condition.
 
     After selecting the matched synthetic galaxies with primary detection and
     clean photometry (see Appendix \ref{app:qc} for details), we have ${\sim}30,000$
     galaxies in each \tract{} for comparison.
-   \hscpipe{} misclassifies less than $1$\% of these objects as point sources
+    \hscpipe{} misclassifies less than $1$\% of these objects as point sources
     in the good-seeing \tract{}.
-    However,   \hscpipe{} misclassifies more objects ($4$\%) in the bad-seeing \tract{}.
+    But the fraction of misclassified galaxies increases to $4$\% in the
+    bad-seeing \tract{}.
     The median input magnitude for these misclassified sources is ${\sim}24.9$ mag
     in $i$-band, significantly fainter than the median of other sources.
     We further discuss this in Section \ref{ssec:sg}.
 
-    We also use $b>0.1$ to define samples of highly blended galaxies.
-    Due to the extended nature of the galaxies, the $b$ distributions for synthetic galaxies are
-    very different from the  $b$ distributions for synthetic stars, and they also skew toward higher values (especially for the
-    bad-seeing \tract{}).
+    We also use $b>0.05$ to define samples of highly blended galaxies.
+    Due to the extended nature of the galaxies, the $b$ distributions for synthetic 
+    galaxies skew toward higher values (especially for the bad-seeing \tract{}) than
+    the ones for stars.
     About $7$--$9$\% of synthetic galaxies are highly blended by this standard.
     The fraction is only slightly higher in the bad-seeing \tract{}, and the
     $g$-band has the highest fraction of highly blended galaxies.
@@ -1297,8 +1294,8 @@
     Although these galaxies span in very wide large ranges of magnitude and
     structural parameters, the majority of them are faint
     ($i_{\mathrm{Input}} > 24.0$ mag) and small ($R_{\mathrm{e}} < 0.5$\asec).
-    It is very challenging to obtain good photometric quality of these galaxies, which is crucial
-    to achieving several key scientific goals of the HSC survey.
+    It is very challenging to obtain good photometric quality of these galaxies, which 
+    is crucial to key scientific goals of the HSC survey.
     The selected samples do not provide enough bright or large galaxies to test.
     Therefore, we will supplement results for these galaxies using better samples
     in the future.
@@ -1308,34 +1305,28 @@
 
     In Fig \ref{fig:cmodel_sn}, we first show the relation between the input
     magnitudes and the \s2n{} of the synthetic galaxies estimated by the ratio
-    between \cmodel{} flux and its uncertainties from \hscpipe{}.
-    Since these galaxies are extended objects, the \s2n{} here should be treated
-    as the average \s2n{}, which is different from the \s2n{} of stars using PSF
-    photometry.
+    between \cmodel{} flux and its uncertainty.
+    The \s2n{} used here is the average one for extended object.
 
-    As we did for stars, we use $i$- and $g$-bands as examples for galaxies.
-    The most obvious difference between the  \s2n{} distribution for stars and the  \s2n{} distribution for galaxies is that
-    at fixed input magnitude, the galaxy \s2n{} distribution shows much larger
-    scatter.
-    At the same total flux, a galaxy can have a different size and shape, which
-    naturally leads to differences in the galaxy's peak and average \s2n{}.
-    This also makes it difficult to have a clear definition of ``detection limit''
-    for galaxies.
-    For $i$-band, the typical \s2n{} for synthetic galaxies at the magnitude limit
-    of our sample ($25.2$ mag) is ${\sim}20$, but at that limit the low-\s2n{} tail has
-    reached the \s2n{}$=5$ boundary.
-    This suggests that, although HSC Wide can detect galaxies as faint as
-    $i{\sim}26.0$ mag, the sample at that magnitude will be significantly incomplete.
-    Furthermore, the magnitude limit can also introduce selection bias because galaxies with certain structural properties are harder to detect than others.
-    HSC survey data users who want to select flux-limited samples of galaxies,
+    We still use $i$ and $g$ bands as examples.
+    As PSF magnitude for stars, \cmodel{} photometry establishes well-behaved relation 
+    between input magnitude and output \s2n{}. 
+    Comparing to stars, the \s2n{} from \cmodel{} for synthetic galaxies shows larger
+    scatter at fixed input magnitude, which is likely due to differences in size and 
+    shape of the galaxies.
+    This makes it difficult to define ``detection limit'' for galaxies clearly.
+    
+    In $i$ band, typical $25.2$ mag galaxy has \s2n{}${\sim}20$ from \cmodel{}, but 
+    there are already galaxies at the same magnitude have \s2n{} below 5.
+    Although HSC Wide layer can detect galaxies as faint as $i{\sim}26.0$ mag, the 
+    sample will be incomplete at this faint magnitude.
+    It also introduces selection bias if galaxies with certain structural properties 
+    are harder to detect than others.
+    HSC survey data users who want to select flux-limited galaxy sample,
     or intend to study the population of faint (e.g., high-$z$) galaxies should
     keep this in mind.
-
-    Similar to the synthetic stars, the worse the seeing condition, the more
-    we noticed a decrease in \s2n{} at the same magnitude (see Fig \ref{fig:psf_s2n}) 
-    for $i$-band).
-    Meanwhile, the highly blended synthetic galaxies do not show significantly
-    different \s2n{} distributions here.
+    Similar to stars, worse seeing also leads to lower \s2n{} at fixed magnitude 
+    (see Fig \ref{fig:psf_s2n} for $i$-band).
 
 %% ------------------------------------------------------------------------------------ %%
 \subsubsection{Accuracy of the \cmodel{} magnitude}
