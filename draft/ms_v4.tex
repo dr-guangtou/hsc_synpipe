@@ -688,7 +688,8 @@
     \label{sssec:multiband}
 
     The newly generated single-\visit{} images have the same format and data
-    structure as real HSC data. To perform stacking and measurements, \synpipe{} calls standard \hscpipe{} routines.
+    structure as real HSC data. To perform stacking and measurements, \synpipe{} calls 
+    standard \hscpipe{} routines.
     
     The \texttt{stack.py} step takes the improved astrometric and photometric
     calibrations for each \visit{} from the original reduction and creates
@@ -697,10 +698,15 @@
     provides standard multi-band measurements in FITS catalogs that are grouped by
     \texttt{Patch} ID.
 
-    Using the infrastructures provided by \hscpipe{}, the user can easily perform these steps in parallel, and the overall efficiency of \synpipe{} is similar to
-    the real data reduction process. The data and catalog volumes is also similar to the original data reduction process.
+    Using the infrastructures provided by \hscpipe{}, the user can easily perform these 
+    steps in parallel, and the overall efficiency of \synpipe{} is similar to
+    the real data reduction process. 
+    The data and catalog volumes is also similar to the original data reduction process.
 
- The final step is to identify Synthetic galaxies in the output catalogs. \synpipe{} can match the input catalog to the output catalog (this contains a mix of real and synthetic galaxies) using a matching radius that is specified by the user.
+    The final step is to identify Synthetic galaxies in the output catalogs. 
+    \synpipe{} can match the input catalog to the output catalog (this contains a mix 
+    of real and synthetic galaxies) using a matching radius that is specified by the 
+    user.
     Each unmatched object from the input catalog is also passed to the results catalog
     with a unique label.
     In the case of multiple matches, the user can choose between returning only the
@@ -719,7 +725,9 @@
         \textbf{Upper panel}: five-band magnitude distributions of the COSMOS
         stars (filled histograms) and  resampled stars (dashed lines).
         \textbf{Lower panel}: color-color distributions
-        (left: $g-r$ v.s. $r-i$; right: $i-z$ v.s. $z-y$). Hexagonal bins indicate COSMOS stars and contours indicate resampled stars.}
+        (left: $g-r$ v.s. $r-i$; right: $i-z$ v.s. $z-y$). 
+        Hexagonal bins indicate COSMOS stars and contours indicate resampled stars.
+        }
     \label{fig:star_sample}
 \end{figure*}
 %% ------------------------------------------------------------------------------------ %%
@@ -730,8 +738,11 @@
     \begin{center}
         \includegraphics[width=\textwidth]{fig/synpipe_galaxy_sample}
     \end{center}
-    \caption{ textbf{Upper panel}: five-band magnitude distributions of synthetic galaxies. (\texttt{lower panel}; from left to right are the \ser{} index, axis ratio,
-        effective radius in arcsec, the $g-r$ and $r-z$ colors).}
+    \caption{
+         \textbf{Upper panel}: five-band magnitude distributions of synthetic
+         galaxies. (\texttt{lower panel}; from left to right are the \ser{} index, 
+         axis ratio, effective radius in arcsec, the $g-r$ and $r-z$ colors).
+         }
     \label{fig:galaxy_sample}
 \end{figure*}
 %% ------------------------------------------------------------------------------------ %%
@@ -740,7 +751,8 @@
 \section{Generation of Synthetic Dataset}
     \label{sec:test}
     
-    We now describe the  generation of the synthetic data set that we use to characterize the performance of \hscpipe{}.
+    We now describe the generation of the synthetic data set that we use to 
+    characterize the performance of \hscpipe{}.
 
 %% ------------------------------------------------------------------------------------ %%
 \subsection{Data}
@@ -752,38 +764,59 @@
     the seeing conditions in $g$- and $y$-bands are very similar for both
     \tract{}$=9699$ and \tract{}$=8764$.
     For both \tracts{}, the \coadd{} image in each band includes data from
-    20--40 \visits{}.  These  two \tract{} are selected  because they are not at the edge of a field, do not contain any  extremely bright ($i<12$ mag) saturated stars, and  are representative of both "good" and "bad" seeing conditions in the $i$-band.
-
+    20--40 \visits{}.  
+    These two \tract{} are selected because they are not at the edge of a field, do 
+    not contain any extremely bright ($i<12$ mag) saturated stars, and are 
+    representative of both "good" and "bad" seeing conditions in the $i$-band.
 %% ------------------------------------------------------------------------------------ %%
 
 %% ------------------------------------------------------------------------------------ %%
 \subsection{Input Models for Stars and Galaxies}
     \label{ssec:inputs}
 
-We use a synthetic star sample built using data from  the HST/ACS catalog of \citet{Leauthaud2007}.  We first select stars from the  \citet{Leauthaud2007} catalog (this classification is reliable down to $I_{\mathrm{F814W}}{\sim}25.2$ mag). We then match this sample against our HSC UltraDeep--COSMOS data (which reaches ${\sim}27.2$ mag in $i$-band). After applying basic quality cuts (see \ref{app:qc}), this procedure  provides us with five-band HSC photometry for 14,472 stars. To increase the sample size, we re-sample the five-band magnitude distributions using the \texttt{astroML} (\citealt{astroml}) implementation of the \texttt{extreme-deconvolution} algorithm developed by
-    \citet{Bovy2011}
+    We use a synthetic star sample built using data from the HST/ACS catalog of 
+    \citet{Leauthaud2007}.  
+    We first select stars from the \citet{Leauthaud2007} catalog (this classification 
+    is reliable down to $I_{\mathrm{F814W}}{\sim}25.2$ mag). 
+    We then match this sample against our HSC UltraDeep--COSMOS data (which reaches 
+    ${\sim}27.2$ mag in $i$-band). 
+    After applying basic quality cuts (see \ref{app:qc}), this procedure provides us 
+    with five-band HSC photometry for 14,472 stars.
+    To increase the sample size, we re-sample the five-band magnitude distributions 
+    using the \texttt{astroML} (\citealt{astroml}) implementation of the 
+    \texttt{extreme-deconvolution} algorithm developed by \citet{Bovy2011}
     \footnote{\texttt{https://github.com/jobovy/extreme-deconvolution/}} to
-    generate 100,000 synthetic stars. Fig \ref{fig:star_sample} shows the magnitude and color distributions of real COSMOS stars compared to the resampled distributions in all
-    five-bands and in color-color space.
+    generate 100,000 synthetic stars. 
+    Fig \ref{fig:star_sample} shows the magnitude and color distributions of real 
+    COSMOS stars compared to the resampled distributions in all five-bands and in 
+    color-color space.
 
-    For synthetic galaxies, we use single-\ser{} galaxy models of COSMOS galaxies with $I_{F814W} \leq 25.2$ mag. These are models from \citet{Lackner2012} applied to \textit{HST}/ACS images and are included in \galsim{}. Each model is described by a total of five parameters: magnitude, effective radius,
+    For synthetic galaxies, we use single-\ser{} galaxy models of COSMOS galaxies with 
+    $I_{F814W} \leq 25.2$ mag. 
+    These are models from \citet{Lackner2012} applied to \textit{HST}/ACS images and 
+    are included in \galsim{}. 
+    Each model is described by a total of five parameters: magnitude, effective radius,
     \ser{} index, axis ratio, and position angle.
-    Although the single-\ser{} model is not always the best choice for describing galaxies, its flexibility
-    enables it to reasonably describe the flux distribution of most galaxies.
-    Also, its simplicity makes it easy for us to diagnose potential problems with the \cmodel{} photometry.
-    We exclude a tiny fraction of ill-behaved models that have a very high \ser{}
-    index ($n_{\mathrm{Ser}} > 6.0$) or a very low central surface brightness
-    ($\mu_{i} < 24.0$\sb).
+    Although the single-\ser{} model is not always the best choice for describing 
+    galaxies, its flexibility enables it to reasonably describe the flux distribution 
+    of most galaxies.
+    Also, its simplicity makes it easy for us to diagnose potential problems with the 
+    \cmodel{} photometry.
+    We exclude a tiny fraction (${\sim}4$\%) of ill-behaved models that have a very 
+    high \ser{} index ($n_{\mathrm{Ser}} > 6.0$) or a very low central surface 
+    brightness ($\mu_{i} < 24.0$\sb).
     We further match this COSMOS sample with the HSC UltraDeep--COSMOS data.
     After removing objects with problematic photometry, we obtain a sample of
     58,210 synthetic galaxies with realistic five-band HSC photometry.
     As shown in Fig \ref{fig:galaxy_sample}, the majority of these galaxies are
     faint ($i<24.0$ mag) and barely resolved ($R_{\mathrm{e}}< 1.0$\asec).
-    This sample is appropriate to test \hscpipe{}'s general photometric behaviors, but
-    the sample lacks relatively bright galaxies ($i<20.5$ mag).
+    This sample is appropriate to test \hscpipe{}'s general photometric behaviors, 
+    but the sample lacks relatively bright galaxies ($i<20.5$ mag).
 
-    We spatially distribute synthetic stars and galaxies randomly in our two selected \tracts{}. For stars, we use a number density of 1,000 per CCD. For galaxies, we use a number
-    density of 500 per CCD.
+    We spatially distribute synthetic stars and galaxies randomly in our two selected 
+    \tracts{}. 
+    For stars, we use a number density of 1,000 per CCD. 
+    For galaxies, we use a number density of 500 per CCD.
 
 %% ------------------------------------------------------------------------------------ %%
 
@@ -792,19 +825,23 @@ We use a synthetic star sample built using data from  the HST/ACS catalog of \ci
     \label{ssec:running}
 
     We use HSC DR1 data stored at Kavli Institute for the Physics and Mathematics of 
-    the Universe (Kavli IPMU). For stars the \texttt{addFakes.py} step takes ${\sim}1.5$ hours per \tract{} in each
-    band. The same process takes longer for galaxy tests (${\sim}3.0$ hours per
+    the Universe (Kavli IPMU). 
+    For stars the \texttt{addFakes.py} step takes ${\sim}1.5$ hours per \tract{} in 
+    each band. 
+    The same process takes longer for galaxy tests (${\sim}3.0$ hours per
     \tract{} in each band) because the \galsim{} simulation is more time consuming.
     The \texttt{stack.py} step and \texttt{multiBand.py} step together take 
     ${\sim}3.5$ hours per \tract{}.
 
     We match the results with the input catalogs using a 2--pixel matching radius
     to generate output catalogs for \forced{} and \unforced{} photometry
-    in each band. For our tests, we reject  synthetic objects  locate within 2 pixels of a real HSC object. 
+    in each band. For our tests, we reject  synthetic objects  locate within 2 pixels 
+    of a real HSC object. 
     
     The detailed log of our runs can be found at \url{goo.gl/VINOVP}.
     The user should be able to reproduce the results presented in this work using 
-    this information. It can also serve as a brief manual for generating \synpipe{} data.
+    this information. It can also serve as a brief manual for generating \synpipe{} 
+    data.
 
 %% ------------------------------------------------------------------------------------ %%
 
@@ -852,17 +889,18 @@ We use a synthetic star sample built using data from  the HST/ACS catalog of \ci
     \caption{
         Accuracy of the \texttt{hscpipe} PSF photometry for synthetic stars measured
         by the difference between input and output \forced{} PSF magnitudes.
-        Plots [a, b, c, d, e] show the results for [$g$, $r$, $i$, $z$, $y$]-band, respectively.
+        Plots [a, b, c, d, e] show the results for [$g$, $r$, $i$, $z$, $y$]-band, 
+        respectively.
         The left panel in each plot shows the relation between input magnitude and
         magnitude difference.
-        Hexagonal binned density plots and contours are for the synthetic galaxies from
-        good and bad seeing \tracts{}.
+        Hexagonal binned density plots and contours are for the synthetic galaxies 
+        from good and bad seeing \tracts{}.
         Highly blended objects are highlighted using scattered plots.
         The long-dashed lines mark zero magnitude difference, while the pairs of
         dashed lines outline the running-median of PSF magnitude errors
         (including the uncertainties in aperture correction).
-        The right panel in each plot shows the distributions of the magnitude differences for objects
-        in good (filled) and bad (solid line) seeing \tracts{}.
+        The right panel in each plot shows the distributions of the magnitude 
+        differences for objects in good (filled) and bad (solid line) seeing \tracts{}.
         The dashed lines identify the distribution of highly blended objects.
         }
     \label{fig:psf_mag}
@@ -914,8 +952,8 @@ We use a synthetic star sample built using data from  the HST/ACS catalog of \ci
     \caption{
         Evaluations of color measurement accuracy for synthetic stars using
         the color-color distributions.
-       The plot on the \textbf{left} (a) uses $(g-r)$ v.s. $(r-i)$ colors, and the plot on the \textbf{right} (b)
-        uses $(i-z)$ and $(z-y)$ colors.
+        The plot on the \textbf{left} (a) uses $(g-r)$ v.s. $(r-i)$ colors, and the plot 
+        on the \textbf{right} (b) uses $(i-z)$ and $(z-y)$ colors.
         The filled contours and shaded histograms reflect the distributions for input
         colors.
         The empty contours and solid-line histograms show the distributions recovered
@@ -937,16 +975,11 @@ We use a synthetic star sample built using data from  the HST/ACS catalog of \ci
     \hscpipe{} also estimates aperture correction for PSF photometry.
     For more details please see Bosch\etal (in prep.).
 
-    We randomly inject ${\sim}100,000$ stars into each \tract{} in all
-    five bands. Approximately ${\sim}3$--$4$\% of the stars are located within 2 pixels of the centroids
-    of real objects; we remove those stars from the sample to avoid confusion in the comparisons.
-     %   After this step, ${\sim}1$--$3$\% of the remaining synthetic stars still have no match in the \synpipe{} outputs.
- %   They could either be below the detection threshold or ambiguously blended with real objects \alexie{said you identified those}.
- %   The input $i$-band magnitudes of these unmatched stars are on average ${\sim}0.9$
- %   mag fainter than the matched ones.
- %   The fraction of unmatched stars is slightly higher in the bad seeing \tract{}; this result is consistent with our expectation that magnitude depends on seeing conditions,
- %   although the difference is not very significant \alexie{cut?}.
-    For matched stars, we select the primary detections
+    We randomly inject ${\sim}100,000$ stars into each \tract{} in all five bands. 
+    Approximately ${\sim}3$--$4$\% of the stars are located within 2 pixels of the 
+    centroids of real objects; we remove those stars from the sample to avoid confusion 
+    in the comparisons.
+    For matched stars, we select the primary detections 
     (\texttt{detect.is-primary=True}) that have good photometric quality
     (see Appendix \ref{app:qc} for details).
     This gives us ${\sim}83,000$ stars in each \tract{}.
@@ -961,39 +994,43 @@ We use a synthetic star sample built using data from  the HST/ACS catalog of \ci
 
     In the following comparisons, we show the results from the
     \textbf{good-seeing} and \textbf{bad-seeing} \tracts{} separately because it
-    is important to understand how the seeing condition affects photometric accuracy as well as to test whether \hscpipe{} can deliver unbiased photometry under different  seeing conditions.
+    is important to understand how the seeing condition affects photometric accuracy 
+    as well as to test whether \hscpipe{} can deliver unbiased photometry under 
+    different seeing conditions.
     
-    Besides seeing, the degree to which an object is blended with other objects  is another factor that influences photometric accuracy. To quantify the impact of blending effects, we use the ``blendedness'' parameter, $b$. This parameter describes how  much any given object overlaps with neighboring objects (see Appendix \ref{app:defineb} and Murata\etal in prep.). We divide our sample  according to the  blendedness parameter. A value of $b=0$ corresponds to isolated objects whereas  objects with $b=1$ complete overlap with other objects. Here we use $b>0.05$ to define highly blended stars (${\sim}4$--$9$\% are blended).
-    The fraction of highly blended stars slightly increases in the bad seeing \tract{}. The
-    impact of blendedness will be discussed more in Section \ref{ssec:blendedness}.
+    Besides seeing, the degree to which an object is blended with other objects 
+    is another factor that influences photometric accuracy. 
+    To quantify the impact of blending effects, we use the ``blendedness'' 
+    parameter, $b$. 
+    This parameter describes how much any given object overlaps with neighboring 
+    objects (see Appendix \ref{app:defineb} and Murata\etal in prep.). 
+    We divide our sample according to the blendedness parameter. 
+    A value of $b=0$ corresponds to isolated objects whereas objects with $b=1$ 
+    complete overlap with other objects. 
+    Here we use $b>0.05$ to define highly blended stars (${\sim}4$--$9$\% are blended).
+    The fraction of highly blended stars slightly increases in the bad seeing \tract{}. 
+    The impact of blendedness will be discussed more in Section \ref{ssec:blendedness}.
 
+%% ------------------------------------------------------------------------------------ %%
 \subsubsection{Relationship between stellar magnitude and \s2n{}}
 
-The \s2n{} for PSF photometry is defined as
-    $\mathrm{Flux}_{\mathrm{PSF}}/\mathrm{Flux\_Err}_{\mathrm{PSF}}$ in each band (no aperture corrections) \alexie{have you defined aperture correction?}. Figure  \ref{fig:star_sn} shows the relationship between stellar magnitude and \s2n{} in the $g$- and $i$-bands. This Figure  shows the expected  \s2n{} of stars as a function of magnitude for the Wide layer.
+    The \s2n{} for PSF photometry is defined as
+    $\mathrm{Flux}_{\mathrm{PSF}}/\mathrm{Flux\_Err}_{\mathrm{PSF}}$ in each band. 
+    Figure \ref{fig:star_sn} shows the relationship between stellar magnitude and \s2n{} 
+    in the $g$- and $i$-bands. 
+    This Figure shows the expected \s2n{} of stars as a function of magnitude in the 
+    Wide layer.
     
-%    This helps us visualize
-%    1) the detection limit for point sources,
-%    2) the impact of seeing condition on PSF photometric,
-%    3) and the scatter of photometric accuracies at a fixed input magnitude given all
-%       the realistic features of HSC images (e.g., background subtraction, nearby
-%       objects, optical artifacts). \alexie{Why is this relevant in this figure? I wouldn't use SN to quantofy this?}
- 
-
     Figure \ref{fig:star_sn} show that seeing conditions impact the \s2n{} of point
     sources at fixed input magnitude.
-    In  $i$-band, the bad-seeing (0.7\asec{}) \tract{}  shows systematically
+    In $i$-band, the bad-seeing (0.7\asec{}) \tract{} shows systematically
     lower \s2n{} than the good-seeing (0.5\asec{}) \tract{}.
-     The \s2n{} is similar for the two $g$-band \tracts{} because they share similar seeing conditions. 
-    %Our results show that blendedness can also affect the accuracy of PSF photometry.\alexie{why use SN here?}
-    %In $i$-band, the highly blended synthetic stars scatter toward lower \s2n{} at
-    %fixed magnitude.
-    %Interestingly, the effect is not obvious in $g$-band, suggesting the deblending
-    %process and photometric quality of blended objects also depend on seeing condition.
+    The \s2n{} is similar for the two $g$-band \tracts{} because they share similar 
+    seeing conditions. 
 
-    At \s2n{}$=5$, HSC Wide can detect stars as faint as ${\sim}26.5$ mag in both $g$- and
-    $i$-bands, which is consistent with the values found
-    in \citet{HSCDR1} for average seeing conditions.
+    At \s2n{}$=5$, HSC Wide can detect stars as faint as ${\sim}26.5$ mag in both $g$ 
+    and $i$ bands, which is consistent with the values found in \citet{HSCDR1} for 
+    average seeing conditions.
     At the same time, it is worth reminding HSC data users that the detection
     limit will show spatial variations due to the seeing conditions.
 
@@ -1001,46 +1038,78 @@ The \s2n{} for PSF photometry is defined as
 \subsubsection{Accuracy of PSF magnitudes}
 
     We now investigate the accuracy of the PSF magnitude in each of the five bands
-    independently. Fig \ref{fig:psf_mag} shows the difference between the input magnitude versus the  \hscpipe{} \forced{} PSF magnitude as a function of input magnitude. 
+    independently. 
+    Fig \ref{fig:psf_mag} shows the difference between the input magnitude versus the
+    \hscpipe{} \forced{} PSF magnitude as a function of input magnitude. 
     
-    The overall performance of the \hscpipe{} \forced{} PSF magnitude is excellent. The median $i$-band magnitude difference for the \tract{} with 0.45\asec{} seeing is
-     ${\sim}0.015$ mag (${\sim}1.5$\%) at
-    $i_{\mathrm{Input}}{\sim}19.0$ mag. At $i_{\mathrm{Input}}{\sim}24.0$ mag, the average accuracy of the PSF
-    magnitude is ${\sim}3$\% level (${\sim}0.036$ mag average difference).
+    The overall performance of the \hscpipe{} \forced{} PSF magnitude is excellent. 
+    The median $i$-band magnitude difference for the \tract{} with 0.45\asec{} seeing 
+    is ${\sim}0.015$ mag (${\sim}1.5$\%) at $i_{\mathrm{Input}}{\sim}19.0$ mag. 
+    At $i_{\mathrm{Input}}{\sim}24.0$ mag, the average accuracy of the PSF magnitude is 
+    ${\sim}3$\% level (${\sim}0.036$ mag average difference).
     At $i_{\mathrm{Input}}{\sim}25.2$ mag, the average accuracy decreases to
     ${\sim}7$\% with an average ${\sim}0.072$ mag difference.
     
-    The accuracy of the PSF photometry for the bad-seeing \tract{} shows a similar performance at  $i_{\mathrm{Input}}<23.5$ mag. At fainter magnitudes, the accuracy slightly degrades. The bad-seeing \tract{} displays a performance of ${\sim}5$\% accuracy at
+    The accuracy of the PSF photometry for the bad-seeing \tract{} shows a similar 
+    performance at $i_{\mathrm{Input}}<23.5$ mag. 
+    At fainter magnitudes, the accuracy slightly degrades. 
+    The bad-seeing \tract{} displays a performance of ${\sim}5$\% accuracy at
     $i_{\mathrm{Input}}{\sim}24.0$ mag and ${\sim}11$\% accuracy at
     $i_{\mathrm{Input}}{\sim}25.2$ mag.
     \citet{HSCDR1} evaluates the accuracy of PSF photometry via external comparisons
     with the PS1, PV2, and SDSS data at $i<21$ mag, and finds a 1-2\% level accuracy,
-    which is consistent with our results. At fainter magnitudes however, external comparisons become difficult due to the  lack of imaging matched to HSC depths.
-    The results from \synpipe{} hence provide  useful evaluations of  the accuracy of the HSC photometry  down to our detection limit\footnote{Strictly speaking, the uncertainties reported here should be
-    considered as the lower limit because \synpipe{} currently does not consider PSF modeling uncertainties}.
+    which is consistent with our results. 
+    However, at fainter magnitudes, external comparisons become difficult due to the 
+    lack of imaging matched to HSC depths.
+    The results from \synpipe{} hence provide useful evaluations of the accuracy of 
+    the HSC photometry down to our detection limit\footnote{Strictly speaking, the 
+    uncertainties reported here should be considered as the lower limit because 
+    \synpipe{} currently does not consider PSF modeling uncertainties}.
 
-Figure \ref{fig:psf_mag} also shows that the accuracy of the PSF photometry is not filter dependent. The accuracy of forced PSF magnitudes in $r$ and $z$ is similar to the $i$-band. For $r$ band we find  1.5-4.0\% at $r_{\mathrm{Input}} < 24.0$ and ${\sim}8$\% at $r_{\mathrm{Input}}{\sim}25.2$. For $z$-band we find  \alexie{xxxxx reformat}
-        
- 1.0-5.0\% at $19.0 < z_{\mathrm{Input}} < 24.0$ mag, ${\sim}10$\% down to
-    $z_{\mathrm{Input}}{\sim}25.2$ mag).
+    Figure \ref{fig:psf_mag} also shows that the accuracy of the PSF photometry is 
+    not filter dependent. 
+    The accuracy of forced PSF magnitudes in $r$ and $z$ is similar to the $i$-band. 
+    For $r$ band we find 1.5-4.0\% at $r_{\mathrm{Input}} < 24.0$ mag and ${\sim}8$\% 
+    at $r_{\mathrm{Input}}{\sim}25.2$. 
+    For $z$-band we find 1.0-5.0\% at $z_{\mathrm{Input}} < 24.0$ mag and ${\sim}10$\% 
+    down to $z_{\mathrm{Input}}{\sim}25.2$ mag).
     
-    
-    The accuracy in the $g$ and $y$-bands becomes slightly worse (1.5-7.0\% at $19.0 < g_{\mathrm{Input}} < 24.0$ mag, ${\sim}13$\% down to
-    $g_{\mathrm{Input}}{\sim}25.2$ mag;
-    1.5-5.0\% at $19.0 < y_{\mathrm{Input}} < 23.0$ mag, ${\sim}12$\% down to
-    $y_{\mathrm{Input}}{\sim}24.0$ mag;). These differences are however consistent with the differences in the seeing conditions between the filters 
+    The accuracy in the $g$ and $y$ bands becomes slightly worse at the very faint end. 
+    For $g$ band, the accuracy is 1.5-7.0\% at $g_{\mathrm{Input}} < 24.0$ mag and is
+    ${\sim}13$\% down to $25.2$ mag.
+    For $y$ band, we find 1.5-5.0\% accuracy at $y_{\mathrm{Input}} < 23.0$ mag and
+    ${\sim}12$\% down to $24.0$ mag. 
+    These differences are however consistent with the differences in the seeing 
+    conditions between the filters 
 
-The PSF photometry for relatively isolated stars is unbiased in the $i$- and $z$-bands down to faint magnitudes . For the $g$, $r$, and $y$-bands, we find small offsets between the  input and recovered magnitude. \hscpipe{} tends to underestimate the fluxes of stars
-    in these bands by ${\sim}0.01-0.02$ mag. The exact cause of this offset is unclear but the levels of bias is quite small and not a major concern.  
+    The PSF photometry for relatively isolated stars is unbiased in the $i$ and $z$ 
+    bands down to faint magnitudes. 
+    For the $g$, $r$, and $y$ bands, we find small offsets between the input and 
+    recovered magnitude. 
+    \hscpipe{} tends to underestimate the fluxes of stars in these bands by 
+    ${\sim}0.01-0.02$ mag. 
+    The exact cause of this offset is unclear but the levels of bias is quite small 
+    and not a major concern.  
 
-	However, Figure \ref{fig:psf_mag} also shows that blending has a strong impact on photometry estimation.  On average, \hscpipe{} on average systematically underestimates the total fluxes of stars that are subject to blending effects by $0.05$--$0.10$ mag at a fixed input magnitude.
+	However, Figure \ref{fig:psf_mag} also shows that blending has a strong impact on 
+	photometry.  
+	On average, \hscpipe{} systematically underestimates the total fluxes of stars 
+	that are subject to blending effects by $0.05$--$0.10$ mag at a fixed input magnitude.
     We see the same effect in all bands, and the impact of blendedness becomes
     increasingly significant at fainter magnitudes.
     It is important to bear this caveat in mind when using PSF photometry for point
     sources in HSC data.
 
-	Finally, we also perform similar tests for the \unforced{} PSF photometry in all five bands, and find similar results.  To measure the \forced{} PSF photometry, \hscpipe{} fixes the centroid
-    of the PSF model across all five bands. A difference between \forced{} and \unforced{} PSF magnitudes would therefore be an indication of  photometric uncertainties  arising from  inaccurate astrometric calibrations and PSF modeling across different bands. Figure  \ref{fig:psf_diff} shows the difference between \forced{} and \unforced{} PSF photometry for the $g$ and the $y$ band. The overall differences are small ($<0.01$ mag) .
+	Finally, we also perform similar tests for the \unforced{} PSF photometry in all 
+	five bands, and find similar results. 
+	To measure the \forced{} PSF photometry, \hscpipe{} fixes the centroid of the PSF 
+	model across all five bands. 
+	A difference between \forced{} and \unforced{} PSF magnitudes would therefore be 
+	an indication of photometric uncertainties arising from  inaccurate astrometric 
+	calibrations and PSF modeling across different bands. 
+	Figure \ref{fig:psf_diff} shows the difference between \forced{} and \unforced{} 
+	PSF photometry for the $g$ and the $y$ band. 
+	The overall differences are small ($<0.01$ mag) .
 
 %% ------------------------------------------------------------------------------------ %%
 \subsubsection{Accuracy of PSF colors}
