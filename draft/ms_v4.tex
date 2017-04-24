@@ -1117,7 +1117,8 @@
 \alexie{ALEXIE EDITED TO HERE}
 
     PSF photometry is the most appropriate way to measure colors for point
-    sources; therefore, the accuracy of the PSF color estimates is important to many scientific goals of the HSC survey
+    sources; therefore, the accuracy of the PSF color estimates is important to many 
+    scientific goals of the HSC survey
     (e.g., study of the Milky Way structure, selection of unique stellar objects or
     high-redshift quasars, and accurate star--galaxy separation).
 
@@ -1125,37 +1126,35 @@
     and $(i-y)$ PSF colors via comparing the error in color measurements with both
     input magnitudes and input colors.
     These results suggest that \hscpipe{} provides accurate and unbiased PSF color
-    estimates for synthetic stars with realistic color distributions down to a very faint
-    magnitude.
-    For $(g-i)$ color, the average uncertainty around $i_{\mathrm{Input}}{\sim}19.0$ mag
-    is ${\sim}0.025$ mag, and increases to ${\sim}0.11$ mag at
+    estimates for synthetic stars with realistic color distributions down to very 
+    faint magnitude.
+    For $(g-i)$ color, the average uncertainty around $i_{\mathrm{Input}}{\sim}19.0$ 
+    mag is ${\sim}0.025$ mag, and it increases to ${\sim}0.11$ mag at
     $i_{\mathrm{Input}}{\sim}24.0$ mag.
-    The results are very similar for the $(i-y)$ color.
-    We also find that the accuracies of PSF colors do not depend on the input colors of
-    the synthetic stars or the seeing conditions.
-    For instance, the accuracy of $(g-i)$ color for a bad-seeing \tract{} is only
+    The $(i-y)$ color shows very similar results.
+    We also find that the accuracies of PSF colors do not depend on the input colors 
+    of the synthetic stars or the seeing conditions.
+    For instance, the accuracy of $(g-i)$ color for the bad-seeing \tract{} is only
     slightly worse in the very faint end (${\sim}0.14$ mag at
-    $i_{\mathrm{Input}}{\sim}24.0$ mag) compared to the results for a good-seeing \tract{}.
+    $i_{\mathrm{Input}}{\sim}24.0$ mag) compared to the results for the 
+    good-seeing \tract{}.
 
     We further illustrate the accuracies of PSF colors via comparing the distributions
     of colors for the input synthetic stars and the stars recovered by \hscpipe{}
     (see Fig \ref{fig:psf_cdist}).
-    Using four different colors and two 2--D color--color planes, we show that the \forced{}
-    PSF colors can accurately reproduce the distributions of all four colors and the
-    2-D color-color distributions.
+    Using four different colors and two color--color planes, we show that the 
+    \forced{} PSF colors can accurately reproduce the distributions of all four colors 
+    and the color-color distributions.
 
     As for the highly blended stars, on Fig \ref{fig:psf_color}, we see that on average
     they still have larger uncertainties in colors compared to the relatively isolated
     ones.
     For $(g-i)$ color, the average color uncertainty is ${\sim}0.1$ mag larger for the
     highly blended stars at a fixed input magnitude.
-    However, the biases in color measurements for these stars are less severe than
-    the magnitude measurements.
-    Although the blended stars still show slightly bluer color for $(g-i)$ and slightly redder color for $(i-y)$
-    compared to the isolated stars and the input values, the differences in the
-    distributions of color uncertainties of blended and isolated stars are less striking
-    than the distribution differences for magnitude.
-
+    Also, for blended stars, the $(g-i)$ color biases toward bluer end while the 
+    $(i-y)$ color biases toward redder end.
+    However, the biases in color measurements for highly blended stars are less severe 
+    than their magnitude measurements.
 %% ------------------------------------------------------------------------------------ %%
 
 %% ------------------------------------------------------------------------------------ %%
@@ -1184,8 +1183,9 @@
         Accuracies of the \texttt{hscpipe} \cmodel{} photometry for synthetic
         galaxies measured by the difference between input and output \forced{}
         \cmodel{} magnitudes.
-        Plots [a, b, c, d, e] show the results for [$g$, $r$, $i$, $z$, $y$]-bands, respectively.
-       The lines and contours legend is identical to Fig \ref{fig:psf_mag}.
+        Plots [a, b, c, d, e] show the results for [$g$, $r$, $i$, $z$, $y$]-bands, 
+        respectively.
+        The lines and contours legend is identical to Fig \ref{fig:psf_mag}.
         }
     \label{fig:cmodel_mag}
 \end{figure*}
@@ -1220,8 +1220,9 @@
         colors separately.
         The \textbf{left} column shows the relation between input magnitude (x-axis) and
         the color difference, and the \textbf{right} column uses the input colors as
-       the  x--axis.
-       The lines and contours legend is identical to the plot in Fig \ref{fig:psf_color}.
+        the x--axis.
+        The lines and contours legend is identical to the plot in 
+        Fig \ref{fig:psf_color}.
         }
     \label{fig:cmodel_color}
 \end{figure*}
@@ -1236,8 +1237,8 @@
     \caption{
         Evaluations of color measurement accuracy for synthetic galaxies
         using the color-color distributions.
-        The \textbf{left} panel (a) uses $(g-r)$ vs. $(r-i)$ colors, and the \textbf{right} panel (b)
-        uses $(i-z)$ and $(z-y)$ colors.
+        The \textbf{left} panel (a) uses $(g-r)$ vs. $(r-i)$ colors, and the 
+        \textbf{right} panel (b) uses $(i-z)$ and $(z-y)$ colors.
         The filled contours and shaded histograms reflect the distributions for input
         colors.
         The empty contours and solid-line histograms show the distributions recovered
@@ -1251,9 +1252,8 @@
 \subsection{cModel photometry of Galaxies}
     \label{ssec:cmodel}
 
-  For galaxies, \hscpipe{} uses a \cmodel{} photometry algorithm
-     that is an improved version of the SDSS \cmodel{}
-    photometry.
+    For galaxies, \hscpipe{} uses a \cmodel{} photometry algorithm that is an improved 
+    version of the SDSS \cmodel{} photometry.
     For more details, please see Bosch\etal (in prep.).
     In short, \cmodel{} tries to fit each object using a combination of de Vaucouleurs
     and exponential profiles that are approximated by multiple Gaussian profiles.
