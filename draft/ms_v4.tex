@@ -547,7 +547,7 @@
             
     \end{itemize}
 
-    
+    \vspace{0.5cm}
     \noindent Synthetic objects can be one of the following:
 
     \begin{itemize}
@@ -1467,7 +1467,8 @@
         (\textbf{right}) via the differences in R.A and Dec between the input
         coordinates and the ones measured on the \coadd{} images.
         Hexagonal bins (filled histogram) and contours (solid-line histogram) are for
-        the synthetic objects from \tracts{} with good and bad seeing conditions, respectively.
+        the synthetic objects from \tracts{} with good and bad seeing conditions, 
+        respectively.
         $\Delta\mathrm{R.A}=0$ and $\Delta\mathrm{Dec}=0$ are marked by dashed lines.
         }
     \label{fig:astrometry}
@@ -1482,15 +1483,17 @@
         \includegraphics[width=\textwidth]{fig/synpipe_star_galaxy}
     \end{center}
     \caption{
-        Problems with the current  \hscpipe{}star--galaxy separation method, which is based on the magnitude difference between the PSF and
-        \cmodel{} photometry.
-       The plot on the \textbf{left} (a) illustrates distributions for the synthetic stars.
+        Problems with the current  \hscpipe{}star--galaxy separation method, which is 
+        based on the magnitude difference between the PSF and \cmodel{} photometry.
+        The plot on the \textbf{left} (a) illustrates distributions for the synthetic 
+        stars.
         Hexagonal bins and filled histogram show distributions of correctly classified
         synthetic stars in the good-seeing \tract{}.
         The scatter plot (dashed-line histogram) and contour (solid-line histogram)
         show distributions of synthetic stars that are misclassified as extended
         objects in \tracts{} with bad and good seeing conditions, respectively.
-        The plot on the \textbf{right} (b) illustrates distributions for synthetic galaxies.
+        The plot on the \textbf{right} (b) illustrates distributions for synthetic 
+        galaxies.
         Hexagonal bins (filled histogram) and contours (solid-line histogram)
         are for galaxies from good- and bad-seeing \tracts{}, respectively.
         The scatter plot and dashed-line histogram are for synthetic galaxies that are
@@ -1509,34 +1512,17 @@
     \end{center}
     \caption{
         The relation between the $\log(\mathrm{Blendedness})$ parameter
-        and the photometric accuracies for synthetic stars (\textbf{upper row}, a and b) and
-        galaxies (\textbf{lower row}, c and d) .
-       The \textbf{left} column (a and c) is for uncertainties of PSF or \cmodel{} magnitude,
-        and the \textbf{right} column (b and d) is for uncertainties of $(g-i)$ color.
+        and the photometric accuracies for synthetic stars (\textbf{upper row}, a and 
+        b) and galaxies (\textbf{lower row}, c and d) .
+        The \textbf{left} column (a and c) is for uncertainties of PSF or \cmodel{} 
+        magnitude, and the \textbf{right} column (b and d) is for uncertainties of 
+        $(g-i)$ color.
         Hexagonal bins and contours show results for good- and bad-seeing
         \tracts{}, respectively.
         $\log(\mathrm{Blendedness}) = -1.0$ is marked using a vertical dashed line.
         }
     \label{fig:blend}
 \end{figure*}
-%% ------------------------------------------------------------------------------------ %%
-
-%% ------------------------------------------------------------------------------------ %%
-%% Fig: Compare with the behaviours of the Kron photometry for galaxies
-%\begin{figure*}
-%    \begin{center}
-%        \includegraphics[width=\textwidth]{fig/synpipe_galaxy_kron}
-%    \end{center}
-%    \caption{
-%        Basic performance of the Kron photometry for synthetic galaxies.
-%        \textbf{Left} shows the accuracy in $i$-band.
-%        magnitude. The format is identical to Fig \ref{fig:galaxy_mag}.
-%        \textbf{Right} shows the accuracy of the $(g-i)$ color using
-%        Kron photometry.
-%        Other formats are identical to Fig \ref{fig:cmodel_color}.
-%        }
-%    \label{fig:galaxy_kron}
-%\end{figure*}
 %% ------------------------------------------------------------------------------------ %%
 
 %% ------------------------------------------------------------------------------------ %%
@@ -1548,10 +1534,10 @@
     \caption{
         Accuracy of the weighted axis ratio measurements for synthetic
         galaxies using \cmodel{} photometry.
-      The  \textbf{left} (a) plot shows the relation between the input $(b/a)$ and the
+        The \textbf{left} (a) plot shows the relation between the input $(b/a)$ and the
         uncertainties of $(b/a)$ estimates.
-        The \textbf{right} (b) plot shows the relation between input magnitude of a synthetic galaxy
-        and the $(b/a)$ uncertainties.
+        The \textbf{right} (b) plot shows the relation between input magnitude of a 
+        synthetic galaxy and the $(b/a)$ uncertainties.
         Contours are for the default test with \texttt{usePixelWeights=False}, and the
         hexagonal bins are used for same tests with \texttt{usePixelWeights=True}.
         }
@@ -1565,16 +1551,18 @@
 \section{Results on Other Aspects of \hscpipe{}}
     \label{sec:others}
 
-    In this section, we briefly discuss a few other  \hscpipe{} aspects that relate
-    to astrometric calibration, star-galaxy separation, blendedness and photometric errors, and galaxy shape measurements to demonstrate the range of topics that can be tested with \synpipe{}.
+    In this section, we briefly discuss a few other \hscpipe{} aspects that relate
+    to astrometric calibration, star-galaxy separation, blendedness and photometric 
+    errors, and galaxy shape measurements to demonstrate the range of topics \synpipe{}
+    can test.
 
 %% ------------------------------------------------------------------------------------ %%
 \subsection{Astrometric Calibration}
     \label{ssec:astrometry}
 
-    For a \synpipe{} test, we inject synthetic objects to single-\visit{} images using
+    For \synpipe{} test, we inject synthetic objects to single-\visit{} images using
     the less accurate initial astrometric calibration.
-    During the image stacking step, the joint calibration process  improves the
+    During the image stacking step, the joint calibration process improves the
     astrometric solutions.
     Therefore, the differences between the input and output coordinates from \synpipe{}
     can help us understand the systematic effect of the image stacking step.
@@ -1592,16 +1580,15 @@
 
     Star--galaxy separation is an important aspect of a cosmology survey,
     and it becomes increasingly difficult at very faint magnitude ($i<24.0$ mag).
-    In \hscpipe{}, the star--galaxy classification primarily depends on the extendedness
-    value, which is measured by the magnitude difference between PSF and \cmodel{}
-    photometry in $i$-band.
-    For more details about this algorithm, please see Bosch\etal
-    (in prep.).
+    In \hscpipe{}, the star--galaxy classification primarily depends on the 
+    extendedness value, which is measured by the magnitude difference between PSF and 
+    \cmodel{} photometry in $i$-band.
+    For more details about this algorithm, please see Bosch\etal (in prep.).
 
     In Fig \ref{fig:sg}, we show the current status of star--galaxy classification
     via comparing the input magnitude with the difference between PSF and \cmodel{}
-    magnitudes for both synthetic stars and galaxies, and we highlight the distributions
-    for misclassified objects.
+    magnitudes for both synthetic stars and galaxies, and we highlight the 
+    distributions for misclassified objects.
     As described above, more than $20$\% of synthetic stars at
     $i_{\mathrm{Input}}>23.0$ mag are misclassified as extended objects, while only a
     tiny fraction of faint synthetic galaxies ($i_{\mathrm{Input}}>24.0$) are
@@ -1611,11 +1598,16 @@
     with \textbf{high purity}.
 
     It is also clear that seeing condition strongly modifies the distributions
-    of $i_{\mathrm{PSF}}-i_{\mathrm{cModel}}$, where worse seeing conditions clearly make it
-    more difficult to separate star and galaxy.
-    This implies that the completeness or purity of the galaxy or star sample at the faint end may depend on seeing; therefore, seeing condition deserves the attention of HSC users who care about these properties.
+    of $i_{\mathrm{PSF}}-i_{\mathrm{cModel}}$, where worse seeing conditions clearly 
+    make it more difficult to separate star and galaxy.
+    This implies that the completeness or purity of the galaxy or star sample at the 
+    faint end may depend on seeing; therefore, seeing condition deserves the attention 
+    of HSC users who care about these properties.
 
-    In the next data release, \hscpipe{} will include a better star--galaxy classifier, which will be based on a machine learning method that takes shape and color information into account. We will test its improvement using \synpipe{} in the future.
+    In the next data release, \hscpipe{} will include a better star--galaxy classifier, 
+    which will be based on a machine learning method that takes shape and color 
+    information into account. 
+    We will test its improvement using \synpipe{} in the future.
 
 %% ------------------------------------------------------------------------------------ %%
 \subsection{Blendedness and Photometric Errors}
@@ -1626,24 +1618,20 @@
     Here, in Fig \ref{fig:blend}, we further explore the effect of blendedness via
     directly plotting it against the uncertainties of magnitudes and colors.
 
-    For both PSF and \cmodel{} magnitude distributions, we can see clear trends that total fluxes are systematically underestimated for highly blended
-    ($b>0.05$ for stars or $0.1$ for galaxies) objects.
+    For both PSF and \cmodel{} magnitude distributions, we can see clear trends that 
+    total fluxes are systematically underestimated for highly blended ($b>0.05$ for 
+    stars or $0.1$ for galaxies) objects.
     This effect is particularly strong for stars.
     As for colors, higher blendedness still results in higher uncertainties for both
     stars and galaxies, but the trends are different for each.
     Highly blended stars have clearly overestimated $(g-i)$ colors, and the
-    highly blended galaxies seem to have  $(g-i)$ colors that are bluer than the true values.
+    highly blended galaxies seem to have  $(g-i)$ colors that are bluer than the 
+    true values.
 
-    These blendedness-related uncertainties are not included in the photometric errors released by \hscpipe{}.
+    These blendedness-related uncertainties are not included in the photometric errors 
+    released by \hscpipe{}.
     We therefore remind the HSC users to treat the highly blended object with
     greater caution.
-
-%% ------------------------------------------------------------------------------------ %%
-%\subsection{Comparing to Kron photometry}
-
-%    \plan{Uses $i$-band as example to briefly discuss Kron photometry}
-
-%    \plan{Although magnitude for galaxies is Ok, the color becomes worse}
 
 %% ------------------------------------------------------------------------------------ %%
 \subsection{Shape and Structural Parameters of Galaxies}
@@ -1663,9 +1651,11 @@
     In Fig \ref{fig:galaxy_ba}, we demonstrate this issue using the difference between
     the \cmodel{} axis ratio and the input values as an example.
     Here, $({\mathrm{b}/\mathrm{a}})_{\mathrm{CModel}}$ is a combination of the
-    axis ratios estimated by the exponential and de Vaucouleurs models weighted by their flux ratio.
+    axis ratios estimated by the exponential and de Vaucouleurs models weighted by 
+    their flux ratio.
 
-    During the investigation, we noticed that one of the problems relates to the \cmodel{} \texttt{usePixelWeight} configuration, which decides whether to
+    During the investigation, we noticed that one of the problems relates to the 
+    \cmodel{} \texttt{usePixelWeight} configuration, which decides whether to
     use per-pixel variances as weights in the nonlinear fit.
     By default, \hscpipe{} chooses \texttt{usePixelWeight}$=$\texttt{False}.
     As one can see, this leads to a significantly overestimated axis ratio for almost
@@ -1674,13 +1664,14 @@
     At the same time, we also repeat the \synpipe{} run for galaxies with
     \texttt{usePixelWeight}$=$\texttt{True}, and this change clearly mitigates
     the problem. When we use \texttt{usePixelWeight}$=$\texttt{True},
-     $({\mathrm{b}/\mathrm{a}})_{\mathrm{CModel}}$ can provide an unbiased axis ratio estimation
-    for galaxies with $i_{\mathrm{Input}}< 24.0$ mag.
+    $({\mathrm{b}/\mathrm{a}})_{\mathrm{CModel}}$ can provide an unbiased axis ratio 
+    estimation for galaxies with $i_{\mathrm{Input}}< 24.0$ mag.
 
     For the current HSC data release, we warn users against using the \cmodel{}
     size and shape to study a galaxy with $i_{\mathrm{Input}}>21.5$.
     At the same time, \synpipe{} will try to help \hscpipe{} improve the details
-    of the \cmodel{} so that it can provide more useful structural information without hurting its photometric performance.
+    of the \cmodel{} so that it can provide more useful structural information 
+    without hurting its photometric performance.
 
 %% ------------------------------------------------------------------------------------ %%
 
@@ -1689,11 +1680,12 @@
     \label{sec:summary}
 
     %% Short summary
-    In February 2017, the HSC survey made its first public data release, and the survey continues to
-    produce increasingly larger amounts of high-quality imaging data.
+    In February 2017, the HSC survey made its first public data release, and the survey 
+    continues to produce increasingly larger amounts of high-quality imaging data.
     To help achieve the designed goals of the survey and facilitate scientific
     outputs, we developed \synpipe{}, a flexible framework that is based on
-    \hscpipe{}, to examine the data reduction process and check the accuracy of all the HSC pipeline outputs.
+    \hscpipe{}, to examine the data reduction process and check the accuracy of all the 
+    HSC pipeline outputs.
     \synpipe{} injects synthetic stars and galaxies into the desired locations on the
     single-\visit{} images with the help of the original astrometric and
     photometric calibrations.
@@ -1701,8 +1693,8 @@
     all the photometric measurements.
     In this way, \synpipe{} can simulate the realistic data reduction process
     to an extent that many subtle systematical effects can be taken into
-    consideration, which is helpful for achieving the outstanding scientific goals of the HSC
-    survey.
+    consideration, which is helpful for achieving the outstanding scientific goals of the
+    HSC survey.
     In this work, we choose two \tracts{} in the HSC Wide layer with
     representative seeing conditions (good and bad) to test the general behaviors of HSC
     photometry for both stars and galaxies.
@@ -1740,8 +1732,9 @@
             uncertainty in both magnitude and color estimates.
 
     \end{enumerate}
-
-    We also notice a few issues in the current \hscpipe{}:
+    
+    \vspace{0.5cm}
+    \noindent We also notice a few issues in the current \hscpipe{}:
 
     \begin{enumerate}
 
@@ -1756,8 +1749,10 @@
             relatively faint ones.
             The axis ratio of a galaxy using \cmodel{} is highly overestimated, while
             the effective radius is underestimated.
-            We show that we can significantly improve the result if we use \texttt{usePixelWeights=True} instead.
-            However, that choice may impact the accuracy of the deblender, which we will test in the future.
+            We show that we can significantly improve the result if we use
+            \texttt{usePixelWeights=True} instead.
+            However, that choice may impact the accuracy of the deblender, which we 
+            will test in the future.
 
     \end{enumerate}
 
@@ -1768,19 +1763,20 @@
 
 %% ------------------------------------------------------------------------------------ %%
     %% Other applications
-    Although we mainly focus on the general behaviors of photometric measurements in this study,
-    \synpipe{} is quite flexible and has many other applications for any HSC
-    dataset.
+    Although we mainly focus on the general behaviors of photometric measurements in 
+    this study, \synpipe{} is quite flexible and has many other applications for any 
+    HSC dataset.
     For instance,  Murata\etal (in prep.) uses \synpipe{} to test
     the impacts of the ambiguously blended objects on the WL measurements.
-    Also, \citep{Niikura2017} applies \synpipe{} to the high-cadence M31 HSC observations
-    to help users search for interesting microlensing events.
-  \synpipe{} is also currently being used to estimate the completeness of the selections
-    for high-$z$ LBG and Lyman- $\alpha$ emitters
+    Also, \citep{Niikura2017} applies \synpipe{} to the high-cadence M31 HSC 
+    observations to help users search for interesting microlensing events.
+    \synpipe{} is also currently being used to estimate the completeness of the 
+    selections for high-$z$ LBG and Lyman- $\alpha$ emitters
     (Ono\etal in prep.; Konno\etal in prep.), check the dependence of the detection and
     completeness of high-$z$ LBG pairs on the pair separation (Harikane\etal in prep.),
     identify low surface--brightness dwarf galaxies (Greco\etal in prep.),
-    and test photometric and WL measurements around nearby clusters (Chiu\etal in prep.).
+    and test photometric and WL measurements around nearby clusters 
+    (Chiu\etal in prep.).
 
     %% Caveats
     The limitations of the current \synpipe{} include the following:
@@ -1803,18 +1799,21 @@
 
         \item \synpipe{} works in a ``unit'' of \visit{} for a single-exposure
             test, and uses a \tract{} to test \coadd{} images.
-            In the case of tests that focus on specific regions that are much smaller than
-            the size of a \visit{} or a \tract{} (e.g., quality of photometry
+            In the case of tests that focus on specific regions that are much smaller 
+            than the size of a \visit{} or a \tract{} (e.g., quality of photometry
             around rich galaxy clusters), using \synpipe{} often leads to
             low efficiency.
 
     \end{enumerate}
 
     %% Future developments
-    Both \hscpipe{} and \synpipe{} are currently undergoing active development. The plan is to update \synpipe{} to provide a photometric benchmark for
+    Both \hscpipe{} and \synpipe{} are undergoing active development. 
+    Our plan is to update \synpipe{} to provide a photometric benchmark for
     each HSC survey data release, which will help \hscpipe{} improve.
     At the same time, we are also working on improving the efficiency of \synpipe{}.
-    Since many survey data users are not concerned with the subtle effects involved in the image stacking process, we will update \synpipe{} so that it can directly inject synthetic objects to the \coadd{} images and speed up these tests.
+    Since many survey data users are not concerned with the subtle effects involved in 
+    the image stacking process, we will update \synpipe{} so that it can directly 
+    inject synthetic objects to the \coadd{} images and speed up these tests.
 
 %% ------------------------------------------------------------------------------------ %%
 
@@ -1831,9 +1830,11 @@
     the Universe (Kavli IPMU), University of Tokyo, High Energy Accelerator
     Research Organization (KEK) in Japan,  Academia Sinica Institute for Astronomy and
     Astrophysics  (ASIAA) in Taiwan, and Princeton University in the United States.
-    Funding was contributed by the FIRST program from Japanese Cabinet Office; Ministry of Education, Culture, Sports, Science and Technology (MEXT); Japan
+    Funding was contributed by the FIRST program from Japanese Cabinet Office; Ministry 
+    of Education, Culture, Sports, Science and Technology (MEXT); Japan
     Society for the Promotion of Science (JSPS); Japan Science and Technology Agency
-    (JST); Toray Science  Foundation; NAOJ; Kavli IPMU; KEK; ASIAA; and Princeton University.
+    (JST); Toray Science  Foundation; NAOJ; Kavli IPMU; KEK; ASIAA; and Princeton
+    University.
 
     % LSST software part
     This paper makes use of software developed for the Large Synoptic Survey Telescope.
