@@ -1420,39 +1420,39 @@
     and many other interesting objects.
 
     In Fig \ref{fig:cmodel_color}, we demonstrate the accuracies of \forced{} $(g-i)$
-    and $(i-y)$ \cmodel{} colors in the same format used for synthetic stars
+    and $(i-y)$ \cmodel{} colors in the same format for synthetic stars
     (Fig \ref{fig:psf_color}).
-    These plots show that \hscpipe{} can provide reliable \cmodel{} colors for
-    synthetic galaxies down to $i_{\mathrm{Input}}{\sim}25.0$ mag.
-    For $(g-i)$ colors, the average uncertainty around $i_{\mathrm{Input}}{\sim}21.0$ mag
+    They confirm that \hscpipe{} can provide reliable \cmodel{} colors for synthetic 
+    galaxies down to $i_{\mathrm{Input}}{\sim}25.0$ mag.
+    For $(g-i)$ colors, the average uncertainty at $i_{\mathrm{Input}}{\sim}21.0$ mag
     is ${\sim}0.04$ mag.
     The uncertainty increases to ${\sim}0.11$ mag at $i_{\mathrm{Input}}{\sim}25.0$ mag.
-    Results for $(i-y)$ colors are similar.
+    $(i-y)$ colors show similar results. 
 
-    The performance of \forced{} \cmodel{} color does not show dependence on seeing
-    condition, and it is unbiased across the ranges for input total magnitude and color.
-    The only noticeable feature is that the $(i-y)$ color at
-    $i_{\mathrm{Input}}>24.0$ is slightly overestimated.
-    As mentioned above, this is not surprising given the shallower imaging depth of  the
-    $y$-band.
-    At the same time, high blendedness of synthetic galaxies can still increase the
-   color uncertainties and bias the color measurements.
-    The highly blended galaxies on average show slightly bluer  $(g-i)$ colors
-     and redder  $(i-y)$ colors  than the input values.
+    The performance of \forced{} \cmodel{} color does not depend on seeing and is 
+    unbiased for entire ranges of input magnitudes and colors.
+    The only noticeable feature is that the $(i-y)$ color at $i_{\mathrm{Input}}>24.0$ 
+    is slightly overestimated.
+    As mentioned above, this is not surprising given the shallower imaging depth in
+    $y$ band.
+    Meanwhile, high blendedness also increases the color uncertainties and biases the 
+    color measurements.
+    The highly blended galaxies on average show slightly bluer $(g-i)$ colors and redder  
+    $(i-y)$ colors than the input ones.
 
-    Similar to the star comparison in Fig \ref{fig:psf_cdist}, we also compare the color--color distributions
+    Similar to Fig \ref{fig:psf_cdist}, we also compare the color--color distributions
     of the input and output \forced{} \cmodel{} values in Fig \ref{fig:cmodel_cdist}.
-    The general color distributions are well recovered despite the fact that the galaxy accuracy is
-    not as good as the accuracy for stars, especially on the $(i-z)$ vs. $(z-y)$ plane.
-    That result is expected given the narrow dynamical ranges of these colors among red filters.
+    The general 2--D distributions are well recovered but the accuracy is not as good as 
+    the one for stars, especially on the $(i-z)$ vs. $(z-y)$ plane.
+    This is expected given the narrow dynamical ranges of these colors among red filters.
     The \forced{} \cmodel{} tends to slightly underestimate the $(g-r)$ and $(i-z)$
     colors at the very ``blue'' end, while overestimating the $(i-y)$ color at the very
     red end.
 
-   We should point out that we assume constant color for the entire galaxy.
-    In reality, different colors for individual components and a smooth color gradient
-    can complicate the situation; hence, the uncertainties of \cmodel{} colors
-    here should be considered as lower limits.
+    We should point out that we assume constant color for the entire galaxy.
+    In reality, different colors for individual component or color gradient can 
+    complicate the situation.
+    The uncertainties of \cmodel{} colors here should be considered as lower limits.
 %% ------------------------------------------------------------------------------------ %%
 
 
