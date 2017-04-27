@@ -481,9 +481,9 @@
 
     \hscpipe{} is a complex data reduction pipeline that still faces many challenges
     and is under active development.
-    Unlike most photometric pipelines on the market, it involves high-level reduction
-    processes that produce not only deep \coadd{} images but also a series of
-    science-ready catalogs. 
+    Unlike most publicly available photometric pipelines, it involves high-level 
+    reduction processes that produce not only deep \coadd{} images but also a series 
+    of science-ready catalogs. 
     To perform tests of the data products that result from \hscpipe{}, \synpipe{} is 
     designed to satisfies a few basic standards:
 
@@ -525,10 +525,10 @@
             We provide default catalogs to generate samples of synthetic stars
             and galaxies with realistic magnitudes and color distributions along with
             tools to help the user work on HSC DR1 data. 
-            However, \synpipe{} also easily allows users to design and use their own 
-            custom made input catalogs.
+            However, the users can also supply their own input catalogs best suited 
+            for their applications.
             \synpipe{} is already being used in a wide range of
-            scientific applications (see Section \ref{sec:summary} for details).
+            scientific topics (see Section \ref{sec:summary} for details).
 
     \end{itemize}
 %% ------------------------------------------------------------------------------------ %%
@@ -563,9 +563,9 @@
             format that contains the coordinates, magnitudes, and model parameters of 
             synthetic objects.  
             The positions of synthetic galaxies can be specified via the input catalog, 
-            they can be distributed randomly over a given region, or on a grid 
-            (the grid option is useful in that it avoids blends between Synthetic 
-            objects, e.g. see Murata\etal in prep.).  
+            they can be distributed randomly over a given region, or on an 
+            evenly-spaced grid (the grid option is useful in that it avoids blends 
+            between Synthetic objects, e.g. see Murata\etal in prep.).  
             
     \end{itemize}
 
@@ -632,7 +632,7 @@
         \item With the input catalog and test data information in hand, \synpipe{} 
             injects synthetic objects into single-exposure images (step
             \texttt{addFakes.py}; see the middle panel of Fig \ref{fig:flowchart}).
-            \synpipe{} goes through all the individual CCD images that belong to 
+            \synpipe{} goes through individual CCD images that belong to 
             each \visit{} and decides which synthetic objects from the input catalog 
             need to be injected. 
             \synpipe{} uses the \textit{initial astrometric calibration} of each 
@@ -674,7 +674,7 @@
         Then, \synpipe{} passes the reconstructed PSF image into a
         \galsim{}\texttt{InterpolatedImage} object and convolves it with the galaxy 
         model using \galsim{}\texttt{.Convolve}.
-        After this, \synpipe{} uses the \galsim{}\texttt{.drawImage} method to create 
+        After this, \synpipe{} uses the \galsim{}\texttt{.drawImage} method to redner 
         the image of the simulated galaxy.
         A component with a high \ser{} index ($n_{\mathrm{Ser}} > 4$) often requires 
         a large image size to cover all of its flux, so \synpipe{} allows the user 
@@ -694,6 +694,9 @@
             Since each HSC CCD consists of 4 amplifiers, each with different 
             characteristics, \synpipe{} carefully creates a corresponding gain map 
             to provide accurate noise level.
+            The added noise only accounts for the additional flux in the synthetic 
+            object, and will thus be subdominant compared to the noise already in 
+            the image for faint objects.
             
         \item In the final step, \synpipe{} adds the noise-added image and the 
             variance map to the original CCD data while also adding a new 
@@ -715,20 +718,19 @@
     
     The \texttt{stack.py} step takes the improved astrometric and photometric
     calibrations for each \visit{} from the original reduction and creates
-    \coadd{}  images that contain synthetic objects.
+    \coadd{} images that contain synthetic objects.
     The \texttt{multiBand.py} step then processes these \coadd{}  images and
     provides standard multi-band measurements in FITS catalogs that are grouped by
     \texttt{Patch} ID.
 
-    Using the infrastructures provided by \hscpipe{}, the user can easily perform these 
+    Using the infrastructure provided by \hscpipe{}, the user can easily perform these 
     steps in parallel, and the overall efficiency of \synpipe{} is similar to
     the real data reduction process. 
     The data and catalog volumes is also similar to the original data reduction process.
 
     The final step is to identify Synthetic galaxies in the output catalogs. 
     \synpipe{} can match the input catalog to the output catalog (this contains a mix 
-    of real and synthetic galaxies) using a matching radius that is specified by the 
-    user.
+    of real and synthetic galaxies) using a matching radius specified by the user.
     Each unmatched object from the input catalog is also passed to the results catalog
     with a unique label.
     In the case of multiple matches, the user can choose between returning only the
@@ -778,18 +780,22 @@
 
 %% ------------------------------------------------------------------------------------ %%
 \subsection{Data}
-    We use \tract{}$=9699$ in the VVDS field (median FWHM$=0.449$\asec{} in $i$-band;
+    We use \tract{}$=9699$ in the VVDS field (median FWHM$=0.449$\asec{} in $i$ band;
     in this paper referred to as \texttt{goodSeeing}) and
     \tract{}$=8764$ in the XMM-LSS field (median FWHM$=0.700$\asec{};
     \texttt{badSeeing}).
-    \tract{}$=9699$ also has better seeing in both $r$- and $z$-bands;
-    the seeing conditions in $g$- and $y$-bands are very similar for both
+    \tract{}$=9699$ also has better seeing in both $r$ and $z$ bands than the median 
+    conditions in those bands.
+    The seeing conditions in $g$ and $y$ bands are very similar for both
     \tract{}$=9699$ and \tract{}$=8764$.
     For both \tracts{}, the \coadd{} image in each band includes data from
-    20--40 \visits{}.  
+    20--40 \visits{}\footnote{The large number of \visits{} here is due to large 
+    dither pattern. Please see Fig \ref{fig:flowchart}.}.  
     These two \tract{} are selected because they are not at the edge of a field, do 
     not contain any extremely bright ($i<12$ mag) saturated stars, and are 
-    representative of both "good" and "bad" seeing conditions in the $i$-band.
+    representative of both "good" and "bad" seeing\footnote{Here, ``bad'' seeing only 
+    suggests that it is worse than the median seeing condition by HSC standard.} 
+    conditions in the $i$ band.
 %% ------------------------------------------------------------------------------------ %%
 
 %% ------------------------------------------------------------------------------------ %%
@@ -801,9 +807,9 @@
     We first select stars from the \citet{Leauthaud2007} catalog (this classification 
     is reliable down to $I_{\mathrm{F814W}}{\sim}25.2$ mag). 
     We then match this sample against our HSC UltraDeep--COSMOS data (which reaches 
-    ${\sim}27.2$ mag in $i$-band). 
+    ${\sim}27.2$ mag in $i$ band). 
     After applying basic quality cuts (see \ref{app:qc}), this procedure provides us 
-    with five-band HSC photometry for 14,472 stars.
+    with five-band HSC PSF photometry for 14,472 stars.
     To increase the sample size, we re-sample the five-band magnitude distributions 
     using the \texttt{astroML} (\citealt{astroml}) implementation of the 
     \texttt{extreme-deconvolution} algorithm developed by \citet{Bovy2011}
@@ -828,8 +834,9 @@
     high \ser{} index ($n_{\mathrm{Ser}} > 6.0$) or a very low central surface 
     brightness ($\mu_{i} < 24.0$\sb).
     We further match this COSMOS sample with the HSC UltraDeep--COSMOS data.
-    After removing objects with problematic photometry, we obtain a sample of
-    58,210 synthetic galaxies with realistic five-band HSC photometry.
+    After removing objects with problematic photometry (see Appendix \ref{app:qc} for 
+    details), we obtain a sample of 58,210 synthetic galaxies with realistic 
+    five-band HSC \cmodel{} photometry.
     As shown in Fig \ref{fig:galaxy_sample}, the majority of these galaxies are
     faint ($i<24.0$ mag) and barely resolved ($R_{\mathrm{e}}< 1.0$\asec).
     This sample is appropriate to test \hscpipe{}'s general photometric behaviors, 
@@ -838,7 +845,10 @@
     We spatially distribute synthetic stars and galaxies randomly in our two selected 
     \tracts{}. 
     For stars, we use a number density of 1,000 per CCD. 
-    For galaxies, we use a number density of 500 per CCD.
+    For galaxies, we use a number density of 500 per CCD. 
+    Given the magnitude distributions of these objects, these numbers are high enough 
+    to ensure large sample of useful synthetic objects for the test, and will also not
+    create unrealistic crowded images.
 
 %% ------------------------------------------------------------------------------------ %%
 
@@ -847,9 +857,9 @@
     \label{ssec:running}
 
     We use HSC DR1 data stored at Kavli Institute for the Physics and Mathematics of 
-    the Universe (Kavli IPMU). 
-    For stars the \texttt{addFakes.py} step takes ${\sim}1.5$ hours per \tract{} in 
-    each band. 
+    the Universe (Kavli IPMU) for these tests. 
+    Using 108 cores, the \texttt{addFakes.py} step takes ${\sim}1.5$ hours per 
+    \tract{} in each band for stars. 
     The same process takes longer for galaxy tests (${\sim}3.0$ hours per
     \tract{} in each band) because the \galsim{} simulation is more time consuming.
     The \texttt{stack.py} step and \texttt{multiBand.py} step together take 
@@ -857,8 +867,12 @@
 
     We match the results with the input catalogs using a 2--pixel matching radius
     to generate output catalogs for \forced{} and \unforced{} photometry
-    in each band. For our tests, we reject  synthetic objects  locate within 2 pixels 
+    in each band. 
+    For our tests, we reject synthetic objects locate within 2 pixels 
     of a real HSC object. 
+    These ``ambiguously blended'' (e.g. \citealt{Dawson2016}) objects are extreme 
+    blends in which multiple objects are detected as a single object, and are not 
+    useful for photometric tests.
     
     The detailed log of our runs can be found at \url{goo.gl/VINOVP}.
     The user should be able to reproduce the results presented in this work using 
@@ -874,8 +888,8 @@
     Here we discuss \hscpipe{}'s general performance, assessed mainly through \forced{} 
     PSF photometry (for stars) and (\cmodel{}) photometry (for galaxies).
     Although \hscpipe{} does provide other options (e.g., aperture and Kron photometry),
-    these two are the only options that consider the effects of PSF in different bands 
-    and are consistent across all bands in terms of position and shape. 
+    these two are the only options that consider the effects of the PSF in different 
+    bands and are consistent across all bands in terms of position and shape. 
     
 %% ------------------------------------------------------------------------------------ %%
 
@@ -990,8 +1004,8 @@
     \label{ssec:psf}
 
     In \hscpipe{}, the PSF magnitude is derived using a matched-filter method that
-    depends on the best-fit PSF model and uses the Lanczos interpolation to shift
-    the PSF model.
+    depends on the best-fit PSF model and uses third-order Lanczos interpolation to 
+    shift the PSF model.
     The error of the PSF magnitude from \hscpipe{} only considers the per-pixel noise,
     and does not include centroid uncertainties.
     \hscpipe{} also estimates aperture correction for PSF photometry.
@@ -1010,12 +1024,12 @@
     objects using the \texttt{classification.extendedness} parameter in each band.
     The fraction of misclassification is ${\sim}10$--$20$\%, and clearly depends on
     seeing conditions.
-    For the same reason, $g$-band has the highest fraction of misclassification,
+    For the same reason, the $g$-band has the highest fraction of misclassification,
     while $i$-band is recommended for selecting point sources.
     The star--galaxy separation issue is discussed more in Section \ref{ssec:sg}.
 
     In the following comparisons, we show the results from the
-    \textbf{good-seeing} and \textbf{bad-seeing} \tracts{} separately because it
+    \texttt{goodSeeing} and \texttt{badSeeing} \tracts{} separately because it
     is important to understand how the seeing condition affects photometric accuracy 
     as well as to test whether \hscpipe{} can deliver unbiased photometry under 
     different seeing conditions.
@@ -1029,7 +1043,8 @@
     We divide our sample according to the blendedness parameter. 
     A value of $b=0$ corresponds to isolated objects whereas objects with $b=1$ 
     complete overlap with other objects. 
-    Here we use $b>0.05$ to define highly blended stars (${\sim}4$--$9$\% are blended).
+    Here we use $b>0.05$ to define highly blended stars (${\sim}4$--$9$\% are blended
+    according to this criterion).
     The fraction of highly blended stars slightly increases in the bad seeing \tract{}. 
     The impact of blendedness will be discussed more in Section \ref{ssec:blendedness}.
 
@@ -1788,19 +1803,22 @@ We note that  our synthetic galaxies do not have color gradients.  In reality, c
              S.~T.\ 2011, Annals of Applied Statistics, 5,
 
     %% C %%
+    \bibitem[Calabretta \& Greisen(2002b)]{WCS2} Calabretta, M.~R., \& Greisen, E.~W.\
+             2002, \aap, 395, 1077
+             
     \bibitem[Chang et al.(2015)]{Chang2015} Chang, C., Busha, M.~T., Wechsler, R.~H.,
              et al.\ 2015, \apj, 801, 73
 
     %% D %%
+    \bibitem[Dawson et al.(2016)]{Dawson2016} Dawson, W.~A., Schneider, M.~D., 
+             Tyson, J.~A., \& Jee, M.~J.\ 2016, \apj, 816, 11 
+             
     \bibitem[Dressler et al.(2012)]{Dressler2012} Dressler, A., Spergel, D., Mountain,
              M., et al.\ 2012, arXiv:1210.7809
 
     %% G %%
     \bibitem[Greisen \& Calabretta(2002a)]{WCS1} Greisen, E.~W., \& Calabretta, M.~R.\
              2002, \aap, 395, 1061
-
-    \bibitem[Calabretta \& Greisen(2002b)]{WCS2} Calabretta, M.~R., \& Greisen, E.~W.\
-             2002, \aap, 395, 1077
 
     \bibitem[Guyonnet et al.(2015)]{Guyonnet2015} Guyonnet, A., Astier, P., Antilogus, 
              P., Regnault, N., \& Doherty, P.\ 2015, \aap, 575, A41 
