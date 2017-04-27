@@ -323,6 +323,10 @@
 \section{Hyper-Suprime Cam Subaru Strategic Program (HSC Survey)}
     \label{sec:ssp}
 
+%% ------------------------------------------------------------------------------------ %%
+\subsection{Status of the Survey}
+    \label{ssec:ssp}
+    
     %% Basic
     Taking advantage of the new prime focus camera on the 8.2--m Subaru telescope,
     the ambitious HSC survey consists of three layers: Wide, Deep, and UltraDeep.
@@ -331,13 +335,15 @@
     The Deep (four separated fields; ${\sim}27$ deg$^2$) and UltraDeep (two separated
     fields; ${\sim}3.5$ deg$^2$) layers use a few additional narrow-band filters
     and employ a slightly different surveying strategy.
-    Strauss\etal (in prep.) describes the HSC survey in more detail, and identifies the
+    \citet{HSCOverview} describes the HSC survey in more detail, and identifies the
     HSC collaborators.
 
     The HSC camera (\citealt{Miyazaki2012}) is made up of 124 full-depletion thick
     CCDs: 112 for science and another 12 for guiding and focusing.
     The camera has a circular FoV with a 1.5 deg diameter.
-    Each CCD contains 2048$\times$4096 pixels and the sizes of pixels are 0.168\asec{}.
+    Each CCD contains 2048$\times$4096 pixels and the sizes of pixels are 
+    0.168\asec{}.
+    For more details about the HSC camera, please see Miyazaki\etal (in prep.).
 
     In February 2017, the HSC collaboration released the first 1.7 years of data to
     the public (DR1;
@@ -356,13 +362,13 @@
     conditions to improve galaxy shape measurements for weak lensing science. 
     The $i$ band data in the Wide layer reach a $5\sigma$ point source limiting 
     magnitude of $i{\sim} 26.4$ mag and have a median seeing with 
-    FWHM${\sim}0.6$\asec{}. 
+    FWHM${\sim}0.6$\asec{} in the $i$ band. 
     \citealt{HSCDR1} provides details on the first data release and data status.
 
 %% ------------------------------------------------------------------------------------ %%
 
 %% ------------------------------------------------------------------------------------ %%
-\section{The HSC Data Reduction Pipeline}
+\subsection{The HSC Data Reduction Pipeline}
     \label{ssec:hscpipe}
 
     The HSC data are reduced using a pipeline that builds on the prototype pipeline 
@@ -385,6 +391,9 @@
             During this step, \hscpipe{} also generates variance and mask images, 
             subtracts the background, and provides initial astrometric and photometric
             calibrations. 
+            The photometric calibration is based on data from the Panoramic Survey 
+            Telescope and Rapid Response System (Pan-STARRS) 1 imaging survey 
+            (\citealt{Schlafly2012, Tonry2012, Magnier2013}).
             \synpipe{} uses the spatially varying PSF models, photometric zeropoints, 
             and the World Coordinate System (WCS; \citealt{WCS1, WCS2})
             corrected for optical distortion provided by \hscpipe{}.
@@ -395,7 +404,7 @@
             the astrometric and photometric calibrations via processes similar to
             the \"{u}ber-calibration in the Sloan Digital Sky Survey (SDSS)
             \citep{Padmanabhan2008}.
-            \textbf{\synpipe{} will use these improved calibrations.}
+            \synpipe{} will use these improved calibrations.
             \hscpipe{} organizes these \coadd{} images into equiareal rectangular
             regions, or \tracts{}, which are predefined as iso-latitude tessellations.
             One \tract{} covers approximately $1.7\times 1.7$ degrees$^2$ and
@@ -426,25 +435,36 @@
             The \texttt{psf} photometry should provide the most appropriate magnitudes 
             and colors for point sources, while the \cmodel{} should be used for 
             galaxies. 
-            The HSC \cmodel{} algorithm is described in Bosch\etal, in prep. and is an
-            improved version of the SDSS \cmodel{} magnitude (\citealt{Lupton2001, 
-            Abazajian2004}). 
-            The HSC \cmodel{} fits objects using both a de~Vaucouleurs and an 
-            exponential profiles taking into account the smearing by the PSF.  
-            \cmodel{} then linearly combines the two results to find the best fit to 
-            the galaxy image. 
-            \cmodel{} magnitudes are designed to yield accurate fluxes and colors for 
-            galaxies. 
-            Star--galaxy separation is performed based on the difference between 
-            \texttt{psf} and \cmodel{}{} magnitudes.
             
+            \begin{itemize}
+            
+                \item \hscpipe{} uses matched-filter method to derive PSF magnitude 
+                    with the centroid fixed. 
+                    The algorithm matches the image of a star with the PSF model 
+                    multiplied by an amplitude. 
+                    This amplitude parameter is estimated via the inner product of 
+                    the image and PSF model after shifting the model to the centroid 
+                    of the star, then divide by the effective area of the PSF model.
+                    
+                \item The HSC \cmodel{} algorithm is described in Bosch\etal (in prep), 
+                    and is based on the version for the SDSS \cmodel{} magnitude 
+                    (\citealt{Lupton2001, Abazajian2004}). 
+                    It fits objects using both a de~Vaucouleurs and an exponential 
+                    profiles convolved with the PSF model.  
+                    \cmodel{} then linearly combines the two results to find the best 
+                    fit to the galaxy image. 
+                    \cmodel{} magnitudes are designed to yield accurate fluxes and 
+                    colors for galaxies. 
+                    Star--galaxy classification is also performed based on the 
+                    difference between \texttt{psf} and \cmodel{}{} magnitudes.
+                
+            \end{itemize}
+       
     \end{enumerate}
 %% ------------------------------------------------------------------------------------ %%
 
     DR1 data quality has been vetted in \citet{HSCDR1} by cross-checking with the 
-    Panoramic Survey Telescope and Rapid Response System (Pan-STARRS) 1 imaging survey
-    (\citealt{Schlafly2012, Tonry2012, Magnier2013}) to examine the behavior of the 
-    stellar sequence.
+    Pan-STARRS 1 imaging survey to examine the behavior of the stellar sequence.
     Generally speaking, the PSF photometry is accurate at the 1--2\% level for bright 
     stars, and the astrometry is accurate to ${\sim}10$ and 40 max internally and 
     externally.
@@ -474,7 +494,7 @@
             images from the ground up (e.g., \citealt{Chang2015}), \synpipe{} injects
             synthetic objects into real HSC images so that all the realistic
             features of the real data (e.g., blended objects; proximity to bright
-            objects, bleeding trails, other optical artifacts can be included in the
+            objects, bleeding trails, other optical artifacts) can be included in the
             test.
             The impact of these features can be important for studies that care about 
             completeness and the selection function.
@@ -1732,8 +1752,11 @@ We note that  our synthetic galaxies do not have color gradients.  In reality, c
     \bibitem[Abazajian et al.(2004)]{Abazajian2004} Abazajian, K., Adelman-McCarthy,
              J.~K., Ag{\"u}eros, M.~A., et al.\ 2004, \aj, 128, 502
 
-    \bibitem[Aihara et al.(2017)]{HSCDR1} Aihara, H., Armstrong, R., Bickerton, S.,
+    \bibitem[Aihara et al.(2017a)]{HSCDR1} Aihara, H., Armstrong, R., Bickerton, S.,
              et al.\ 2017, arXiv:1702.08449
+             
+    \bibitem[Aihara et al.(2017b)]{HSCOverview} Aihara, H., Armstrong, R., 
+             Bickerton, S., et al.\ 2017, arXiv:1702.08449 
 
     \bibitem[Antilogus et al.(2014)]{Antilogus2014} Antilogus, P., Astier, P.,
              Doherty, P., Guyonnet, A., \& Regnault, N.\ 2014, Journal of
