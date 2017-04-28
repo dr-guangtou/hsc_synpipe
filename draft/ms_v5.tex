@@ -1059,6 +1059,8 @@
     in the $g$- and $i$-bands. 
     This Figure shows the expected \s2n{} of stars as a function of magnitude in the 
     Wide layer.
+    The slopes and scatters of these relations are very similar to the ones using 
+    real stars on these two \tracts{}.
     
     Figure \ref{fig:star_sn} show that seeing conditions impact the \s2n{} of point
     sources at fixed input magnitude.
@@ -1470,31 +1472,49 @@
     are determined using band with higher \s2n{}.
 
 %% ------------------------------------------------------------------------------------ %%
-\subsubsection{Accuracy of the \cmodel{} color}
+\subsubsection{Precision and Accuracy of the \cmodel{} color}
 
-    Consistent and accurate five-band \cmodel{} colors from \hscpipe{} are crucial  for photometric redshift and spectral energy distribution (SED) estimates. They are also key, for example, to the selection of high-$z$ Lyman-break galaxies (LBG) .
+    Precise and unbiased five-band \cmodel{} colors from \hscpipe{} are crucial for
+    photometric redshift estimates and spectral energy distribution (SED) fitting 
+    results. 
+    They are also key, for example, to the selection of high-$z$ Lyman-break 
+    galaxies (LBG).
 
-    Fig \ref{fig:cmodel_color} evaluates the  accuracy of \forced{} $(g-i)$ and $(i-y)$ \cmodel{} colors using the same format as Figure Fig \ref{fig:psf_color}. We find that \hscpipe{} provides reliable \cmodel{} colors for synthetic 
+    Fig \ref{fig:cmodel_color} evaluates the precision and accuracy of \forced{} 
+    $(g-i)$ and $(i-y)$ \cmodel{} colors using the same format as 
+    Fig \ref{fig:psf_color}. 
+    We find that \hscpipe{} provides reliable \cmodel{} colors for synthetic 
     galaxies down to $i_{\mathrm{Input}}{\sim}25.0$ mag.
-    For $(g-i)$ colors, the average uncertainty at $i_{\mathrm{Input}}{\sim}21.0$ mag
-    is ${\sim}0.04$ mag.
-    The uncertainty increases to ${\sim}0.11$ mag at $i_{\mathrm{Input}}{\sim}25.0$ mag.
+    For $(g-i)$ colors, the statistical uncertainty at $i_{\mathrm{Input}}{\sim}21.0$ 
+    mag is ${\sim}0.04$ mag.
+    The statistical uncertainty increases to ${\sim}0.11$ mag at 
+    $i_{\mathrm{Input}}{\sim}25.0$ mag.
     The $(i-y)$ colors show similar results. 
 
     The performance of \forced{} \cmodel{} color does not depend on seeing and is 
     unbiased for the entire range of magnitudes and colors that we have tested.
     The only noticeable feature is that the $(i-y)$ color at $i_{\mathrm{Input}}>24.0$ 
     is slightly overestimated.
-    As mentioned above, this is not surprising given the shallower $y$ band imaging depth. Highly blended galaxies have larger uncertainties in their colors compared to isolated galaxies.  Highly blended galaxies on average show slightly bluer $(g-i)$ colors and redder  
+    As mentioned above, this is not surprising given the shallower $y$ band 
+    imaging depth. 
+    Highly blended galaxies are less precise in their \forced{} \cmodel{} colors 
+    compared to isolated galaxies.  
+    Highly blended galaxies on average show slightly bluer $(g-i)$ colors and redder  
     $(i-y)$ colors compared to their input colors.
 
-Figure  \ref{fig:cmodel_cdist} compare the input color--color distributions with the recovered color distributions. The general 2--D distributions are well recovered but the accuracy is not as good as for stars, especially in the $(i-z)$ vs. $(z-y)$ plane.
-    This is expected given the narrow dynamical ranges of these colors in the redder filters.
+    Fig \ref{fig:cmodel_cdist} compare the input color--color distributions with the
+    recovered ones. 
+    The general 2--D distributions are well recovered but the precision is not as 
+    good as for stars, especially in the $(i-z)$ vs. $(z-y)$ plane.
+    This is expected given the narrow dynamical ranges of these colors in the redder 
+    filters.
     The \forced{} \cmodel{} tends to slightly underestimate the $(g-r)$ and $(i-z)$
     colors at the very ``blue'' end, while overestimating the $(i-y)$ color at the very
     red end.
 
-We note that  our synthetic galaxies do not have color gradients.  In reality, color gradients will complicate the situation and hence the uncertainties shown here should be considered as lower limits.
+    We note that our synthetic galaxies do not have color gradients.  
+    In reality, color gradients will complicate the situation and hence the statistical 
+    uncertainties shown here should be considered as lower limits.
     
 %% ------------------------------------------------------------------------------------ %%
 
