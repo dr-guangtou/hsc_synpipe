@@ -1203,6 +1203,9 @@
 	PSF photometry for the $g$ and the $y$ band. 
 	The overall differences are small ($<0.01$ mag). 
 	At very faint end ($g_{\mathrm{Input}}>24.0$ mag and $g_{\mathrm{Input}}>23.5$
+	
+	The precisions and accuracies of \forced{} PSF magnitudes shown here are 
+	summarized in Table \ref{tab:mag}
 
 %% ------------------------------------------------------------------------------------ %%
 \subsubsection{Precision and Accuracy of PSF colors}
@@ -1247,6 +1250,9 @@
     shows a bias towards redder colors. 
     However, such biases appear to be less severe in terms of colors than in terms of
     PSF magnitudes.
+    
+	The statistical uncertainties of \forced{} PSF colors are summarized in 
+	Table \ref{tab:color}
     
 %% ------------------------------------------------------------------------------------ %%
 
@@ -1384,15 +1390,6 @@
     In our plots, we will highlight highly blended galaxies and will discuss 
     blending effects further in Section \ref{ssec:blendedness}.
 
-% ALEXIE: not necessary
-    %The majority of the galaxies in our synthetic galaxy samples are  are faint
-    %($i_{\mathrm{Input}} > 24.0$ mag) and small ($R_{\mathrm{e}} < 0.5$\asec).
-    %It is very challenging to obtain accurate photometry good photometric quality of these galaxies, which 
-    %is crucial to key scientific goals of the HSC survey.
-    %The selected samples do not provide enough bright or large galaxies to test.
-    %Therefore, we will supplement results for these galaxies using better samples
-    %in the future.
-
 %% ------------------------------------------------------------------------------------ %%
 \subsubsection{Input magnitude and the \s2n{} of \cmodel{} photometry}
 
@@ -1505,6 +1502,9 @@
     have systematically brighter \forced{} \cmodel{} magnitudes, which suggests that 
     the \forced{} \cmodel{} is more accurate in the $g$ band as the model parameters 
     are determined using band with higher \s2n{}.
+    
+	The precisions and accuracies of \forced{} \cmodel{} magnitudes shown here are 
+	summarized in Table \ref{tab:mag}
 
 %% ------------------------------------------------------------------------------------ %%
 \subsubsection{Precision and Accuracy of the \cmodel{} color}
@@ -1550,6 +1550,9 @@
     We note that our synthetic galaxies do not have color gradients.  
     In reality, color gradients will complicate the situation and hence the statistical 
     uncertainties shown here should be considered as lower limits.
+
+	The statistical uncertainties of \forced{} \cmodel{} colors are summarized in 
+	Table \ref{tab:color}
     
 %% ------------------------------------------------------------------------------------ %%
 
@@ -1569,7 +1572,10 @@
         for synthetic objects from \tracts{} with good and bad seeing conditions, 
         respectively.
         $\Delta\mathrm{R.A}=0$ and $\Delta\mathrm{Dec}=0$ are marked by dashed lines.     
-        \song{We find that xxxxxx}.
+        It shows that the initial astrometric calibration is already very accurate,  
+        and it also suggests that \hscpipe{} can find the centroids of stars and 
+        galaxies with precisions that are consistent with the astrometric calibration
+        uncertainty under moderately different seeing conditions.
         }
     \label{fig:astrometry}
 \end{figure*}
@@ -1662,16 +1668,21 @@
     astrometric solutions.
     Therefore, differences between the input and output coordinates from \synpipe{}
     can help us understand how much has the joint calibration step changes the 
-    astrometric calibration.
+    astrometric calibration, and how well can \hscpipe{} measure the central 
+    coordinates of stars and galaxies. 
 
     Fig \ref{fig:astrometry} shows the distribution of astrometric offsets for 
     synthetic stars and galaxies in \texttt{goodSeeing} and \texttt{badSeeing} 
     \tracts{}.
-    We find small systematic offsets at the ${\sim}10$--20 mas level.
-    The two \tracts{} show different systematic offsets.
-    In the same \tracts{}, synthetic stars and galaxies show similar offsets, but 
-    the scatter for galaxies is slightly larger than stars due to their extended 
-    nature. 
+    We find small systematic offsets at the ${\sim}10$--20 mas level, which is similar 
+    to the uncertainties of astrometric calibration quoted in \citet{HSCDR1}.
+    The two \tracts{} show different systematic offsets, while the synthetic stars and
+    galaxies show coherent offsets in the same \tract{}.
+    This shows that the initial astrometric calibration of HSC has very reasonable 
+    accuracy.  
+    It also suggests that \hscpipe{} can find the centroids of stars and galaxies 
+    with precisions that are consistent with the astrometric calibration uncertainty
+    under moderately different seeing conditions. 
     
 %% ------------------------------------------------------------------------------------ %%
 \subsection{Star-Galaxy Separation}
