@@ -1386,61 +1386,88 @@
     magnitude (see Fig \ref{fig:psf_s2n} for $i$-band).
 
 %% ------------------------------------------------------------------------------------ %%
-\subsubsection{Accuracy of the \cmodel{} magnitude}
+\subsubsection{Precision and Accuracy of the \cmodel{} magnitude}
 
-    Fig \ref{fig:cmodel_mag} shows the photometric uncertainties of the
-    \cmodel{} magnitudes in each band using the same format as Fig \ref{fig:psf_mag}.
+    Fig \ref{fig:cmodel_mag} shows the precision and accuracy of \cmodel{} magnitude 
+    in each band using the same format as Fig \ref{fig:psf_mag}.
 
     The overall performance of \cmodel{} photometry is reasonable down to 
     $i_{\mathrm{Input}}=25.2$ mag.
-    Compared to the PSF photometry for stars, the uncertainties of \cmodel{} show larger 
-    scatter for galaxies, which is expected given the diversity of galaxy shapes and sizes which adds complexity to the model-fitting process.
-    At the same time, Figure \ref{fig:cmodel_mag} shows that the \cmodel{} algorithm in \hscpipe{} provides unbiased and consistent 
-    photometry for galaxies across different bands and seeing conditions.
+    Compared to the PSF photometry for stars, the statistical uncertainties of \cmodel{} 
+    magnitudes are larger for galaxies, which is expected given the diversity of galaxy 
+    shapes and sizes that adds complexity to the model-fitting process.
+    At the same time, Figure \ref{fig:cmodel_mag} shows that the \cmodel{} algorithm in
+    \hscpipe{} provides unbiased and consistent photometry for galaxies across 
+    different bands and seeing conditions.
 
-The typical $i$-band flux accuracy for \forced{} \cmodel{} is ${\sim}7-9$\% in the good-seeing \tract{} at $i_{\mathrm{Input}}<24.0$ mag. This moderately degrades to ${\sim}11$\% at $25.0$ mag. The performance is similar in the $i$-band bad-seeing \tract{}. At $20.0 < i_{\mathrm{Input}} < 25.0$ mag, the median magnitude offset
-    between output and input values changes from \plus{}$0.041$ mag to
-    \minus{}$0.005$ mag, which suggests that \forced{} \cmodel{} photometry is
-    unbiased down to the very faint end.
+    The typical precision of $i$-band flux using \forced{} \cmodel{} is at 
+    ${\sim}7-9$\% level in the \texttt{goodSeeing} \tract{} at 
+    $i_{\mathrm{Input}}<24.0$ mag. 
+    It moderately degrades to ${\sim}11$\% at $25.0$ mag. 
+    The performance is similar in $i$ band for the \texttt{badSeeing} \tract{}. 
+    At $20.0 < i_{\mathrm{Input}} < 25.0$ mag, the accuracies of \forced{} \cmodel{}
+    magnitudes change from \plus{}$0.041$ mag to \minus{}$0.005$ mag, which suggest
+    that \forced{} \cmodel{} photometry is unbiased down to the very faint end.
     
     It is worth noting that the flux uncertainty from \synpipe{} are significantly 
     larger than the flux errors from \hscpipe{}, which does not take into account the 
-    systematic uncertainties involved in the modeling fitting process. Even though our synthetic galaxy sample is  comprised of objects with simple single-\ser{} models, 
-    \cmodel{} algorithm can only approximate them to a certain accuracy because of the background noise, deblending uncertainties, and priors imposed on model parameters. Given that real galaxies are more complex in structure, the uncertainties derived from our \synpipe{} tests should be treated as lower limits.
-
-\alexie{What does this say about the values of SN from CMODEL then? If the unceratinties are underestimated, then the SN is overestimated? By how much? WOrth commenting on here?}
+    systematic uncertainties involved in the modeling fitting process. 
+    Even though our synthetic galaxy sample is comprised of objects with simple 
+    single-\ser{} models, \cmodel{} algorithm can only approximate them to a certain 
+    accuracy because of the background noise, deblending uncertainties, and priors 
+    imposed on model parameters. 
+    Given that real galaxies are more complex in structure, our quoted uncertainties 
+    should be treated as lower limits.
 
 %% ------------------------------------------------------------------------------------ %%
 
-    The accuracy of \forced{} \cmodel{} photometry is consistent across all filters.
-    For the$g$, $r$, and $z$ bands, the photometric uncertainties are very similar to
+    The precision of \forced{} \cmodel{} photometry is consistent across all filters.
+    For the $g$, $r$, and $z$ bands, the statistical uncertainties are very similar to
     $i$-band results between $20.0$ and $25.0$ mag.
     The \forced{} \cmodel{} magnitudes are also unbiased for these three filters
     across the entire input magnitude range.
-    The uncertainties for the $y$ band are slightly worse, ranging from 9\% to 17\% in the
+    The precision for the $y$ band is slightly worse, ranging from 9\% to 17\% in the
     same magnitude bins.
     In addition, the \forced{} \cmodel{} tends to overestimate the total flux in 
-    the $y$ band at $>24.0$ mag. This bias in the $y$ band flux is equal to  \minus{}0.06 at $24.0$ mag to \minus{}0.22
-    mag at 25.0 mag. Worse seeing conditions and a  higher background noise level mean that it is more
+    the $y$ band at $>24.0$ mag. 
+    This bias in the $y$ band flux is equal to \minus{}0.06 at $24.0$ mag to 
+    \minus{}0.22 mag at 25.0 mag. 
+    Worse seeing conditions and a higher background noise level mean that it is more
     difficult to detect faint objects in the $y$ band.
     At $y_{\mathrm{Input}}{\sim}24.0$, the average \s2n{} for \cmodel{} is already
     around the detection threshold.
 
-Our synthetic galaxy sample is dominated by faint galaxies.  Hence, we have poor statistics for bright galaxies. However, we do find that at $i_{\mathrm{Input}}<20.0$, the \forced{} \cmodel{} photometry starts to systematically underestimate total fluxes. Based on external comparisons, the behavior of \cmodel{} for bright galaxies may 
-    depend on galaxy types (e.g., \citealt{HSCDR1}).  Also, at bright magnitudes, another known issue is that the current \hscpipe{} (e.g., \hscpipe{} over-deblends around bright 
-    objects. Inappropriately weight priors in \cmodel{}) may also lead to poorer photometric quality for bright galaxies.  Finally, at the imaging depth of HSC ($>29.0$\sb{} in the Wide Layer $i$ band),  \cmodel{} may simply not be a good choice for modeling bright 
-    galaxies (e.g., for massive elliptical galaxies; see Huang\etal in prep.~for 
-    more details).
+    Our synthetic galaxy sample is dominated by faint galaxies 
+    ($i_{\mathrm{Input}} > 24.0$ mag) that are crucial to key scientific goals of the 
+    HSC survey.
+    But it also means poor statistics for bright galaxies. 
+    We do find that at $i_{\mathrm{Input}}<20.0$, the \forced{} \cmodel{} photometry 
+    starts to systematically underestimate total fluxes. 
+    Based on external comparisons, the behavior of \cmodel{} for bright galaxies may 
+    depend on galaxy types (e.g., \citealt{HSCDR1}).  
+    Also, at bright end, another known issue is that the current \hscpipe{}
+    over-deblends around bright objects. 
+    Inappropriately weight priors in \cmodel{} also leads to poorer photometric 
+    quality for bright galaxies.  
+    Finally, at the imaging depth of HSC ($>29.0$\sb{} in the Wide Layer $i$ band),  
+    \cmodel{} may simply not be a good choice for modeling bright galaxies 
+    (e.g., massive elliptical galaxies; see Huang\etal in prep.~for more details).
 
-We also find that highly blended galaxies tend to have systematically underestimated total 
-    fluxes (with an average offset ${\sim}0.1$ mag) and larger photometric uncertainties in all five bands. However,  the contrast between relatively isolated and highly blended galaxies
-    in photometric performance is not as stark as for synthetic
-    stars (Fig \ref{fig:psf_mag}).
+    We also find that highly blended galaxies tend to have systematically 
+    underestimated total fluxes (with an average offset ${\sim}0.1$ mag) and 
+    higher statistical uncertainties in all five bands. 
+    However, the contrast between relatively isolated and highly blended galaxies
+    in photometric performance is not as stark as for synthetic stars 
+    (Fig \ref{fig:psf_mag}).
 
     We also test the \unforced{} \cmodel{} photometry in all five bands, and the
-    results suggest similar accuracies.
-    
-    Fig \ref{fig:cmodel_diff} compared the difference between  \forced{} and \unforced{} \cmodel{} in $g$ and $y$.  We find that  \forced{} and \unforced{} \cmodel{} shows similar trends.  The main  noticeable trend is that galaxies brighter than $24.0$ mag in $g$ band, have systematically brighter \forced{} \cmodel{} magnitudes. This suggests that the \forced{} \cmodel{} is more accurate in the $g$ band.
+    results suggest similar precision.
+    Fig \ref{fig:cmodel_diff} compares the difference between \forced{} and \unforced{} 
+    \cmodel{} in $g$ and $y$ bands.  
+    The main noticeable trend is that galaxies brighter than $24.0$ mag in the $g$ band 
+    have systematically brighter \forced{} \cmodel{} magnitudes, which suggests that 
+    the \forced{} \cmodel{} is more accurate in the $g$ band as the model parameters 
+    are determined using band with higher \s2n{}.
 
 %% ------------------------------------------------------------------------------------ %%
 \subsubsection{Accuracy of the \cmodel{} color}
