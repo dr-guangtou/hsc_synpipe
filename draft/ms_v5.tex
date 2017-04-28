@@ -901,8 +901,8 @@
     \end{center}
     \caption{
         Relation between input magnitudes (\textbf{left}: $i$-band; \textbf{right}:
-        $g$-band) of synthetic stars and the $\log (S/N)$ measured by \hscpipe{} PSF
-        photometry.
+        $g$-band) of synthetic stars and the $\log (\mathrm{S}/\mathrm{N})$ measured 
+        by \hscpipe{} PSF photometry.
         Hexagonal binned density plots and contours show the distributions for
         stars in both the good- and bad-seeing \tracts{}. 
         Highly blended stars are highlighted using scatter plots.
@@ -931,7 +931,7 @@
         magnitude difference.
         Hexagonal binned density plots and contours are for the synthetic galaxies 
         from good and bad seeing \tracts{}.
-        Highly blended objects are highlighted using scattered plots.
+        Highly blended objects are highlighted using scattered points.
         The long-dashed lines mark zero magnitude difference, while the pairs of
         dashed lines outline the running-median of PSF magnitude errors
         (including the uncertainties in aperture correction).
@@ -951,7 +951,7 @@
     \end{center}
     \caption{
         The magnitude differences between the \unforced{} and \forced{}
-        PSF photometry for synthetic stars in $g$- (\textbf{left} and $y$-band
+        PSF photometry for synthetic stars in $g$ (\textbf{left}) and $y$ band
         (\textbf{right}).
         The lines and contours legend is identical to the plots in Fig \ref{fig:psf_mag}.
         }
@@ -963,7 +963,7 @@
 %% Fig: Accuracies of the PSF color
 \begin{figure*}
     \begin{center}
-        \includegraphics[width=\textwidth]{fig/synpipe_psf_color}
+        \includegraphics[width=15cm]{fig/synpipe_psf_color}
     \end{center}
     \caption{
         Accuracy of the color measurements for synthetic stars via the differences
@@ -1110,10 +1110,10 @@
     However, at fainter magnitudes, external comparisons become difficult due to the 
     lack of imaging matched to HSC depths.
     The results from \synpipe{} hence provide useful evaluations of the precision of 
-    the HSC photometry down to our detection limit, though, strictly speaking, the 
+    the HSC photometry down to our detection limit\footnote{Strictly speaking, the 
     precision reported here should be considered as upper limits because 
     \synpipe{} currently does not consider the systematic uncertainties in PSF 
-    modeling.
+    modeling. But this effect should be subdominant.}
 
     Figure \ref{fig:psf_mag} also shows that the precision of the PSF photometry is 
     not filter dependent. 
@@ -1158,11 +1158,14 @@
 	To measure the \forced{} PSF photometry, \hscpipe{} fixes the centroid of the PSF 
 	model across all five bands. 
 	A difference between \forced{} and \unforced{} PSF magnitudes would therefore be 
-	an indication of photometric uncertainties arising from  inaccurate astrometric 
-	calibrations and PSF modeling across different bands. 
+	an indication of photometric uncertainties arising from inaccurate astrometric 
+	calibrations and PSF modeling across different bands\footnote{On average, the 
+	centroids are more accurate in \forced{} photometry as they are defined using 
+	the band with higher \s2n{}}. 
 	Figure \ref{fig:psf_diff} shows the difference between \forced{} and \unforced{} 
 	PSF photometry for the $g$ and the $y$ band. 
-	The overall differences are small ($<0.01$ mag) .
+	The overall differences are small ($<0.01$ mag). 
+	At very faint end ($g_{\mathrm{Input}}>24.0$ mag and $g_{\mathrm{Input}}>23.5$
 
 %% ------------------------------------------------------------------------------------ %%
 \subsubsection{Precision and Accuracy of PSF colors}
@@ -1173,20 +1176,40 @@
     (e.g., study of the Milky Way structure, selection of unique stellar objects or
     high-redshift quasars, and accurate star--galaxy separation).
 
-    In Fig \ref{fig:psf_color}, we evaluate the accuracy of the \forced{} $(g-i)$
-    and $(i-y)$ PSF colors by comparing the error in color measurements with the input magnitudes colors. Figure  \ref{fig:psf_color} shows that \hscpipe{} provides accurate and unbiased PSF color
-    estimates for synthetic stars with realistic color distributions down to very 
-    faint magnitudes. The average uncertainty for $(g-i)$ is  ${\sim}0.025$ mag for $i_{\mathrm{Input}}{\sim}19.0$. This uncertainty increases to ${\sim}0.11$ mag at
-    $i_{\mathrm{Input}}{\sim}24.0$ mag.  The $(i-y)$ color displays similar uncertainties. Figure \ref{fig:psf_color} also shows that the accuracy of the PSF colors do not depend on the input colors of the synthetic stars or the seeing conditions. For instance, the accuracy of $(g-i)$ for the bad-seeing \tract{} is only
-    slightly worse in the very faint end (${\sim}0.14$ mag at
-    $i_{\mathrm{Input}}{\sim}24.0$ mag) compared to the 
-    good-seeing \tract{}.
+    In Fig \ref{fig:psf_color}, we evaluate the precision and accuracy of the 
+    \forced{} $(g-i)$ and $(i-y)$ PSF colors by comparing the differences between input 
+    and output colors ($\Delta \mathrm{Color}$) with both the input magnitudes and 
+    colors. 
+    Figure \ref{fig:psf_color} shows that \hscpipe{} provides precise and accurate PSF 
+    colors for synthetic stars with realistic color distributions down to very 
+    faint magnitudes. 
+    The average precision for $(g-i)$ is ${\sim}0.025$ mag at 
+    $i_{\mathrm{Input}}{\sim}19.0$. 
+    The scatter increases to ${\sim}0.11$ mag at $i_{\mathrm{Input}}{\sim}24.0$ mag.  
+    The $(i-y)$ color displays similar precision. 
+    The \forced{} PSF color measurements are not biased through the entire ranges of 
+    input magnitudes and colors.
+    
+    Figure \ref{fig:psf_color} shows that the precision of PSF colors do not depend 
+    the seeing conditions. 
+    For instance, the precision of $(g-i)$ for the \texttt{badSeeing} \tract{} is 
+    only slightly worse at the very faint end (${\sim}0.14$ mag at
+    $i_{\mathrm{Input}}{\sim}24.0$ mag) compared to the \texttt{goodSeeing} \tract{}.
 
-Figure \ref{fig:psf_cdist} displays the uncertainties in PSF colors  by comparing the color distributions of the input synthetic star sample to the recovered color distributions. Using four different colors and two color--color planes, we show that the 
+    Figure \ref{fig:psf_cdist} displays the precision of PSF colors by comparing the 
+    color distributions of the input sample to the recovered color distributions. 
+    Using four different colors and two color--color planes, we show that the 
     \forced{} PSF colors accurately recover the distributions of all four colors 
     and the color-color distributions.
 
-    As for highly blended stars, Fig \ref{fig:psf_color} also shows that highly blended stars have larger uncertainties in their colors compared to isolated stars. At fixed input magnitude, the  uncertainty in $(g-i)$ is ${\sim}0.1$ mag larger for highly blened stars, Also, for blended stars, $(g-i)$ shows a bias towards bluer colors, while $(i-y)$ shows a bias towards redder colors. However, such biases appear to be less severe in terms of colors than in terms of magnitudes.
+    As for highly blended stars, Fig \ref{fig:psf_color} also shows that highly blended 
+    stars have worse precision and accuracy in their colors compared to isolated stars. 
+    At fixed input magnitude, the precision in $(g-i)$ is ${\sim}0.1$ mag worse for 
+    highly blended stars.  
+    Also, for blended stars, $(g-i)$ shows a bias towards bluer colors, while $(i-y)$ 
+    shows a bias towards redder colors. 
+    However, such biases appear to be less severe in terms of colors than in terms of
+    PSF magnitudes.
     
 %% ------------------------------------------------------------------------------------ %%
 
@@ -1198,7 +1221,9 @@ Figure \ref{fig:psf_cdist} displays the uncertainties in PSF colors  by comparin
     \end{center}
     \caption{
         Relation between input magnitudes (\textbf{left}: $i$-band; \textbf{right}:
-        $g$-band) of synthetic galaxies $log(S/N)$ as measured by \hscpipe{} \cmodel{} photometry. Lines and contours are similar to Fig \ref{fig:star_sn}
+        $g$-band) of synthetic galaxies $\log (\mathrm{S}/\mathrm{N})$ as measured 
+        by \hscpipe{} \cmodel{} photometry. 
+        Lines and contours are similar to Fig \ref{fig:star_sn}
         }
     \label{fig:cmodel_sn}
 \end{figure*}
@@ -1211,7 +1236,7 @@ Figure \ref{fig:psf_cdist} displays the uncertainties in PSF colors  by comparin
         \includegraphics[width=16cm]{fig/synpipe_galaxy_mag}
     \end{center}
     \caption{
-        Accuracies of the \texttt{hscpipe} \cmodel{} photometry for synthetic
+        Accuracies of the \hscpipe{} \cmodel{} photometry for synthetic
         galaxies measured by the difference between input and output \forced{}
         \cmodel{} magnitudes.
         Plots [a, b, c, d, e] show the results for [$g$, $r$, $i$, $z$, $y$]-bands, 
@@ -1230,9 +1255,10 @@ Figure \ref{fig:psf_cdist} displays the uncertainties in PSF colors  by comparin
     \end{center}
     \caption{
         The magnitude differences between the \unforced{} and \forced{}
-        \cmodel{} photometry for synthetic galaxies in $g$- (\textbf{left} and
-        $y$-band (\textbf{right}).
-        The lines and contours legend is identical to the plots in Fig \ref{fig:psf_diff}.
+        \cmodel{} photometry for synthetic galaxies in $g$ (\textbf{left}) and
+        $y$ band (\textbf{right}).
+        The lines and contours legend is identical to the plots in Fig 
+        \ref{fig:psf_diff}.
         }
     \label{fig:cmodel_diff}
 \end{figure*}
@@ -1280,13 +1306,19 @@ Figure \ref{fig:psf_cdist} displays the uncertainties in PSF colors  by comparin
 
     For galaxies, \hscpipe{} uses a \cmodel{} photometry algorithm that is an improved 
     version of the SDSS \cmodel{} photometry.
-    For more details, please see Bosch\etal (in prep.).
-    In short, \cmodel{} tries fits object using both a de~Vaucouleurs and an exponential profile.  The \cmodel{} algorithm then fits a linear combination of these two best fit models. Despite the limitations of the \cmodel{} method (e.g., sensitivity to the background
-    subtraction and to deblending failures), it can deliver robust PSF-corrected fluxes and
-    colors for galaxies.
+    For details about the \cmodel{} algorithm, please see description in Section 
+    \ref{ssec:hscpipe} and Bosch\etal (in prep.).
+    Despite the limitations of the \cmodel{} method (e.g., sensitivity to the 
+    background subtraction and to deblending failures), it can deliver robust 
+    PSF-corrected fluxes and colors for galaxies.
 
-    We randomly inject ${\sim}40,000$ synthetic galaxies into each
-    \tract{}; and, using an approach similar to that for synthetic stars, we select 
+    Typical \tract{} in the Wide layer contains ${\sim}400000$ extended objects with 
+    $i_{\mathrm{CModel}} < 25.5$ mag. 
+        We randomly inject ${\sim}40,000$ synthetic galaxies into each \tract{}. 
+
+    so we inject additional ${\sim}10$\% extended 
+    objects to the images. 
+    Using an approach similar to that for synthetic stars, we select 
     galaxy samples for photometric comparisons. Synthetic galaxies that are located within 2 pixels 
     of the centroids of real objects are removed from the sample  (these represent ${\sim}3$--$7$\% of the input sample). After imposing quality cuts on the  recovered synthetic galaxy sample (see Appendix \ref{app:qc} for details), we have ${\sim}30,000$
     galaxies in each \tract{}.
