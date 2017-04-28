@@ -171,13 +171,13 @@
     In this paper, we explain the design and implementation of \synpipe{} and generate 
     a sample of synthetic galaxies to examine the photometric performance of the HSC
     pipeline. 
-    For stars, we achieve 1\% photometry at $i{\sim}18.0$ mag and 7\% photometry at
-    $i{\sim}25.5$ in the $i$-band (corresponding to statistical accuracies of 
-    ${\sim}0.01$ and ${\sim}0.06$ mag respectively).  
+    For stars, we achieve 1\% photometric precision at $i{\sim}18.0$ mag and 7\%
+    precision at $i{\sim}25.5$ in the $i$-band (corresponding to statistical scatters 
+    of ${\sim}0.01$ and ${\sim}0.06$ mag respectively).  
     For synthetic galaxies with single-\ser{} profiles, forced \cmodel{} photometry
-    achieves 7\% photometry at $i{\sim}20.0$ mag and 11\% photometry at $i{\sim}25.0$ 
-    in the $i$-band (corresponding to statistical accuracies of ${\sim}0.14$ and 
-    ${\sim}0.20$ mag respectively). 
+    achieves 7\% photometric precision at $i{\sim}20.0$ mag and 11\% precision at 
+    $i{\sim}25.0$ in the $i$-band (corresponding to statistical scatters of 
+    ${\sim}0.14$ and ${\sim}0.20$ mag respectively). 
     We show that both \forced{} PSF and \cmodel{} photometry yield unbiased color 
     estimates that are robust to seeing conditions. 
     We identify several caveats that apply to the version of HSC pipeline used for 
@@ -901,7 +901,7 @@
     \end{center}
     \caption{
         Relation between input magnitudes (\textbf{left}: $i$-band; \textbf{right}:
-        $g$-band) of synthetic stars and the $log(S/N)$ measured by \hscpipe{} PSF
+        $g$-band) of synthetic stars and the $\log (S/N)$ measured by \hscpipe{} PSF
         photometry.
         Hexagonal binned density plots and contours show the distributions for
         stars in both the good- and bad-seeing \tracts{}. 
@@ -1012,6 +1012,8 @@
     For more details please see Bosch\etal (in prep.).
 
     We randomly inject ${\sim}100,000$ stars into each \tract{} in all five bands. 
+    Typically, there are ${\sim}80000$ stars with $i_{\mathrm{PSF}}<26.0$ in one HSC 
+    \tract{}. 
     Approximately ${\sim}3$--$4$\% of the stars are located within 2 pixels of the 
     centroids of real objects; we remove those stars from the sample to avoid confusion 
     in the comparisons.
@@ -1030,7 +1032,7 @@
 
     In the following comparisons, we show the results from the
     \texttt{goodSeeing} and \texttt{badSeeing} \tracts{} separately because it
-    is important to understand how the seeing condition affects photometric accuracy 
+    is important to understand how the seeing conditions affects photometric accuracy 
     as well as to test whether \hscpipe{} can deliver unbiased photometry under 
     different seeing conditions.
     
@@ -1068,16 +1070,24 @@
     At \s2n{}$=5$, HSC Wide can detect stars as faint as ${\sim}26.5$ mag in both $g$ 
     and $i$ bands, which is consistent with the values found in \citet{HSCDR1} for 
     average seeing conditions.
-    At the same time, it is worth reminding HSC data users that the detection
-    limit will show spatial variations due to the seeing conditions.
+    However, it is worth reminding HSC data users that the detection
+    limit will exhibit spatial variations due to the seeing conditions.
 
 %% ------------------------------------------------------------------------------------ %%
-\subsubsection{Accuracy of PSF magnitudes}
+\subsubsection{Precision and Accuracy of PSF magnitudes}
 
-    We now investigate the accuracy of the PSF magnitude in each of the five bands
+    We now investigate the performance of the PSF photometry in each of the five bands
     independently. 
     Fig \ref{fig:psf_mag} shows the difference between the input magnitude versus the
-    \hscpipe{} \forced{} PSF magnitude as a function of input magnitude. 
+    \hscpipe{} \forced{} PSF magnitude ($\Delta \mathrm{mag}_{\mathrm{PSF}}$) as a 
+    function of input magnitude. 
+    We separate these stars into seven input magnitude bins.  
+    In each bin, we characterize the \textbf{precision} of the PSF magnitude using 
+    the standard deviation of the $\Delta \mathrm{mag}_{\mathrm{PSF}}$ distribution.
+    Meanwhile, we characterize the \textbf{accuracy} of the PSF magnitude via the 
+    mean magnitude difference in each bin. 
+    This also informs us whether the PSF photometry is biased at certain input 
+    magnitude.
     
     The overall performance of the \hscpipe{} \forced{} PSF magnitude is excellent. 
     The median $i$-band magnitude difference for the \tract{} with 0.45\asec{} seeing 
