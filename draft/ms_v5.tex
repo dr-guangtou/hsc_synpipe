@@ -1082,57 +1082,62 @@
     \hscpipe{} \forced{} PSF magnitude ($\Delta \mathrm{mag}_{\mathrm{PSF}}$) as a 
     function of input magnitude. 
     We separate these stars into seven input magnitude bins.  
-    In each bin, we characterize the \textbf{precision} of the PSF magnitude using 
-    the standard deviation of the $\Delta \mathrm{mag}_{\mathrm{PSF}}$ distribution.
-    Meanwhile, we characterize the \textbf{accuracy} of the PSF magnitude via the 
-    mean magnitude difference in each bin. 
+    In each bin, we characterize the statistical \textbf{precision} of the PSF 
+    magnitude using the standard deviation of the $\Delta \mathrm{mag}_{\mathrm{PSF}}$ 
+    distribution.
+    Meanwhile, we characterize the statistical \textbf{accuracy} of the PSF magnitude 
+    via the mean magnitude difference in each bin. 
     This also informs us whether the PSF photometry is biased at certain input 
     magnitude.
     
     The overall performance of the \hscpipe{} \forced{} PSF magnitude is excellent. 
-    The median $i$-band magnitude difference for the \tract{} with 0.45\asec{} seeing 
+    The median $i$-band PSf magnitude precision for the \texttt{goodSeeing} \tract{} 
     is ${\sim}0.015$ mag (${\sim}1.5$\%) at $i_{\mathrm{Input}}{\sim}19.0$ mag. 
-    At $i_{\mathrm{Input}}{\sim}24.0$ mag, the average accuracy of the PSF magnitude is 
-    ${\sim}3$\% level (${\sim}0.036$ mag average difference).
-    At $i_{\mathrm{Input}}{\sim}25.2$ mag, the average accuracy decreases to
+    At $i_{\mathrm{Input}}{\sim}24.0$ mag, the precision of the PSF magnitude is 
+    at ${\sim}3$\% level (${\sim}0.036$ mag average difference).
+    At $i_{\mathrm{Input}}{\sim}25.2$ mag, the precision decreases to
     ${\sim}7$\% with an average ${\sim}0.072$ mag difference.
     
-    The accuracy of the PSF photometry for the bad-seeing \tract{} shows a similar 
+    The precision of PSF magnitude for the \texttt{badSeeing} \tract{} shows similar 
     performance at $i_{\mathrm{Input}}<23.5$ mag. 
-    At fainter magnitudes, the accuracy slightly degrades. 
-    The bad-seeing \tract{} displays a performance of ${\sim}5$\% accuracy at
-    $i_{\mathrm{Input}}{\sim}24.0$ mag and ${\sim}11$\% accuracy at
+    At fainter magnitudes, the precision slightly degrades. 
+    The \texttt{badSeeing} \tract{} has ${\sim}5$\% precision at
+    $i_{\mathrm{Input}}{\sim}24.0$ mag and ${\sim}11$\% precision at
     $i_{\mathrm{Input}}{\sim}25.2$ mag.
-    \citet{HSCDR1} evaluates the accuracy of PSF photometry via external comparisons
-    with the PS1, PV2, and SDSS data at $i<21$ mag, and finds a 1-2\% level accuracy,
+    \citet{HSCDR1} evaluates the precision of PSF magnitude via external comparisons
+    with the PS1, PV2, and SDSS data at $i<21$ mag, and finds it at 1-2\% level,
     which is consistent with our results. 
     However, at fainter magnitudes, external comparisons become difficult due to the 
     lack of imaging matched to HSC depths.
-    The results from \synpipe{} hence provide useful evaluations of the accuracy of 
-    the HSC photometry down to our detection limit\footnote{Strictly speaking, the 
-    uncertainties reported here should be considered as the lower limit because 
-    \synpipe{} currently does not consider PSF modeling uncertainties}.
+    The results from \synpipe{} hence provide useful evaluations of the precision of 
+    the HSC photometry down to our detection limit, though, strictly speaking, the 
+    precision reported here should be considered as upper limits because 
+    \synpipe{} currently does not consider the systematic uncertainties in PSF 
+    modeling.
 
-    Figure \ref{fig:psf_mag} also shows that the accuracy of the PSF photometry is 
+    Figure \ref{fig:psf_mag} also shows that the precision of the PSF photometry is 
     not filter dependent. 
-    The accuracy of forced PSF magnitudes in $r$ and $z$ is similar to the $i$-band. 
-    For $r$ band we find 1.5-4.0\% at $r_{\mathrm{Input}} < 24.0$ mag and ${\sim}8$\% 
-    at $r_{\mathrm{Input}}{\sim}25.2$. 
-    For $z$-band we find 1.0-5.0\% at $z_{\mathrm{Input}} < 24.0$ mag and ${\sim}10$\% 
-    down to $z_{\mathrm{Input}}{\sim}25.2$ mag).
+    The precision of \forced{} PSF magnitudes in $r$ and $z$ is similar to the results
+    for $i$-band. 
+    For $r$ band we find 1.5-4.0\% precision at $r_{\mathrm{Input}} < 24.0$ mag and 
+    ${\sim}8$\% precision at $r_{\mathrm{Input}}{\sim}25.2$. 
+    For $z$-band we find 1.0-5.0\% precision at $z_{\mathrm{Input}} < 24.0$ mag and 
+    ${\sim}10$\% precision down to $z_{\mathrm{Input}}{\sim}25.2$ mag).
     
-    The accuracy in the $g$ and $y$ bands becomes slightly worse at the very faint end. 
-    For $g$ band, the accuracy is 1.5-7.0\% at $g_{\mathrm{Input}} < 24.0$ mag and is
+    The precision for $g$ and $y$ bands becomes slightly worse at the very faint end. 
+    For $g$ band, the precision is 1.5-7.0\% at $g_{\mathrm{Input}} < 24.0$ mag and is
     ${\sim}13$\% down to $25.2$ mag.
-    For $y$ band, we find 1.5-5.0\% accuracy at $y_{\mathrm{Input}} < 23.0$ mag and
+    For $y$ band, we find 1.5-5.0\% precision at $y_{\mathrm{Input}} < 23.0$ mag and
     ${\sim}12$\% down to $24.0$ mag. 
     These differences are however consistent with the differences in the seeing 
     conditions between the filters 
+    
+%% ------------------------------------------------------------------------------------ %%
 
-    The PSF photometry for relatively isolated stars is unbiased in the $i$ and $z$ 
-    bands down to faint magnitudes. 
-    For the $g$, $r$, and $y$ bands, we find small offsets between the input and 
-    recovered magnitude. 
+    The PSF photometry for relatively isolated stars is accurate and unbiased in $i$ 
+    and $z$ bands down to faint magnitudes. 
+    For the $g$, $r$, and $y$ bands, we find mean $\Delta \mathrm{mag}_{\mathrm{PSF}}$
+    that are close to the PSF flux errors estimated by \hscpipe{}.  
     \hscpipe{} tends to underestimate the fluxes of stars in these bands by 
     ${\sim}0.01-0.02$ mag. 
     The exact cause of this offset is unclear but the levels of bias is quite small 
@@ -1141,7 +1146,8 @@
 	However, Figure \ref{fig:psf_mag} also shows that blending has a strong impact on 
 	photometry.  
 	On average, \hscpipe{} systematically underestimates the total fluxes of stars 
-	that are subject to blending effects by $0.05$--$0.10$ mag at a fixed input magnitude.
+	that are subject to blending effects by $0.05$--$0.10$ mag at a fixed input 
+	magnitude.
     We see the same effect in all bands, and the impact of blendedness becomes
     increasingly significant at fainter magnitudes.
     It is important to bear this caveat in mind when using PSF photometry for point
@@ -1159,7 +1165,7 @@
 	The overall differences are small ($<0.01$ mag) .
 
 %% ------------------------------------------------------------------------------------ %%
-\subsubsection{Accuracy of PSF colors}
+\subsubsection{Precision and Accuracy of PSF colors}
 
     PSF photometry is the most appropriate way to measure colors for point
     sources; therefore, the accuracy of the PSF color estimates is important to many 
