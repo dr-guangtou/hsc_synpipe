@@ -939,7 +939,7 @@
         $g$-band) of synthetic stars and the $\log (\mathrm{S}/\mathrm{N})$ measured 
         by \hscpipe{} PSF photometry.
         Hexagonal binned density plots and contours show the distributions for
-        stars in both the good- and bad-seeing \tracts{}. 
+        stars in both the \texttt{goodSeeing} and \texttt{badSeeing} \tracts{}. 
         Highly blended stars are highlighted using scatter plots.
         The gray dashed line marks $S/N = 5$ which is the detection threshold used 
         by \hscpipe{}.  
@@ -965,13 +965,14 @@
         The left panel in each plot shows the relation between input magnitude and
         magnitude difference.
         Hexagonal binned density plots and contours are for the synthetic galaxies 
-        from good and bad seeing \tracts{}.
+        from \texttt{goodSeeing} and \texttt{badSeeing} \tracts{}.
         Highly blended objects are highlighted using scattered points.
         The long-dashed lines mark zero magnitude difference, while the pairs of
         dashed lines outline the running-median of PSF magnitude errors
         (including the uncertainties in aperture correction).
         The right panel in each plot shows the distributions of the magnitude 
-        differences for objects in good (filled) and bad (solid line) seeing \tracts{}.
+        differences for objects in \texttt{goodSeeing} (filled) and \texttt{badSeeing}
+        (solid line) \tracts{}.
         The dashed lines identify the distribution of highly blended objects.
         }
     \label{fig:psf_mag}
@@ -1082,7 +1083,8 @@
     complete overlap with other objects. 
     Here we use $b>0.05$ to define highly blended stars (${\sim}4$--$9$\% are blended
     according to this criterion).
-    The fraction of highly blended stars slightly increases in the bad seeing \tract{}. 
+    The fraction of highly blended stars slightly increases in the \texttt{badSeeing} 
+    \tract{}. 
     The impact of blendedness will be discussed more in Section \ref{ssec:blendedness}.
 
 %% ------------------------------------------------------------------------------------ %%
@@ -1099,8 +1101,8 @@
     
     Fig \ref{fig:star_sn} show that seeing conditions impact the \s2n{} of point
     sources at fixed input magnitude.
-    In $i$-band, the bad-seeing (0.7\asec{}) \tract{} shows systematically
-    lower \s2n{} than the good-seeing (0.5\asec{}) \tract{}.
+    In $i$-band, the \texttt{badSeeing} (0.70\asec{}) \tract{} shows systematically
+    lower \s2n{} than the \texttt{goodSeeing} (0.45\asec{}) \tract{}.
     The \s2n{} is similar for the two $g$-band \tracts{} because they share similar 
     seeing conditions. 
 
@@ -1205,7 +1207,7 @@
 	At very faint end ($g_{\mathrm{Input}}>24.0$ mag and $g_{\mathrm{Input}}>23.5$
 	
 	The precisions and accuracies of \forced{} PSF magnitudes shown here are 
-	summarized in Table \ref{tab:mag}
+	summarized in Table \ref{tab:psfmag}
 
 %% ------------------------------------------------------------------------------------ %%
 \subsubsection{Precision and Accuracy of PSF colors}
@@ -1252,7 +1254,7 @@
     PSF magnitudes.
     
 	The statistical uncertainties of \forced{} PSF colors are summarized in 
-	Table \ref{tab:color}
+	Table \ref{tab:psfcolor}
     
 %% ------------------------------------------------------------------------------------ %%
 
@@ -1373,9 +1375,9 @@
     each \tract{}.
     
     We find that \hscpipe{} mis-classifies lower than $1$\% of these objects as 
-    point sources in the good-seeing \tract{}.
+    point sources in the \texttt{goodSeeing} \tract{}.
     But the fraction of misclassified galaxies increases to $4$\% in the
-    bad-seeing \tract{}. 
+    \texttt{goodSeeing} \tract{}. 
     We will discuss star/galaxy separation further in Section \ref{ssec:sg}.
 
     We define a sample of highly blended galaxies by imposing the cut 
@@ -1504,7 +1506,7 @@
     are determined using band with higher \s2n{}.
     
 	The precisions and accuracies of \forced{} \cmodel{} magnitudes shown here are 
-	summarized in Table \ref{tab:mag}
+	summarized in Table \ref{tab:cmodelmag}
 
 %% ------------------------------------------------------------------------------------ %%
 \subsubsection{Precision and Accuracy of the \cmodel{} color}
@@ -1552,7 +1554,7 @@
     uncertainties shown here should be considered as lower limits.
 
 	The statistical uncertainties of \forced{} \cmodel{} colors are summarized in 
-	Table \ref{tab:color}
+	Table \ref{tab:cmodelcolor}
     
 %% ------------------------------------------------------------------------------------ %%
 
@@ -1593,7 +1595,7 @@
         PSF and \cmodel{} photometry. 
         The plot on the \textbf{left} (a) corresponds to synthetic stars. 
         Hexagonal bins and filled histogram show distributions of correctly classified
-        synthetic stars in the good-seeing \tract{}.
+        synthetic stars in the \texttt{goodSeeing} \tract{}.
         The scatter plot (dashed-line histogram) and contour (solid-line histogram)
         show distributions of synthetic stars that are misclassified as extended
         objects in \tracts{} with bad and good seeing conditions, respectively.
@@ -1903,6 +1905,187 @@
 
 %% ------------------------------------------------------------------------------------ %%
 
+%% ------------------------------------------------------------------------------------ %%
+% Table 1 : Magnitudes for PSF
+\begin{table*}
+    \begin{center}
+    %% -------------------------------------------------------------------------------- %%
+    \begin{tabular}{| c | c | c | ccccccc |}
+    \hline
+    Filter &   Seeing    &  Statistics & \multicolumn{7}{|c|}{Input Magnitudes (mag)} \\
+    \cline{4-10}
+           & FWHM ($$\asec) &             & 19.0 & 20.0 & 21.0 & 22.0 & 23.0 & 24.0 & 25.0 \\
+    \hline
+    $g$ & 0.45 & Precision & 0.01 & 0.01 & 0.01 & 0.01 & 0.01 & 0.01 & 0.01 \\
+        &      & Accuracy  & 0.01 & 0.01 & 0.01 & 0.01 & 0.01 & 0.01 & 0.01 \\
+        \cline{3-10}
+        & 0.70 & Precision & 0.01 & 0.01 & 0.01 & 0.01 & 0.01 & 0.01 & 0.01 \\
+        &      & Accuracy  & 0.01 & 0.01 & 0.01 & 0.01 & 0.01 & 0.01 & 0.01 \\
+    \hline
+    $r$ & 0.45 & Precision & 0.01 & 0.01 & 0.01 & 0.01 & 0.01 & 0.01 & 0.01 \\
+        &      & Accuracy  & 0.01 & 0.01 & 0.01 & 0.01 & 0.01 & 0.01 & 0.01 \\
+        \cline{3-10}
+        & 0.70 & Precision & 0.01 & 0.01 & 0.01 & 0.01 & 0.01 & 0.01 & 0.01 \\
+        &      & Accuracy  & 0.01 & 0.01 & 0.01 & 0.01 & 0.01 & 0.01 & 0.01 \\    
+    \hline
+    $i$ & 0.45 & Precision & 0.01 & 0.01 & 0.01 & 0.01 & 0.01 & 0.01 & 0.01 \\
+        &      & Accuracy  & 0.01 & 0.01 & 0.01 & 0.01 & 0.01 & 0.01 & 0.01 \\
+        \cline{3-10}
+        & 0.70 & Precision & 0.01 & 0.01 & 0.01 & 0.01 & 0.01 & 0.01 & 0.01 \\
+        &      & Accuracy  & 0.01 & 0.01 & 0.01 & 0.01 & 0.01 & 0.01 & 0.01 \\    
+    \hline
+    $z$ & 0.45 & Precision & 0.01 & 0.01 & 0.01 & 0.01 & 0.01 & 0.01 & 0.01 \\
+        &      & Accuracy  & 0.01 & 0.01 & 0.01 & 0.01 & 0.01 & 0.01 & 0.01 \\
+        \cline{3-10}
+        & 0.70 & Precision & 0.01 & 0.01 & 0.01 & 0.01 & 0.01 & 0.01 & 0.01 \\
+        &      & Accuracy  & 0.01 & 0.01 & 0.01 & 0.01 & 0.01 & 0.01 & 0.01 \\    
+    \hline
+    $y$ & 0.45 & Precision & 0.01 & 0.01 & 0.01 & 0.01 & 0.01 & 0.01 & 0.01 \\
+        &      & Accuracy  & 0.01 & 0.01 & 0.01 & 0.01 & 0.01 & 0.01 & 0.01 \\
+        \cline{3-10}
+        & 0.70 & Precision & 0.01 & 0.01 & 0.01 & 0.01 & 0.01 & 0.01 & 0.01 \\
+        &      & Accuracy  & 0.01 & 0.01 & 0.01 & 0.01 & 0.01 & 0.01 & 0.01 \\    
+    \hline  
+    \end{tabular}
+    %% -------------------------------------------------------------------------------- %%
+    \end{center}
+    \caption{
+        \todo{Placeholder}
+        Summary of the precisions and accuracies of \forced{} PSF magnitudes in all 
+        five bands and in both \texttt{goodSeeing} and \texttt{badSeeing} \tracts{}.  
+    }
+        \label{tab:psfmag}
+\end{table*}
+%% ------------------------------------------------------------------------------------ %%
+
+
+%% ------------------------------------------------------------------------------------ %%
+% Table 2 : PSF Color
+\begin{table*}
+    \begin{center}
+    %% -------------------------------------------------------------------------------- %%
+    \begin{tabular}{| c | c | c | ccccccc |}
+    \hline
+    Filter &   Seeing       &  Statistics & \multicolumn{4}{|c|}{Input $i$ band Magnitudes (mag)} \\
+    \cline{4-10}
+           & FWHM ($$\asec) &             & 19.0 & 20.0 & 21.0 & 22.0 & 23.0 & 24.0 & 25.0 \\
+    \hline
+    $(g-i)$ & 0.45 & Precision & 0.01 & 0.01 & 0.01 & 0.01 & 0.01 & 0.01 & 0.01 \\
+            &      & Accuracy  & 0.01 & 0.01 & 0.01 & 0.01 & 0.01 & 0.01 & 0.01 \\
+            \cline{3-10}
+            & 0.70 & Precision & 0.01 & 0.01 & 0.01 & 0.01 & 0.01 & 0.01 & 0.01 \\
+            &      & Accuracy  & 0.01 & 0.01 & 0.01 & 0.01 & 0.01 & 0.01 & 0.01 \\
+    \hline
+    $(i-y)$ & 0.45 & Precision & 0.01 & 0.01 & 0.01 & 0.01 & 0.01 & 0.01 & 0.01 \\
+            &      & Accuracy  & 0.01 & 0.01 & 0.01 & 0.01 & 0.01 & 0.01 & 0.01 \\
+            \cline{3-10}
+            & 0.70 & Precision & 0.01 & 0.01 & 0.01 & 0.01 & 0.01 & 0.01 & 0.01 \\
+            &      & Accuracy  & 0.01 & 0.01 & 0.01 & 0.01 & 0.01 & 0.01 & 0.01 \\    
+    \hline  
+    \end{tabular}
+    %% -------------------------------------------------------------------------------- %%
+    \end{center}
+    \caption{
+        \todo{Placeholder}
+        Summary of the precisions and accuracies of \forced{} PSF colors in both 
+        \texttt{goodSeeing} and \texttt{badSeeing} \tracts{}.  
+        We show results for both $(g-i)$ and $(i-y)$ PSF colors.
+    }
+        \label{tab:psfcolor}
+\end{table*}
+%% ------------------------------------------------------------------------------------ %%
+
+
+%% ------------------------------------------------------------------------------------ %%
+% Table 3 : Magnitudes for cModel
+\begin{table*}
+    \begin{center}
+    %% -------------------------------------------------------------------------------- %%
+    \begin{tabular}{| c | c | c | ccccccc |}
+    \hline
+    Filter &   Seeing    &  Statistics & \multicolumn{7}{|c|}{Input Magnitudes (mag)} \\
+    \cline{4-10}
+           & FWHM ($$\asec) &             & 19.0 & 20.0 & 21.0 & 22.0 & 23.0 & 24.0 & 25.0 \\
+    \hline
+    $g$ & 0.45 & Precision & 0.01 & 0.01 & 0.01 & 0.01 & 0.01 & 0.01 & 0.01 \\
+        &      & Accuracy  & 0.01 & 0.01 & 0.01 & 0.01 & 0.01 & 0.01 & 0.01 \\
+        \cline{3-10}
+        & 0.70 & Precision & 0.01 & 0.01 & 0.01 & 0.01 & 0.01 & 0.01 & 0.01 \\
+        &      & Accuracy  & 0.01 & 0.01 & 0.01 & 0.01 & 0.01 & 0.01 & 0.01 \\
+    \hline
+    $r$ & 0.45 & Precision & 0.01 & 0.01 & 0.01 & 0.01 & 0.01 & 0.01 & 0.01 \\
+        &      & Accuracy  & 0.01 & 0.01 & 0.01 & 0.01 & 0.01 & 0.01 & 0.01 \\
+        \cline{3-10}
+        & 0.70 & Precision & 0.01 & 0.01 & 0.01 & 0.01 & 0.01 & 0.01 & 0.01 \\
+        &      & Accuracy  & 0.01 & 0.01 & 0.01 & 0.01 & 0.01 & 0.01 & 0.01 \\    
+    \hline
+    $i$ & 0.45 & Precision & 0.01 & 0.01 & 0.01 & 0.01 & 0.01 & 0.01 & 0.01 \\
+        &      & Accuracy  & 0.01 & 0.01 & 0.01 & 0.01 & 0.01 & 0.01 & 0.01 \\
+        \cline{3-10}
+        & 0.70 & Precision & 0.01 & 0.01 & 0.01 & 0.01 & 0.01 & 0.01 & 0.01 \\
+        &      & Accuracy  & 0.01 & 0.01 & 0.01 & 0.01 & 0.01 & 0.01 & 0.01 \\    
+    \hline
+    $z$ & 0.45 & Precision & 0.01 & 0.01 & 0.01 & 0.01 & 0.01 & 0.01 & 0.01 \\
+        &      & Accuracy  & 0.01 & 0.01 & 0.01 & 0.01 & 0.01 & 0.01 & 0.01 \\
+        \cline{3-10}
+        & 0.70 & Precision & 0.01 & 0.01 & 0.01 & 0.01 & 0.01 & 0.01 & 0.01 \\
+        &      & Accuracy  & 0.01 & 0.01 & 0.01 & 0.01 & 0.01 & 0.01 & 0.01 \\    
+    \hline
+    $y$ & 0.45 & Precision & 0.01 & 0.01 & 0.01 & 0.01 & 0.01 & 0.01 & 0.01 \\
+        &      & Accuracy  & 0.01 & 0.01 & 0.01 & 0.01 & 0.01 & 0.01 & 0.01 \\
+        \cline{3-10}
+        & 0.70 & Precision & 0.01 & 0.01 & 0.01 & 0.01 & 0.01 & 0.01 & 0.01 \\
+        &      & Accuracy  & 0.01 & 0.01 & 0.01 & 0.01 & 0.01 & 0.01 & 0.01 \\    
+    \hline  
+    \end{tabular}
+    %% -------------------------------------------------------------------------------- %%
+    \end{center}
+    \caption{
+        \todo{Placeholder}
+        Summary of the precisions and accuracies of \forced{} \cmodel{} magnitudes in 
+        all five bands and in both \texttt{goodSeeing} and \texttt{badSeeing} \tracts{}.  
+    }
+        \label{tab:psfmag}
+\end{table*}
+%% ------------------------------------------------------------------------------------ %%
+
+%% ------------------------------------------------------------------------------------ %%
+% Table 4 : CModel Color
+\begin{table*}
+    \begin{center}
+    %% -------------------------------------------------------------------------------- %%
+    \begin{tabular}{| c | c | c | ccccccc |}
+    \hline
+    Filter &   Seeing       &  Statistics & \multicolumn{4}{|c|}{Input $i$ band Magnitudes (mag)} \\
+    \cline{4-10}
+           & FWHM ($$\asec) &             & 19.0 & 20.0 & 21.0 & 22.0 & 23.0 & 24.0 & 25.0 \\
+    \hline
+    $(g-i)$ & 0.45 & Precision & 0.01 & 0.01 & 0.01 & 0.01 & 0.01 & 0.01 & 0.01 \\
+            &      & Accuracy  & 0.01 & 0.01 & 0.01 & 0.01 & 0.01 & 0.01 & 0.01 \\
+            \cline{3-10}
+            & 0.70 & Precision & 0.01 & 0.01 & 0.01 & 0.01 & 0.01 & 0.01 & 0.01 \\
+            &      & Accuracy  & 0.01 & 0.01 & 0.01 & 0.01 & 0.01 & 0.01 & 0.01 \\
+    \hline
+    $(i-y)$ & 0.45 & Precision & 0.01 & 0.01 & 0.01 & 0.01 & 0.01 & 0.01 & 0.01 \\
+            &      & Accuracy  & 0.01 & 0.01 & 0.01 & 0.01 & 0.01 & 0.01 & 0.01 \\
+            \cline{3-10}
+            & 0.70 & Precision & 0.01 & 0.01 & 0.01 & 0.01 & 0.01 & 0.01 & 0.01 \\
+            &      & Accuracy  & 0.01 & 0.01 & 0.01 & 0.01 & 0.01 & 0.01 & 0.01 \\    
+    \hline  
+    \end{tabular}
+    %% -------------------------------------------------------------------------------- %%
+    \end{center}
+    \caption{
+        \todo{Placeholder}
+        Summary of the precisions and accuracies of \forced{} \cmodel{} colors in both 
+        \texttt{goodSeeing} and \texttt{badSeeing} \tracts{}.  
+        We show results for both $(g-i)$ and $(i-y)$ PSF colors.
+    }
+        \label{tab:cmodelcolor}
+\end{table*}
+%% ------------------------------------------------------------------------------------ %%
+
+%% ------------------------------------------------------------------------------------ %%
 
 %% ------------------------------------------------------------------------------------ %%
 \begin{ack}
@@ -2217,11 +2400,6 @@
     When the deblending process is carried out correctly, the $b({\rm A})$ parameter
     reflects the fraction of fluxes that comes from other objects in the
     region of ${\rm A}$.
-%% ------------------------------------------------------------------------------------ %%
-
-%% ------------------------------------------------------------------------------------ %%
-%%%%%%%%%%%: Possible Tables %%%%%%%%%%%%%
-%\input{table1.tex}
 %% ------------------------------------------------------------------------------------ %%
 
 %% ------------------------------------------------------------------------------------ %%
