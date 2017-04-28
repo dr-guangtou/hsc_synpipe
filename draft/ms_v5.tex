@@ -1223,7 +1223,9 @@
         Relation between input magnitudes (\textbf{left}: $i$-band; \textbf{right}:
         $g$-band) of synthetic galaxies $\log (\mathrm{S}/\mathrm{N})$ as measured 
         by \hscpipe{} \cmodel{} photometry. 
-        Lines and contours are similar to Fig \ref{fig:star_sn}
+        Lines and contours are similar to Fig \ref{fig:star_sn}.
+        The truncation in $i$ band input magnitude is caused by the magnitude limit 
+        of COSMOS galaxies used in this test. 
         }
     \label{fig:cmodel_sn}
 \end{figure*}
@@ -1268,14 +1270,14 @@
 %% Fig: Accuracies of the cModel color for galaxies
 \begin{figure*}
     \begin{center}
-        \includegraphics[width=\textwidth]{fig/synpipe_galaxy_color}
+        \includegraphics[width=15cm]{fig/synpipe_galaxy_color}
     \end{center}
     \caption{
         Accuracies of the color measurements for synthetic galaxies via the
         differences between input and \forced{} \cmodel{} colors.
         The \textbf{upper panels} and \textbf{lower panels} are for $g-i$ and $i-y$
         colors separately.
-        The \textbf{left} column shows the relation between input magnitude (x-axis) and
+        The \textbf{left} column shows the relation between input magnitude (x--axis) and
         the color difference, and the \textbf{right} column uses the input colors as
         the x--axis.
         The lines and contours legend is identical to the plot in 
@@ -1293,7 +1295,9 @@
     \end{center}
     \caption{Color-color distributions of synthetic  galaxies.
         The \textbf{left} panel (a) uses $(g-r)$ vs. $(r-i)$ colors, and the 
-        \textbf{right} panel (b) uses $(i-z)$ and $(z-y)$ colors. Filled contours and shaded histograms  correspond to the input colors. Empty contours and solid-line histograms show the distributions recovered
+        \textbf{right} panel (b) uses $(i-z)$ and $(z-y)$ colors. 
+        Filled contours and shaded histograms correspond to the input colors. 
+        Empty contours and solid-line histograms show the distributions recovered
         by \hscpipe{} \cmodel{} photometry.
         }
     \label{fig:cmodel_cdist}
@@ -1314,26 +1318,34 @@
 
     Typical \tract{} in the Wide layer contains ${\sim}400000$ extended objects with 
     $i_{\mathrm{CModel}} < 25.5$ mag. 
-        We randomly inject ${\sim}40,000$ synthetic galaxies into each \tract{}. 
-
-    so we inject additional ${\sim}10$\% extended 
-    objects to the images. 
-    Using an approach similar to that for synthetic stars, we select 
-    galaxy samples for photometric comparisons. Synthetic galaxies that are located within 2 pixels 
-    of the centroids of real objects are removed from the sample  (these represent ${\sim}3$--$7$\% of the input sample). After imposing quality cuts on the  recovered synthetic galaxy sample (see Appendix \ref{app:qc} for details), we have ${\sim}30,000$
-    galaxies in each \tract{}.
+    We randomly inject ${\sim}40,000$ synthetic galaxies (additional ${\sim}10$\%) 
+    into each \tract{}, and will not create over-crowded situation.
+    Using similar approach for synthetic stars, we select galaxy samples for 
+    photometric comparisons. 
+    Synthetic galaxies that are located within 2 pixels of the centroids of real 
+    objects are removed from the sample (they represent ${\sim}3$--$7$\% of the 
+    input sample). 
+    After imposing quality cuts on the recovered synthetic galaxy sample 
+    (see Appendix \ref{app:qc} for details), we have ${\sim}30,000$ galaxies in 
+    each \tract{}.
     
-    We find that \hscpipe{} mis-classifies less than $1$\% of these objects as point sources
-    in the good-seeing \tract{}.
+    We find that \hscpipe{} mis-classifies lower than $1$\% of these objects as 
+    point sources in the good-seeing \tract{}.
     But the fraction of misclassified galaxies increases to $4$\% in the
-    bad-seeing \tract{}. We will discuss star/galaxy separation further in Section \ref{ssec:sg}.
+    bad-seeing \tract{}. 
+    We will discuss star/galaxy separation further in Section \ref{ssec:sg}.
 
-    We define a sample of highly blended galaxies  by imposing the cut $b>0.05$.
+    We define a sample of highly blended galaxies by imposing the cut 
+    $b>0.05$\footnote{We already removed the ambiguously blended objects. 
+    These objects have high blendedness, but are still distinctive.}.
     Due to the extended nature of galaxies, the $b$ distribution of synthetic 
-    galaxies is more skewed toward high values (especially for the bad-seeing \tract{}) compared to the b distribution of stars.
+    galaxies is more skewed toward high values (especially for the \texttt{badSeeing}
+    \tract{}) compared to the b distribution of stars.
     About $7$--$9$\% of synthetic galaxies are highly blended with $b>0.05$.
-    The fraction is only slightly higher in the bad-seeing \tract{}, and the
-    $g$-band has the highest fraction of highly blended galaxies \alexie{I don't understand here. Is this just a question of seeing? Is thid because the g-band has worse seeing. It seems in contradiction with the previous phrase.}. In our plots, we will highlight highly blended galaxies and we will discuss blending effects further in Section \ref{ssec:blendedness}.
+    The fraction is slightly higher in the \texttt{badSeeing} \tract{}, and 
+    therefore the $g$ band also has higher fraction of highly blended galaxies.
+    In our plots, we will highlight highly blended galaxies and will discuss 
+    blending effects further in Section \ref{ssec:blendedness}.
 
 % ALEXIE: not necessary
     %The majority of the galaxies in our synthetic galaxy samples are  are faint
@@ -1347,19 +1359,31 @@
 %% ------------------------------------------------------------------------------------ %%
 \subsubsection{Input magnitude and the \s2n{} of \cmodel{} photometry}
 
-    Figure \ref{fig:cmodel_sn} shows the relation between the input
-    magnitudes and the \s2n{} of synthetic galaxies.  The  \s2n{} is the ratio  of the \cmodel{} flux and its uncertainty.    The \s2n{} used here is the average one for extended object. \alexie{What do you mean here? You have a clound of points for each object, not a mean value of SN per mag bin. Needs to be calrified.}
+    Figure \ref{fig:cmodel_sn} shows the relation between the input magnitudes and the 
+    \s2n{} of synthetic galaxies.  
+    The \s2n{} is the ratio  of the \cmodel{} flux and the flux error measured by 
+    \hscpipe{}.
+    Here the adopted \s2n{} corresponds to the average \s2n{} over entire footprint. 
+    The center of the galaxy typically has high \s2n{} than this value.    
 
- Figure  \ref{fig:cmodel_sn} shows  that the \cmodel{} photometry displays a well-behaved relation between input magnitude and output \s2n{}.  Compared to stars, the \s2n{} from \cmodel{} for synthetic galaxies shows a larger
-    scatter at fixed input magnitude. This is likely due to the fact that galaxies have a wider range in sizes and shapes than point sources.  In $i$ band, a typical $25.2$ mag galaxy has \s2n{}${\sim}20$ from \cmodel{}, but 
-    there are also galaxies at the same magnitude which have \s2n{} below 5. The HSC Wide layer can detect galaxies as faint as $i{\sim}26.0$ mag but the 
+    Figure \ref{fig:cmodel_sn} shows that the \cmodel{} photometry displays a 
+    well-behaved relation between input magnitude and output \s2n{}.  
+    Compared to stars, the \s2n{} from \cmodel{} for synthetic galaxies shows a larger
+    scatter at fixed input magnitude. 
+    This is likely due to the fact that galaxies have a wider range in sizes and shapes 
+    than point sources.  
+    In $i$ band, a typical $25.2$ mag galaxy has \s2n{}${\sim}20$ from \cmodel{}, but 
+    there are also galaxies at the same magnitude which have \s2n{} below 5. 
+    The HSC Wide layer can detect galaxies as faint as $i{\sim}26.0$ mag but the 
     sample becomes incomplete at these faint magnitudes.
-    It also introduces a selection bias if galaxies with certain structural properties  (e.g., more extended and lower surface brightness)
-    are harder to detect than others.
+    This also introduces a selection bias if galaxies with certain structural 
+    properties (e.g., more extended and lower surface brightness) are harder to detect
+    than others.
     HSC survey data users who want to select flux-limited galaxy samples,
     or who intend to study the population of faint (e.g., high-$z$) galaxies should
-    keep this in mind.  Finally, we also find that  a worse seeing leads to a lower \s2n{} at fixed magnitude 
-    (see Fig \ref{fig:psf_s2n} for $i$-band).
+    keep this in mind.  
+    Finally, we also find that a worse seeing leads to a lower \s2n{} at fixed 
+    magnitude (see Fig \ref{fig:psf_s2n} for $i$-band).
 
 %% ------------------------------------------------------------------------------------ %%
 \subsubsection{Accuracy of the \cmodel{} magnitude}
