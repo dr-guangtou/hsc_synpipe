@@ -1976,27 +1976,38 @@
 
 %% ------------------------------------------------------------------------------------ %%
 % Table 2 : PSF Color
-\begin{table*}
+\begin{table}
     \begin{center}
     %% -------------------------------------------------------------------------------- %%
-    \begin{tabular}{| c | c | c | ccccccc |}
+    \begin{tabular}{| c | c | c | c | c | c | }
     \hline
-    Filter &   Seeing       &  Statistics & \multicolumn{4}{|c|}{Input $i$ band Magnitudes (mag)} \\
-    \cline{4-10}
-           & FWHM ($$\asec) &             & 19.0 & 20.0 & 21.0 & 22.0 & 23.0 & 24.0 & 25.0 \\
+    \multirow{2}{*}{$i_{\mathrm{Input}}$} & Color & \multicolumn{2}{|c|}{$(g-i)$} & \multicolumn{2}{|c|}{$(i-y)$} \\
+    \cline{2-6}
+      & FWHM & $0.45$\asec{} & $0.70$\asec{} & $0.45$\asec{} & $0.70$\asec{} \\
     \hline
-    $(g-i)$ & 0.45 & \scolor{} & 0.023 & 0.026 & 0.037 & 0.054 & 0.077 & 0.105 & 0.117 \\
-            &      & \mcolor{}  & 0.008 & 0.007 & 0.005 & 0.003 & $\minus 0.002$ & $\minus 0.009$ & $\minus 0.035$ \\
-            \cline{3-10}
-            & 0.70 & \scolor{} & 0.021 & 0.025 & 0.033 & 0.051 & 0.075 & 0.105 & 0.137 \\
-            &      & \mcolor{}  & 0.004 & 0.003 & 0.002 & 0.001 & $\minus 0.001$ & $\minus 0.002$ & 0.007 \\
+    (mag) & & (mag) & (mag) & (mag) & (mag) \\
     \hline
-    $(i-y)$ & 0.45 & \scolor{} & 0.019 & 0.020 & 0.022 & 0.031 & 0.058 & 0.109 & 0.189 \\
-            &      & \mcolor{}  & $\minus 0.004$ & $\minus 0.004$ & $\minus 0.004$ & $\minus 0.004$ & $\minus 0.002$ & 0.011 & 0.064 \\
-            \cline{3-10}
-            & 0.70 & \scolor{} & 0.019 & 0.020 & 0.021 & 0.031 & 0.057 & 0.123 & 0.221 \\
-            &      & \mcolor{}  & $\minus 0.006$ & $\minus 0.006$ & $\minus 0.006$ & $\minus 0.005$ & $\minus 0.005$ & $\minus 0.002$ & $\minus 0.064$ \\    
-    \hline  
+    \rowcolor[gray]{.85} 19.0 & \scolor{} &   0.023 &   0.021 &   0.019 &   0.019 \\
+    \rowcolor[gray]{.85}      & \mcolor{} &   0.008 &   0.004 & \n0.004 & \n0.006 \\
+    \hline 
+    \rowcolor[gray]{1.0} 20.0 & \scolor{} &   0.026 &   0.025 &   0.020 &   0.020 \\
+    \rowcolor[gray]{1.0}      & \mcolor{} &   0.007 &   0.003 & \n0.004 & \n0.006 \\
+    \hline
+    \rowcolor[gray]{.85} 21.0 & \scolor{} &   0.037 &   0.033 &   0.022 &   0.021 \\
+    \rowcolor[gray]{.85}      & \mcolor{} &   0.005 &   0.002 & \n0.004 & \n0.006 \\
+    \hline
+    \rowcolor[gray]{1.0} 22.0 & \scolor{} &   0.054 &   0.051 &   0.031 &   0.031 \\
+    \rowcolor[gray]{1.0}      & \mcolor{} &   0.003 &   0.001 & \n0.001 & \n0.005 \\
+    \hline
+    \rowcolor[gray]{.85} 23.0 & \scolor{} &   0.077 &   0.075 &   0.058 &   0.057 \\
+    \rowcolor[gray]{.85}      & \mcolor{} & \n0.002 & \n0.001 & \n0.002 & \n0.005 \\
+    \hline
+    \rowcolor[gray]{1.0} 24.0 & \scolor{} &   0.105 &   0.105 &   0.109 &   0.123 \\
+    \rowcolor[gray]{1.0}      & \mcolor{} & \n0.009 & \n0.002 &   0.011 & \n0.002 \\
+    \hline
+    \rowcolor[gray]{.85} 25.0 & \scolor{} &   0.117 &   0.137 &   0.189 &   0.221 \\
+    \rowcolor[gray]{.85}      & \mcolor{} & \n0.005 &   0.007 &   0.064 & \n0.063 \\
+    \hline
     \end{tabular}
     %% -------------------------------------------------------------------------------- %%
     \end{center}
@@ -2011,7 +2022,7 @@
         bins of input $i$ band magnitudes.
     }
         \label{tab:psfcolor}
-\end{table*}
+\end{table}
 %% ------------------------------------------------------------------------------------ %%
 
 %% ------------------------------------------------------------------------------------ %%
@@ -2074,7 +2085,6 @@
 \begin{table}
     \begin{center}
     %% -------------------------------------------------------------------------------- %%
-    %\begin{tabular}{| c | c | c | cccccc |}
     \begin{tabular}{| c | c | c | c | c | c | }
     \hline
     \multirow{2}{*}{$i_{\mathrm{Input}}$} & Color & \multicolumn{2}{|c|}{$(g-i)$} & \multicolumn{2}{|c|}{$(i-y)$} \\
@@ -2082,7 +2092,7 @@
       & FWHM & $0.45$\asec{} & $0.70$\asec{} & $0.45$\asec{} & $0.70$\asec{} \\
     \hline
     (mag) & & (mag) & (mag) & (mag) & (mag) \\
-    \hline \hline
+    \hline
     \rowcolor[gray]{.85} 20.0 & \scolor{} &   0.068 & 0.051 &   0.072 &   0.046 \\
     \rowcolor[gray]{.85}      & \mcolor{} &   0.013 & 0.002 & \n0.006 & \n0.001 \\
     \hline 
