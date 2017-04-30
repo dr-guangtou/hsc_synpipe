@@ -844,6 +844,30 @@
 %% ------------------------------------------------------------------------------------ %%
 
 %% ------------------------------------------------------------------------------------ %%
+%% Fig: Magnitude v.s S/N for stars
+\begin{figure*}
+    \begin{center}
+        \includegraphics[width=\textwidth]{fig/synpipe_psf_sn}
+    \end{center}
+    \caption{
+        Relation between input magnitudes (\textbf{left}: $i$-band; \textbf{right}:
+        $g$-band) of synthetic stars and the $\log (\mathrm{S}/\mathrm{N})$ measured 
+        by \hscpipe{} PSF photometry.
+        Filled-contours and open-contours show the distributions for
+        stars in both the \texttt{goodSeeing} and \texttt{badSeeing} \tracts{}. 
+        Highly blended stars are highlighted using scatter plots.
+        The gray dashed line marks $S/N = 5$ which is the detection threshold used 
+        by \hscpipe{}.  
+        Our 5$\sigma$ point source detection limit is ${\sim}26.5$ mag in $i$-band,
+        however we do not reach these magnitudes with our current synthetic stellar 
+        input catalog.
+        }
+    \label{fig:star_sn}
+\end{figure*}
+%% ------------------------------------------------------------------------------------ %%
+
+
+%% ------------------------------------------------------------------------------------ %%
 \subsection{Input Models for Stars and Galaxies}
     \label{ssec:inputs}
 
@@ -939,29 +963,6 @@
 %% ------------------------------------------------------------------------------------ %%
 
 %% ------------------------------------------------------------------------------------ %%
-%% Fig: Magnitude v.s S/N for stars
-\begin{figure*}
-    \begin{center}
-        \includegraphics[width=\textwidth]{fig/synpipe_psf_sn}
-    \end{center}
-    \caption{
-        Relation between input magnitudes (\textbf{left}: $i$-band; \textbf{right}:
-        $g$-band) of synthetic stars and the $\log (\mathrm{S}/\mathrm{N})$ measured 
-        by \hscpipe{} PSF photometry.
-        Filled-contours and open-contours show the distributions for
-        stars in both the \texttt{goodSeeing} and \texttt{badSeeing} \tracts{}. 
-        Highly blended stars are highlighted using scatter plots.
-        The gray dashed line marks $S/N = 5$ which is the detection threshold used 
-        by \hscpipe{}.  
-        Our 5$\sigma$ point source detection limit is ${\sim}26.5$ mag in $i$-band,
-        however we do not reach these magnitudes with our current synthetic stellar 
-        input catalog.
-        }
-    \label{fig:star_sn}
-\end{figure*}
-%% ------------------------------------------------------------------------------------ %%
-
-%% ------------------------------------------------------------------------------------ %%
 %% Fig: Accuracy of Forced PSF Magnitudes
 \begin{figure*}
     \begin{center}
@@ -1002,46 +1003,6 @@
         The lines and contours legend is identical to the plots in Fig \ref{fig:psf_mag}.
         }
     \label{fig:psf_diff}
-\end{figure*}
-%% ------------------------------------------------------------------------------------ %%
-
-%% ------------------------------------------------------------------------------------ %%
-%% Fig: Accuracies of the PSF color
-\begin{figure*}
-    \begin{center}
-        \includegraphics[width=15cm]{fig/synpipe_psf_color}
-    \end{center}
-    \caption{
-        Accuracy of the color measurements for synthetic stars via the differences
-        between input and \forced{} PSF colors.
-        The \textbf{upper panels} and \textbf{lower panels} are for $g-i$ and $i-y$
-        colors separately.
-        The \textbf{left} column shows the relation between input magnitude and
-        the color difference, and the \textbf{right} column uses the input colors as
-        x--axis instead.
-        The lines and contours legend is identical to the plot in Fig \ref{fig:psf_mag}.
-        }
-    \label{fig:psf_color}
-\end{figure*}
-%% ------------------------------------------------------------------------------------ %%
-
-%% ------------------------------------------------------------------------------------ %%
-%% Fig: Color-Color Distributions of the Input and Measurements for stars
-\begin{figure*}
-    \begin{center}
-        \includegraphics[width=\textwidth]{fig/synpipe_psf_cdist}
-    \end{center}
-    \caption{
-        Evaluations of color measurement accuracy for synthetic stars using
-        the color-color distributions.
-        The plot on the \textbf{left} (a) uses $(g-r)$ v.s. $(r-i)$ colors, and the plot 
-        on the \textbf{right} (b) uses $(i-z)$ and $(z-y)$ colors.
-        The filled contours and shaded histograms reflect the distributions for input
-        colors.
-        The empty contours and solid-line histograms show the distributions recovered
-        by \hscpipe{}.
-        }
-    \label{fig:psf_cdist}
 \end{figure*}
 %% ------------------------------------------------------------------------------------ %%
 
@@ -1121,6 +1082,47 @@
     average seeing conditions.
     However, it is worth reminding HSC data users that the detection
     limit will exhibit spatial variations due to the seeing conditions.
+%% ------------------------------------------------------------------------------------ %%
+
+%% ------------------------------------------------------------------------------------ %%
+%% Fig: Accuracies of the PSF color
+\begin{figure*}
+    \begin{center}
+        \includegraphics[width=15cm]{fig/synpipe_psf_color}
+    \end{center}
+    \caption{
+        Accuracy of the color measurements for synthetic stars via the differences
+        between input and \forced{} PSF colors.
+        The \textbf{upper panels} and \textbf{lower panels} are for $g-i$ and $i-y$
+        colors separately.
+        The \textbf{left} column shows the relation between input magnitude and
+        the color difference, and the \textbf{right} column uses the input colors as
+        x--axis instead.
+        The lines and contours legend is identical to the plot in Fig \ref{fig:psf_mag}.
+        }
+    \label{fig:psf_color}
+\end{figure*}
+%% ------------------------------------------------------------------------------------ %%
+
+%% ------------------------------------------------------------------------------------ %%
+%% Fig: Color-Color Distributions of the Input and Measurements for stars
+\begin{figure*}
+    \begin{center}
+        \includegraphics[width=\textwidth]{fig/synpipe_psf_cdist}
+    \end{center}
+    \caption{
+        Evaluations of color measurement accuracy for synthetic stars using
+        the color-color distributions.
+        The plot on the \textbf{left} (a) uses $(g-r)$ v.s. $(r-i)$ colors, and the plot 
+        on the \textbf{right} (b) uses $(i-z)$ and $(z-y)$ colors.
+        The filled contours and shaded histograms reflect the distributions for input
+        colors.
+        The empty contours and solid-line histograms show the distributions recovered
+        by \hscpipe{}.
+        }
+    \label{fig:psf_cdist}
+\end{figure*}
+%% ------------------------------------------------------------------------------------ %%
 
 %% ------------------------------------------------------------------------------------ %%
 \subsubsection{Precision and Accuracy of PSF magnitudes}
@@ -1132,10 +1134,9 @@
     function of input magnitude. 
     We separate these stars into seven input magnitude bins.  
     In each bin, we characterize the statistical \textbf{precision} of the PSF 
-    magnitude using the standard deviation of the $\Delta \mathrm{mag}_{\mathrm{PSF}}$ 
-    distribution.
+    magnitude using the standard deviation of the distribution (\smag{}).
     Meanwhile, we characterize the statistical \textbf{accuracy} of the PSF magnitude 
-    via the mean magnitude difference in each bin. 
+    via the mean magnitude difference in each bin (\mmag{}). 
     This also informs us whether the PSF photometry is biased at certain input 
     magnitude.
     
@@ -1214,7 +1215,9 @@
 	Fig \ref{fig:psf_diff} shows the difference between \forced{} and \unforced{} 
 	PSF photometry for the $g$ and the $y$ band. 
 	The overall differences are small ($<0.01$ mag). 
-	At very faint end ($g_{\mathrm{Input}}>24.0$ mag and $g_{\mathrm{Input}}>23.5$
+	At very faint end ($g_{\mathrm{Input}}>24.0$ mag and $y_{\mathrm{Input}}>23.5$,
+	the \unforced{} photometry slightly overestimate the fluxes of stars comparing 
+	to the \forced{} photometry. 
 	
 	The precisions and accuracies of \forced{} PSF magnitudes shown here are 
 	summarized in Table \ref{tab:psfmag}
@@ -1452,7 +1455,7 @@
     It moderately degrades to ${\sim}11$\% at $25.0$ mag. 
     The performance is similar in $i$ band for the \texttt{badSeeing} \tract{}. 
     At $20.0 < i_{\mathrm{Input}} < 25.0$ mag, the accuracies of \forced{} \cmodel{}
-    magnitudes change from \plus{}$0.041$ mag to \minus{}$0.005$ mag, which suggest
+    magnitudes change from \plus{}$0.041$ mag to \minus{}$0.006$ mag, which suggest
     that \forced{} \cmodel{} photometry is unbiased down to the very faint end.
     
     It is worth noting that the flux uncertainty from \synpipe{} are significantly 
@@ -1476,7 +1479,7 @@
     same magnitude bins.
     In addition, the \forced{} \cmodel{} tends to overestimate the total flux in 
     the $y$ band at $>24.0$ mag. 
-    This bias in the $y$ band flux is equal to \minus{}0.06 at $24.0$ mag to 
+    This bias in the $y$ band flux is equal to \minus{}0.07 at $24.0$ mag to 
     \minus{}0.22 mag at 25.0 mag. 
     Worse seeing conditions and a higher background noise level mean that it is more
     difficult to detect faint objects in the $y$ band.
