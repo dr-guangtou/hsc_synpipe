@@ -89,8 +89,10 @@
 
 \newcommand{\plus}{\raisebox{.4\height}{\scalebox{.6}{+}}}
 \newcommand{\minus}{\raisebox{.4\height}{\scalebox{.8}{-}}}
-\newcommand{\smag}{$\sigma_{\Delta\mathrm{mag}}$}
-\newcommand{\mmag}{$\left<{\Delta\mathrm{mag}}\right>$}
+\newcommand{\smag}{$\sigma_{\Delta\mathrm{Mag}}$}
+\newcommand{\mmag}{$\left<{\Delta\mathrm{Mag}}\right>$}
+\newcommand{\scolor}{$\sigma_{\Delta\mathrm{Color}}$}
+\newcommand{\mcolor}{$\left<{\Delta\mathrm{Color}}\right>$}
 \newcommand{\n}{$\minus$}
   
 %%%%%%%%%%%%: Header and Version %%%%%%%%%%%%
@@ -631,6 +633,25 @@
 %% ------------------------------------------------------------------------------------ %%
 
 %% ------------------------------------------------------------------------------------ %%
+%% Fig: Star Sample
+\begin{figure*}
+    \begin{center}
+        \includegraphics[width=\textwidth]{fig/synpipe_star_sample}
+    \end{center}
+    \caption{
+        Magnitude and color distributions of synthetic stars.
+        \textbf{Upper panel}: five-band magnitude distributions of the COSMOS
+        stars (filled histograms) and  resampled stars (dashed lines).
+        \textbf{Lower panel}: color-color distributions
+        (left: $g-r$ v.s. $r-i$; right: $i-z$ v.s. $z-y$). 
+        Filled-contours indicate COSMOS stars and open-contours indicate resampled stars.
+        }
+    \label{fig:star_sample}
+\end{figure*}
+%% ------------------------------------------------------------------------------------ %%
+
+
+%% ------------------------------------------------------------------------------------ %%
 \subsubsection{Injection of Synthetic Objects into Single-\visit{} Images}
     \label{sssec:addFakes}
     
@@ -781,24 +802,6 @@
 
 
 %% ------------------------------------------------------------------------------------ %%
-%% Fig: Star Sample
-\begin{figure*}
-    \begin{center}
-        \includegraphics[width=\textwidth]{fig/synpipe_star_sample}
-    \end{center}
-    \caption{
-        Magnitude and color distributions of synthetic stars.
-        \textbf{Upper panel}: five-band magnitude distributions of the COSMOS
-        stars (filled histograms) and  resampled stars (dashed lines).
-        \textbf{Lower panel}: color-color distributions
-        (left: $g-r$ v.s. $r-i$; right: $i-z$ v.s. $z-y$). 
-        Hexagonal bins indicate COSMOS stars and contours indicate resampled stars.
-        }
-    \label{fig:star_sample}
-\end{figure*}
-%% ------------------------------------------------------------------------------------ %%
-
-%% ------------------------------------------------------------------------------------ %%
 %% Fig: Galaxy Sample
 \begin{figure*}
     \begin{center}
@@ -945,7 +948,7 @@
         Relation between input magnitudes (\textbf{left}: $i$-band; \textbf{right}:
         $g$-band) of synthetic stars and the $\log (\mathrm{S}/\mathrm{N})$ measured 
         by \hscpipe{} PSF photometry.
-        Hexagonal binned density plots and contours show the distributions for
+        Filled-contours and open-contours show the distributions for
         stars in both the \texttt{goodSeeing} and \texttt{badSeeing} \tracts{}. 
         Highly blended stars are highlighted using scatter plots.
         The gray dashed line marks $S/N = 5$ which is the detection threshold used 
@@ -971,7 +974,7 @@
         respectively.
         The left panel in each plot shows the relation between input magnitude and
         magnitude difference.
-        Hexagonal binned density plots and contours are for the synthetic galaxies 
+        Filled and open contours are for the synthetic galaxies 
         from \texttt{goodSeeing} and \texttt{badSeeing} \tracts{}.
         Highly blended objects are highlighted using scattered points.
         The long-dashed lines mark zero magnitude difference, while the pairs of
@@ -1577,7 +1580,7 @@
         (\textbf{right}). 
         We show the differences between the input R.A and Dec and the coordinates 
         measured on the \coadd{} images. 
-        Hexagonal bins (filled histogram) and contours (solid-line histogram) are 
+        Filled-contours (filled histogram) and open-contours (solid-line histogram) are 
         for synthetic objects from \tracts{} with good and bad seeing conditions, 
         respectively.
         $\Delta\mathrm{R.A}=0$ and $\Delta\mathrm{Dec}=0$ are marked by dashed lines.     
@@ -1601,13 +1604,13 @@
         Star--galaxy separation is based on the the magnitude difference between the 
         PSF and \cmodel{} photometry. 
         The plot on the \textbf{left} (a) corresponds to synthetic stars. 
-        Hexagonal bins and filled histogram show distributions of correctly classified
+        Filled-contours and filled histogram show distributions of correctly classified
         synthetic stars in the \texttt{goodSeeing} \tract{}.
-        The scatter plot (dashed-line histogram) and contour (solid-line histogram)
+        The scatter plot (dashed-line histogram) and open-contour (solid-line histogram)
         show distributions of synthetic stars that are misclassified as extended
         objects in \tracts{} with bad and good seeing conditions, respectively.
         The plot on the \textbf{right} (b) corresponds to synthetic galaxies.
-        Hexagonal bins (filled histogram) and contours (solid-line histogram)
+        Filled-contours (filled histogram) and open-contours (solid-line histogram)
         are for galaxies from \texttt{goodSeeing} and \texttt{badSeeing} \tracts{},
         respectively.
         The scatter plot and dashed-line histogram highlight synthetic galaxies that 
@@ -1629,7 +1632,7 @@
         \textbf{Left} columns (a and c) show the uncertainties in PSF and/or \cmodel{} 
         magnitudes. \textbf{Right} columns (b and d) show the uncertainties in 
         $(g-i)$ colors.
-        Hexagonal bins and contours show results for \texttt{goodSeeing} and
+        Filled-contours and open-contours show results for \texttt{goodSeeing} and
         \texttt{badSeeing} \tracts{}, respectively.
         $\log_{10} (\mathrm{Blendedness}) = -1.0$ is marked using a vertical dashed 
         line.
@@ -1651,8 +1654,8 @@
         the uncertainty in $(b/a)$.
         The \textbf{right} (b) plot shows the relation between input magnitude and 
         the undertainty in $(b/a)$.
-        Contours are for the default test with \texttt{usePixelWeights=False}, and 
-        hexagonal bins correspond to \texttt{usePixelWeights=True}.
+        Open-contours are for the default test with \texttt{usePixelWeights=False}, and 
+        filled-contours correspond to \texttt{usePixelWeights=True}.
         }
     \label{fig:galaxy_ba}
 \end{figure*}
@@ -1957,10 +1960,16 @@
     %% -------------------------------------------------------------------------------- %%
     \end{center}
     \caption{
-        \todo{Placeholder}
-        Summary of the \smag{}s and accuracies of \forced{} PSF magnitudes in all 
-        five bands and in both \texttt{goodSeeing} and \texttt{badSeeing} \tracts{}.  
-    }
+        Summary of precisions and accuracies of \forced{} PSF magnitudes in all 
+        five bands and in both \texttt{goodSeeing} (FWHM$=0.45$\asec{}) and
+        \texttt{badSeeing} (FWHM$=0.70$\asec{}) \tracts{} based on the statistics of 
+        the difference between output \forced{} PSF magnitude and input 
+        value ($\Delta\mathrm{mag}$) shown in Fig \ref{fig:psf_mag}.
+        Here, the precision is described using the statistical uncertainties of 
+        $\Delta\mathrm{mag}$ within a series of input magnitude bins (\smag{}). 
+        The accuracy of PSF photometry in the same magnitude bin is described by the 
+        mean value of $\Delta\mathrm{mag}$.
+        }
         \label{tab:psfmag}
 \end{table*}
 %% ------------------------------------------------------------------------------------ %%
@@ -1976,26 +1985,30 @@
     \cline{4-10}
            & FWHM ($$\asec) &             & 19.0 & 20.0 & 21.0 & 22.0 & 23.0 & 24.0 & 25.0 \\
     \hline
-    $(g-i)$ & 0.45 & \smag{} & 0.023 & 0.026 & 0.037 & 0.054 & 0.077 & 0.105 & 0.117 \\
-            &      & \mmag{}  & 0.008 & 0.007 & 0.005 & 0.003 & $\minus 0.002$ & $\minus 0.009$ & $\minus 0.035$ \\
+    $(g-i)$ & 0.45 & \scolor{} & 0.023 & 0.026 & 0.037 & 0.054 & 0.077 & 0.105 & 0.117 \\
+            &      & \mcolor{}  & 0.008 & 0.007 & 0.005 & 0.003 & $\minus 0.002$ & $\minus 0.009$ & $\minus 0.035$ \\
             \cline{3-10}
-            & 0.70 & \smag{} & 0.021 & 0.025 & 0.033 & 0.051 & 0.075 & 0.105 & 0.137 \\
-            &      & \mmag{}  & 0.004 & 0.003 & 0.002 & 0.001 & $\minus 0.001$ & $\minus 0.002$ & 0.007 \\
+            & 0.70 & \scolor{} & 0.021 & 0.025 & 0.033 & 0.051 & 0.075 & 0.105 & 0.137 \\
+            &      & \mcolor{}  & 0.004 & 0.003 & 0.002 & 0.001 & $\minus 0.001$ & $\minus 0.002$ & 0.007 \\
     \hline
-    $(i-y)$ & 0.45 & \smag{} & 0.019 & 0.020 & 0.022 & 0.031 & 0.058 & 0.109 & 0.189 \\
-            &      & \mmag{}  & $\minus 0.004$ & $\minus 0.004$ & $\minus 0.004$ & $\minus 0.004$ & $\minus 0.002$ & 0.011 & 0.064 \\
+    $(i-y)$ & 0.45 & \scolor{} & 0.019 & 0.020 & 0.022 & 0.031 & 0.058 & 0.109 & 0.189 \\
+            &      & \mcolor{}  & $\minus 0.004$ & $\minus 0.004$ & $\minus 0.004$ & $\minus 0.004$ & $\minus 0.002$ & 0.011 & 0.064 \\
             \cline{3-10}
-            & 0.70 & \smag{} & 0.019 & 0.020 & 0.021 & 0.031 & 0.057 & 0.123 & 0.221 \\
-            &      & \mmag{}  & $\minus 0.006$ & $\minus 0.006$ & $\minus 0.006$ & $\minus 0.005$ & $\minus 0.005$ & $\minus 0.002$ & $\minus 0.064$ \\    
+            & 0.70 & \scolor{} & 0.019 & 0.020 & 0.021 & 0.031 & 0.057 & 0.123 & 0.221 \\
+            &      & \mcolor{}  & $\minus 0.006$ & $\minus 0.006$ & $\minus 0.006$ & $\minus 0.005$ & $\minus 0.005$ & $\minus 0.002$ & $\minus 0.064$ \\    
     \hline  
     \end{tabular}
     %% -------------------------------------------------------------------------------- %%
     \end{center}
     \caption{
-        \todo{Placeholder}
-        Summary of the \smag{}s and accuracies of \forced{} PSF colors in both 
-        \texttt{goodSeeing} and \texttt{badSeeing} \tracts{}.  
-        We show results for both $(g-i)$ and $(i-y)$ PSF colors.
+        Summary of precisions and accuracies of \forced{} PSF colors using $(g-i)$ and 
+        $(i-y)$ colors and in both \texttt{goodSeeing} (FWHM$=0.45$\asec{}) and
+        \texttt{badSeeing} (FWHM$=0.70$\asec{}) \tracts{} based on the statistics of 
+        the difference between output \forced{} PSF color and input value 
+        ($\Delta\mathrm{Color}$) shown in Fig \ref{fig:psf_color}.
+        Here, we describe the precision and accuracy of PSF color measurements using 
+        the statistical uncertainties and mean values of $\Delta\mathrm{Color}$ in 
+        bins of input $i$ band magnitudes.
     }
         \label{tab:psfcolor}
 \end{table*}
@@ -2046,11 +2059,13 @@
     %% -------------------------------------------------------------------------------- %%
     \end{center}
     \caption{
-        \todo{Placeholder}
-        Summary of the \smag{}s and accuracies of \forced{} \cmodel{} magnitudes in 
-        all five bands and in both \texttt{goodSeeing} and \texttt{badSeeing} \tracts{}.  
-    }
-        \label{tab:psfmag}
+        Summary of precisions and accuracies of \forced{} \cmodel{} magnitudes in all 
+        five bands and in both \texttt{goodSeeing} (FWHM$=0.45$\asec{}) and
+        \texttt{badSeeing} (FWHM$=0.70$\asec{}) \tracts{} based on the statistics of 
+        the difference between output \forced{} \cmodel{} magnitude and input 
+        value ($\Delta\mathrm{mag}$) shown in Fig \ref{fig:cmodel_mag}.
+        Other details are the same with Table \ref{tab:psfmag}.}
+        \label{tab:cmodelmag}
 \end{table*}
 %% ------------------------------------------------------------------------------------ %%
 
@@ -2068,32 +2083,34 @@
     \hline
     (mag) & & (mag) & (mag) & (mag) & (mag) \\
     \hline \hline
-    \rowcolor[gray]{.85} 20.0 & \smag{} &   0.068 & 0.051 &   0.072 &   0.046 \\
-    \rowcolor[gray]{.85}      & \mmag{} &   0.013 & 0.002 & \n0.006 & \n0.001 \\
+    \rowcolor[gray]{.85} 20.0 & \scolor{} &   0.068 & 0.051 &   0.072 &   0.046 \\
+    \rowcolor[gray]{.85}      & \mcolor{} &   0.013 & 0.002 & \n0.006 & \n0.001 \\
     \hline 
-    \rowcolor[gray]{1.0} 21.0 & \smag{} &   0.080 & 0.059 &   0.062 &   0.040 \\
-    \rowcolor[gray]{1.0}      & \mmag{} &   0.010 & 0.003 & \n0.003 & \n0.004 \\
+    \rowcolor[gray]{1.0} 21.0 & \scolor{} &   0.080 & 0.059 &   0.062 &   0.040 \\
+    \rowcolor[gray]{1.0}      & \mcolor{} &   0.010 & 0.003 & \n0.003 & \n0.004 \\
     \hline
-    \rowcolor[gray]{.85} 22.0 & \smag{} &   0.089 & 0.072 &   0.071 &   0.059 \\
-    \rowcolor[gray]{.85}      & \mmag{} &   0.002 & 0.002 & \n0.005 & \n0.007 \\
+    \rowcolor[gray]{.85} 22.0 & \scolor{} &   0.089 & 0.072 &   0.071 &   0.059 \\
+    \rowcolor[gray]{.85}      & \mcolor{} &   0.002 & 0.002 & \n0.005 & \n0.007 \\
     \hline
-    \rowcolor[gray]{1.0} 23.0 & \smag{} &   0.105 & 0.090 &   0.109 &   0.103 \\
-    \rowcolor[gray]{1.0}      & \mmag{} & \n0.018 & 0.001 & \n0.002 & \n0.005 \\
+    \rowcolor[gray]{1.0} 23.0 & \scolor{} &   0.105 & 0.090 &   0.109 &   0.103 \\
+    \rowcolor[gray]{1.0}      & \mcolor{} & \n0.018 & 0.001 & \n0.002 & \n0.005 \\
     \hline
-    \rowcolor[gray]{.85} 24.0 & \smag{} &   0.136 & 0.127 &   0.175 &   0.170 \\
-    \rowcolor[gray]{.85}      & \mmag{} & \n0.008 & 0.006 &   0.012 & \n0.007 \\
+    \rowcolor[gray]{.85} 24.0 & \scolor{} &   0.136 & 0.127 &   0.175 &   0.170 \\
+    \rowcolor[gray]{.85}      & \mcolor{} & \n0.008 & 0.006 &   0.012 & \n0.007 \\
     \hline
-    \rowcolor[gray]{1.0} 25.0 & \smag{} &   0.179 & 0.185 &   0.227 &   0.241 \\
-    \rowcolor[gray]{1.0}      & \mmag{} & \n0.003 & 0.019 &   0.053 &   0.006 \\
+    \rowcolor[gray]{1.0} 25.0 & \scolor{} &   0.179 & 0.185 &   0.227 &   0.241 \\
+    \rowcolor[gray]{1.0}      & \mcolor{} & \n0.003 & 0.019 &   0.053 &   0.006 \\
     \hline
     \end{tabular}
     %% -------------------------------------------------------------------------------- %%
     \end{center}
     \caption{
-        \todo{Placeholder}
-        Summary of the precisions and accuracies of \forced{} \cmodel{} colors in both 
-        \texttt{goodSeeing} and \texttt{badSeeing} \tracts{}.  
-        We show results for both $(g-i)$ and $(i-y)$ PSF colors.
+        Summary of precisions and accuracies of \forced{} \cmodel{} colors using 
+        $(g-i)$ and $(i-y)$ colors and in both \texttt{goodSeeing} (FWHM$=0.45$\asec{}) 
+        and \texttt{badSeeing} (FWHM$=0.70$\asec{}) \tracts{} based on the statistics of 
+        the difference between output \forced{} \cmodel{} color and input value 
+        ($\Delta\mathrm{Color}$) shown in Fig \ref{fig:cmodel_color}.
+        Other details are the same with Table \ref{tab:psfcolor}.
     }
         \label{tab:cmodelcolor}
 \end{table}
