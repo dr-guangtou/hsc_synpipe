@@ -1437,8 +1437,8 @@
 %% ------------------------------------------------------------------------------------ %%
 \subsubsection{Precision and Accuracy of the \cmodel{} magnitude}
 
-    Fig \ref{fig:cmodel_mag} shows the precision and accuracy of \cmodel{} magnitude 
-    in each band using the same format as Fig \ref{fig:psf_mag}.
+    Fig \ref{fig:cmodel_mag} shows the precision (\smag{}) and accuracy (\mmag{}) of 
+    \cmodel{} magnitude in each band using the same format as Fig \ref{fig:psf_mag}.
 
     The overall performance of \cmodel{} photometry is reasonable down to 
     $i_{\mathrm{Input}}=25.2$ mag.
@@ -1450,13 +1450,15 @@
     different bands and seeing conditions.
 
     The typical precision of $i$-band flux using \forced{} \cmodel{} is at 
-    ${\sim}7-9$\% level in the \texttt{goodSeeing} \tract{} at 
+    ${\sim}8-10$\% level in the \texttt{goodSeeing} \tract{} at 
     $i_{\mathrm{Input}}<24.0$ mag. 
-    It moderately degrades to ${\sim}11$\% at $25.0$ mag. 
+    It moderately degrades to ${\sim}13$\% at $25.0$ mag. 
     The performance is similar in $i$ band for the \texttt{badSeeing} \tract{}. 
-    At $20.0 < i_{\mathrm{Input}} < 25.0$ mag, the accuracies of \forced{} \cmodel{}
-    magnitudes change from \plus{}$0.041$ mag to \minus{}$0.006$ mag, which suggest
-    that \forced{} \cmodel{} photometry is unbiased down to the very faint end.
+    At $20.0 < i_{\mathrm{Input}} < 24.0$ mag, the accuracies of \forced{} \cmodel{}
+    magnitudes change between \plus{}$0.017$ mag to \minus{}$0.023$ mag. 
+    At $24.0 < i_{\mathrm{Input}} < 25.5$ mag, \mmag{} is around $\minus0.006$ mag,
+    which suggest that \forced{} \cmodel{} photometry is unbiased down to the very 
+    faint end.
     
     It is worth noting that the flux uncertainty from \synpipe{} are significantly 
     larger than the flux errors from \hscpipe{}, which does not take into account the 
@@ -1475,7 +1477,7 @@
     $i$-band results between $20.0$ and $25.0$ mag.
     The \forced{} \cmodel{} magnitudes are also unbiased for these three filters
     across the entire input magnitude range.
-    The precision for the $y$ band is slightly worse, ranging from 9\% to 17\% in the
+    The precision for the $y$ band is slightly worse, ranging from 10\% to 17\% in the
     same magnitude bins.
     In addition, the \forced{} \cmodel{} tends to overestimate the total flux in 
     the $y$ band at $>24.0$ mag. 
@@ -1535,16 +1537,17 @@
     Fig \ref{fig:psf_color}. 
     We find that \hscpipe{} provides reliable \cmodel{} colors for synthetic 
     galaxies down to $i_{\mathrm{Input}}{\sim}25.0$ mag.
-    For $(g-i)$ colors, the statistical uncertainty at $i_{\mathrm{Input}}{\sim}21.0$ 
-    mag is ${\sim}0.04$ mag.
-    The statistical uncertainty increases to ${\sim}0.11$ mag at 
+    For $(g-i)$ colors, the statistical uncertainty at $i_{\mathrm{Input}}{\sim}20.0$ 
+    mag is ${\sim}0.07$ mag.
+    The statistical uncertainty increases to ${\sim}0.18$ mag at 
     $i_{\mathrm{Input}}{\sim}25.0$ mag.
-    The $(i-y)$ colors show similar results. 
+    The $(i-y)$ colors show similar results, except the precision at 
+    $i_{\mathrm{Input}}>24.0$ mag becomes slightly worse.
 
-    The performance of \forced{} \cmodel{} color does not depend on seeing and is 
-    unbiased for the entire range of magnitudes and colors that we have tested.
+    The performance of \forced{} \cmodel{} color does not strongly depend on seeing 
+    and is unbiased for the entire range of magnitudes and colors that we have tested.
     The only noticeable feature is that the $(i-y)$ color at $i_{\mathrm{Input}}>24.0$ 
-    is slightly overestimated.
+    is systematically redder than the real values by $\plus0.05$ mag.
     As mentioned above, this is not surprising given the shallower $y$ band 
     imaging depth. 
     Highly blended galaxies are less precise in their \forced{} \cmodel{} colors 
