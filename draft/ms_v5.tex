@@ -2389,6 +2389,12 @@
 \section{Quality Control of Synthetic Objects}
     \label{app:qc}
 
+    We apply quality control to the stars and galaxies selected from the HSC UltraDeep
+    COSMOS fields before we match them with the stars and models for galaxies from the 
+    \hst/ACS COSMOS data. 
+    The same quality control criteria are also used to select synthetic stars and 
+    galaxies from the \synpipe{} results before we perform photometric comparisons. 
+    
     To select synthetic stars and galaxies from the HSC survey data in order to test
     the photometry, we apply some basic quality control cuts.
 
@@ -2399,22 +2405,43 @@
     see \citealt{HSCDR1} for details).
     Since the two \tracts{} we used in this work are almost entirely covered in
     the \texttt{FDFC} region, we did not apply this cut.
-    We did apply the following cuts to the matched synthetic objects.
+    
+    Firstly, we make sure the object is a ``primary'' detection (in the inner part 
+    of \tract{} and \texttt{patch}; not a \texttt{parent} in the deblending process), 
+    is successfully deblended, has reliable centroid, and is not bothered by various 
+    of optical issues:
 
     \begin{itemize}
 
-        \item[ ] \texttt{ idetect\_is\_primary==True }
-        \item[ ] \texttt{ ideblend\_skipped==False }
-        \item[ ] \texttt{ iflags\_badcentroid==False }
-        \item[ ] \texttt{ icentroid\_sdss\_flags==False }
-        \item[ ] \texttt{ iflags\_pixel\_edge==False }
-        \item[ ] \texttt{ iflags\_pixel\_interpolated\_center==False }
-        \item[ ] \texttt{ iflags\_pixel\_saturated\_center==False }
-        \item[ ] \texttt{ iflags\_pixel\_cr\_center==False }
-        \item[ ] \texttt{ iflags\_pixel\_bad==False }
-        \item[ ] \texttt{ iflags\_pixel\_suspect\_center==False }
-        \item[ ] \texttt{ iflags\_pixel\_clipped\_any==False }
-        \item[ ] \texttt{ iflags\_pixel\_bright\_object\_center==False }
+        \item[ ] \texttt{ detect\_is\_primary==True}
+        \item[ ] \texttt{ deblend\_skipped==False }
+        \item[ ] \texttt{ deblend\_nchild=0}
+        \item[ ] \texttt{ [grizy]flags\_badcentroid==False }
+        \item[ ] \texttt{ [grizy]centroid\_sdss\_flags==False }
+        \item[ ] \texttt{ [grizy]flags\_pixel\_edge==False }
+        \item[ ] \texttt{ [grizy]flags\_pixel\_interpolated\_center==False }
+        \item[ ] \texttt{ [grizy]flags\_pixel\_saturated\_center==False }
+        \item[ ] \texttt{ [grizy]flags\_pixel\_cr\_center==False }
+        \item[ ] \texttt{ [grizy]flags\_pixel\_bad==False }
+        \item[ ] \texttt{ [grizy]flags\_pixel\_suspect\_center==False }
+        \item[ ] \texttt{ [grizy]flags\_pixel\_clipped\_any==False }
+        \item[ ] \texttt{ [grizy]flags\_pixel\_bright\_object\_center==False }
+
+    \end{itemize}
+    
+    \noindent For stars, we ensure the selected objects have useful PSF magnitude: 
+
+    \begin{itemize}
+
+        \item[ ] \texttt{ [grizy]flux\_psf\_flags==False }
+
+    \end{itemize}
+    
+    \noindent For galaxies, we also make sure useful \cmodel{} photometry is available:
+
+    \begin{itemize}
+
+        \item[ ] \texttt{ [grizy]cmodel\_flux\_flags==False }
 
     \end{itemize}
 
