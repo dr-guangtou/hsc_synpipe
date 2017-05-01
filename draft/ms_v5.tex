@@ -180,11 +180,11 @@
     Here we explain the design and implementation of \synpipe{} and generate 
     a sample of synthetic galaxies to examine the photometric performance of the HSC
     pipeline. 
-    For stars, we achieve 1\% photometric precision at $i{\sim}19.0$ mag and 7\%
+    For stars, we achieve 1\% photometric precision at $i{\sim}19.0$ mag and 6\%
     precision at $i{\sim}25.0$ in the $i$-band (corresponding to statistical scatters 
-    of ${\sim}0.01$ and ${\sim}0.05$ mag respectively).  
+    of ${\sim}0.01$ and ${\sim}0.06$ mag respectively).  
     For synthetic galaxies with single-\ser{} profiles, forced \cmodel{} photometry
-    achieves 9\% photometric precision at $i{\sim}20.0$ mag and 13\% precision at 
+    achieves 13\% photometric precision at $i{\sim}20.0$ mag and 18\% precision at 
     $i{\sim}25.0$ in the $i$-band (corresponding to statistical scatters of 
     ${\sim}0.15$ and ${\sim}0.22$ mag respectively). 
     We show that both \forced{} PSF and \cmodel{} photometry yield unbiased color 
@@ -1022,8 +1022,8 @@
     Typically, there are ${\sim}80000$ stars with $i_{\mathrm{PSF}}<26.0$ in one HSC 
     \tract{}. 
     Approximately ${\sim}3$--$4$\% of the stars are located within 2 pixels of the 
-    centroids of real objects; we remove those stars from the sample to avoid confusion 
-    in the comparisons.
+    centroids of real objects; we remove those stars from the sample to avoid
+    confusion in the comparisons.
     For matched stars, we select the primary detections 
     (\texttt{detect.is-primary=True}) that have good photometric quality
     (see Appendix \ref{app:qc} for details).
@@ -1161,18 +1161,18 @@
     
     The overall performance of the \hscpipe{} \forced{} PSF magnitude is excellent. 
     The median $i$-band PSf magnitude precision for the \texttt{goodSeeing} \tract{} 
-    is ${\sim}0.015$ mag (${\sim}1.5$\%) at $i_{\mathrm{Input}}{\sim}19.0$ mag. 
+    is ${\sim}0.014$ mag (${\sim}1.3$\%) at $i_{\mathrm{Input}}{\sim}19.0$ mag. 
     At $i_{\mathrm{Input}}{\sim}24.0$ mag, the precision of the PSF magnitude is 
-    at ${\sim}3$\% level (${\sim}0.036$ mag average difference).
-    At $i_{\mathrm{Input}}{\sim}25.2$ mag, the precision decreases to
-    ${\sim}7$\% with an average ${\sim}0.072$ mag difference.
+    at ${\sim}3$\% level (${\sim}0.030$ mag statistical scatter).
+    At $i_{\mathrm{Input}}{\sim}25.0$ mag, the precision decreases to
+    ${\sim}6$\% with an average ${\sim}0.062$ mag difference.
     
     The precision of PSF magnitude for the \texttt{badSeeing} \tract{} shows similar 
     performance at $i_{\mathrm{Input}}<23.5$ mag. 
     At fainter magnitudes, the precision slightly degrades. 
-    The \texttt{badSeeing} \tract{} has ${\sim}5$\% precision at
+    The \texttt{badSeeing} \tract{} has ${\sim}4$\% precision at
     $i_{\mathrm{Input}}{\sim}24.0$ mag and ${\sim}11$\% precision at
-    $i_{\mathrm{Input}}{\sim}25.2$ mag.
+    $i_{\mathrm{Input}}{\sim}25.0$ mag.
     \citet{HSCDR1} evaluates the precision of PSF magnitude via external comparisons
     with the PS1, PV2, and SDSS data at $i<21$ mag, and finds it at 1-2\% level,
     which is consistent with our results. 
@@ -1189,13 +1189,13 @@
     The precision of \forced{} PSF magnitudes in $r$ and $z$ is similar to the results
     for $i$-band. 
     For $r$ band we find 1.5-4.0\% precision at $r_{\mathrm{Input}} < 24.0$ mag and 
-    ${\sim}8$\% precision at $r_{\mathrm{Input}}{\sim}25.2$. 
+    ${\sim}8$\% precision at $r_{\mathrm{Input}}{\sim}25.0$. 
     For $z$-band we find 1.0-5.0\% precision at $z_{\mathrm{Input}} < 24.0$ mag and 
-    ${\sim}10$\% precision down to $z_{\mathrm{Input}}{\sim}25.2$ mag).
+    ${\sim}10$\% precision down to $z_{\mathrm{Input}}{\sim}25.0$ mag).
     
     The precision for $g$ and $y$ bands becomes slightly worse at the very faint end. 
     For $g$ band, the precision is 1.5-7.0\% at $g_{\mathrm{Input}} < 24.0$ mag and is
-    ${\sim}13$\% down to $25.2$ mag.
+    ${\sim}13$\% down to $25.0$ mag.
     For $y$ band, we find 1.5-5.0\% precision at $y_{\mathrm{Input}} < 23.0$ mag and
     ${\sim}12$\% down to $24.0$ mag. 
     These differences are however consistent with the differences in the seeing 
@@ -1208,7 +1208,7 @@
     For the $g$, $r$, and $y$ bands, we find mean $\Delta \mathrm{mag}_{\mathrm{PSF}}$
     that are close to the PSF flux errors estimated by \hscpipe{}.  
     \hscpipe{} tends to underestimate the fluxes of stars in these bands by 
-    ${\sim}0.01-0.02$ mag. 
+    ${\sim}0.01-0.02$ mag at $< 24.0$ mag. 
     The exact cause of this offset is unclear but the levels of bias is quite small 
     and not a major concern.  
 
@@ -1452,9 +1452,9 @@
     different bands and seeing conditions.
 
     The typical precision of $i$-band flux using \forced{} \cmodel{} is at 
-    ${\sim}8-10$\% level in the \texttt{goodSeeing} \tract{} at 
+    ${\sim}10-14$\% level in the \texttt{goodSeeing} \tract{} at 
     $i_{\mathrm{Input}}<24.0$ mag. 
-    It moderately degrades to ${\sim}13$\% at $25.0$ mag. 
+    It moderately degrades to ${\sim}18$\% at $25.0$ mag. 
     The performance is similar in $i$ band for the \texttt{badSeeing} \tract{}. 
     At $20.0 < i_{\mathrm{Input}} < 24.0$ mag, the accuracies of \forced{} \cmodel{}
     magnitudes change between \plus{}$0.017$ mag to \minus{}$0.023$ mag. 
@@ -1939,32 +1939,32 @@
     (mag) & & (mag) & (mag) & (mag) & (mag) & (mag) & (mag) & (mag) & (mag) & (mag) & (mag) \\
     \hline
     
-    \rowcolor[gray]{.85} 19.0 & \smag{} & 0.016 & 0.016  & 0.021 & 0.026 & 0.015 & 0.012 & 0.011 & 0.019 & 0.017 & 0.019 \\
-    \rowcolor[gray]{.85}      & \mmag{} & 0.008 & 0.008  & 0.011 & 0.009 & 0.002 & 0.001 & 0.002 & 0.003 & 0.006 & 0.007 \\
+    \rowcolor[gray]{.85} 19.0 & \smag{} & 0.017 & 0.017  & 0.021 & 0.022 & 0.014 & 0.011 & 0.011 & 0.019 & 0.016 & 0.019 \\
+    \rowcolor[gray]{.85}      & \mmag{} & 0.008 & 0.006  & 0.011 & 0.009 & 0.002 & 0.001 & 0.002 & 0.003 & 0.006 & 0.007 \\
     \hline
     
-    \rowcolor[gray]{1.0} 20.0 & \smag{} & 0.017 & 0.018  & 0.023 & 0.029 & 0.015 & 0.013 & 0.013 & 0.020 & 0.017 & 0.019 \\
-    \rowcolor[gray]{1.0}      & \mmag{} & 0.009 & 0.006  & 0.011 & 0.009 & 0.002 & 0.002 & 0.003 & 0.003 & 0.006 & 0.008 \\
+    \rowcolor[gray]{1.0} 20.0 & \smag{} & 0.018 & 0.018  & 0.023 & 0.025 & 0.015 & 0.012 & 0.012 & 0.020 & 0.017 & 0.019 \\
+    \rowcolor[gray]{1.0}      & \mmag{} & 0.009 & 0.005  & 0.011 & 0.009 & 0.002 & 0.002 & 0.003 & 0.003 & 0.006 & 0.008 \\
     \hline
     
-    \rowcolor[gray]{.85} 21.0 & \smag{} & 0.019 & 0.019  & 0.024 & 0.031 & 0.017 & 0.014 & 0.014 & 0.021 & 0.021 & 0.023 \\
-    \rowcolor[gray]{.85}      & \mmag{} & 0.009 & 0.006  & 0.012 & 0.009 & 0.002 & 0.002 & 0.002 & 0.003 & 0.006 & 0.008 \\
+    \rowcolor[gray]{.85} 21.0 & \smag{} & 0.019 & 0.018  & 0.024 & 0.026 & 0.017 & 0.014 & 0.014 & 0.021 & 0.021 & 0.022 \\
+    \rowcolor[gray]{.85}      & \mmag{} & 0.009 & 0.005  & 0.012 & 0.009 & 0.002 & 0.002 & 0.002 & 0.003 & 0.004 & 0.008 \\
     \hline 
     
-    \rowcolor[gray]{1.0} 22.0 & \smag{} & 0.023 & 0.021  & 0.025 & 0.034 & 0.018 & 0.016 & 0.016 & 0.024 & 0.033 & 0.037 \\
+    \rowcolor[gray]{1.0} 22.0 & \smag{} & 0.023 & 0.020  & 0.025 & 0.029 & 0.018 & 0.015 & 0.017 & 0.024 & 0.035 & 0.037 \\
     \rowcolor[gray]{1.0}      & \mmag{} & 0.009 & 0.005  & 0.011 & 0.009 & 0.002 & 0.002 & 0.003 & 0.004 & 0.006 & 0.006 \\
     \hline
 
-    \rowcolor[gray]{.85} 23.0 & \smag{} & 0.029 & 0.026  & 0.027 & 0.041 & 0.020 & 0.022 & 0.025 & 0.038 & 0.074 & 0.077 \\
-    \rowcolor[gray]{.85}      & \mmag{} & 0.008 & 0.004  & 0.012 & 0.009 & 0.002 & 0.002 & 0.003 & 0.005 & 0.000 & 0.003 \\
+    \rowcolor[gray]{.85} 23.0 & \smag{} & 0.031 & 0.026  & 0.029 & 0.031 & 0.021 & 0.022 & 0.025 & 0.039 &   0.076 & 0.079 \\
+    \rowcolor[gray]{.85}      & \mmag{} & 0.008 & 0.004  & 0.011 & 0.009 & 0.002 & 0.002 & 0.003 & 0.005 & \n0.001 & 0.003 \\
     \hline 
     
-    \rowcolor[gray]{1.0} 24.0 & \smag{} & 0.043 & 0.039  & 0.035 & 0.054 & 0.030 & 0.043 & 0.053 & 0.071 &   0.138 &   0.153 \\
-    \rowcolor[gray]{1.0}      & \mmag{} & 0.007 & 0.003  & 0.011 & 0.006 & 0.002 & 0.001 & 0.005 & 0.003 & \n0.001 & \n0.034 \\
+    \rowcolor[gray]{1.0} 24.0 & \smag{} & 0.049 & 0.038  & 0.036 & 0.046 & 0.030 & 0.046 & 0.056 & 0.082 &   0.147 &   0.146 \\
+    \rowcolor[gray]{1.0}      & \mmag{} & 0.007 & 0.003  & 0.010 & 0.007 & 0.002 & 0.001 & 0.005 & 0.003 & \n0.003 & \n0.033 \\
     \hline
 
-    \rowcolor[gray]{.85} 25.0 & \smag{} &   0.078 &   0.091  & 0.064 & 0.090 & 0.047 &   0.050 &   0.094 &   0.104 & -- & -- \\
-    \rowcolor[gray]{.85}      & \mmag{} & \n0.003 & \n0.002  & 0.011 & 0.001 & 0.003 & \n0.012 & \n0.001 & \n0.010 & -- & -- \\
+    \rowcolor[gray]{.85} 25.0 & \smag{} &   0.119 &   0.108  & 0.087 & 0.107 & 0.062 &   0.103 &   0.124 &   0.152 & -- & -- \\
+    \rowcolor[gray]{.85}      & \mmag{} & \n0.010 & \n0.008  & 0.004 & 0.006 & 0.003 & \n0.009 & \n0.001 & \n0.010 & -- & -- \\
     \hline 
         
     \end{tabular}
