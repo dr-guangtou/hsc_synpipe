@@ -1125,6 +1125,25 @@
 %% ------------------------------------------------------------------------------------ %%
 
 %% ------------------------------------------------------------------------------------ %%
+%% Fig: Magnitude v.s S/N for galaxies
+\begin{figure*}
+    \begin{center}
+        \includegraphics[width=\textwidth]{fig/synpipe_galaxy_sn}
+    \end{center}
+    \caption{
+        Relation between input magnitudes (\textbf{left}: $i$-band; \textbf{right}:
+        $g$-band) of synthetic galaxies $\log (\mathrm{S}/\mathrm{N})$ as measured 
+        by \hscpipe{} \cmodel{} photometry. 
+        Lines and contours are similar to Fig \ref{fig:star_sn}.
+        The truncation in $i$ band input magnitude is caused by the magnitude limit 
+        of COSMOS galaxies used in this test. 
+        }
+    \label{fig:cmodel_sn}
+\end{figure*}
+%% ------------------------------------------------------------------------------------ %%
+
+
+%% ------------------------------------------------------------------------------------ %%
 \subsubsection{Precision and Accuracy of PSF magnitudes}
 
     We now investigate the performance of the PSF photometry in each of the five bands
@@ -1221,6 +1240,7 @@
 	
 	The precisions and accuracies of \forced{} PSF magnitudes shown here are 
 	summarized in Table \ref{tab:psfmag}
+%% ------------------------------------------------------------------------------------ %%
 
 %% ------------------------------------------------------------------------------------ %%
 \subsubsection{Precision and Accuracy of PSF colors}
@@ -1269,24 +1289,6 @@
 	The statistical uncertainties of \forced{} PSF colors are summarized in 
 	Table \ref{tab:psfcolor}
     
-%% ------------------------------------------------------------------------------------ %%
-
-%% ------------------------------------------------------------------------------------ %%
-%% Fig: Magnitude v.s S/N for galaxies
-\begin{figure*}
-    \begin{center}
-        \includegraphics[width=\textwidth]{fig/synpipe_galaxy_sn}
-    \end{center}
-    \caption{
-        Relation between input magnitudes (\textbf{left}: $i$-band; \textbf{right}:
-        $g$-band) of synthetic galaxies $\log (\mathrm{S}/\mathrm{N})$ as measured 
-        by \hscpipe{} \cmodel{} photometry. 
-        Lines and contours are similar to Fig \ref{fig:star_sn}.
-        The truncation in $i$ band input magnitude is caused by the magnitude limit 
-        of COSMOS galaxies used in this test. 
-        }
-    \label{fig:cmodel_sn}
-\end{figure*}
 %% ------------------------------------------------------------------------------------ %%
 
 %% ------------------------------------------------------------------------------------ %%
@@ -1432,7 +1434,7 @@
     or who intend to study the population of faint (e.g., high-$z$) galaxies should
     keep this in mind.  
     Finally, we also find that a worse seeing leads to a lower \s2n{} at fixed 
-    magnitude (see Fig \ref{fig:psf_s2n} for $i$-band).
+    magnitude (see Fig \ref{fig:star_sn} for $i$-band).
 
 %% ------------------------------------------------------------------------------------ %%
 \subsubsection{Precision and Accuracy of the \cmodel{} magnitude}
