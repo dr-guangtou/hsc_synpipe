@@ -111,7 +111,7 @@
 
 %% ------------------------------------------------------------------------------------ %%
 \title{Characterization and Photometric Performance of the Hyper Suprime-Cam 
-       Software Pipeline.}
+       Software Pipeline}
 
 \author{Song Huang \altaffilmark{1,2}
         Alexie Leauthaud \altaffilmark{1,2},
@@ -167,17 +167,17 @@
 %% ------------------------------------------------------------------------------------ %%
 \begin{abstract}
 
-    The Subaru Strategic Program (SSP) is an ambitious wide-area, multi-band survey
+    The Subaru Strategic Program (SSP) is an ambitious multi-band survey
     using the Hyper Suprime-Cam (HSC) on the Subaru telescope. 
     The Wide layer of the SSP is both wide and deep, reaching a detection limit of 
     $i{\sim}26.0$ mag. 
     At these depths, it is challenging to achieve accurate, unbiased, and consistent
     photometry across all five bands. 
     The HSC data are reduced using a pipeline that builds on the prototype pipeline 
-    being designed by the Large Synoptic Survey Telescope’s Data Management system. 
+    for the Large Synoptic Survey Telescope. 
     We have developed a \texttt{Python}-based, flexible framework to inject synthetic
     galaxies into real HSC images called \synpipe{}. 
-    In this paper, we explain the design and implementation of \synpipe{} and generate 
+    Here we explain the design and implementation of \synpipe{} and generate 
     a sample of synthetic galaxies to examine the photometric performance of the HSC
     pipeline. 
     For stars, we achieve 1\% photometric precision at $i{\sim}19.0$ mag and 7\%
@@ -2481,6 +2481,18 @@
     When the deblending process is carried out correctly, the $b({\rm A})$ parameter
     reflects the fraction of fluxes that comes from other objects in the
     region of ${\rm A}$.
+    
+    The current version of \hscpipe{} contains a bug related to the calculation of $b$
+    parameter. 
+    For bright object (e.g. $i<23.0$ mag), its effect can be ignored.  
+    For fainter object, it mostly leads to underestimate of $b$ parameter by $< 12$\%, 
+    especially for objects with $-3.5 < \log_{10} b < -1.5$. 
+    This bug has been fixed for the future release of \hscpipe{} and HSC survey data. 
+    For the \synpipe{} tests here, it does not qualitatively change the conclusions 
+    related to the highly-blended objects and about the relationship between $b$ and
+    photometric precision. 
+    Please see Murata\etal (in prep.) and Bosch\etal (in prep.) for more details. 
+    
 %% ------------------------------------------------------------------------------------ %%
 
 %% ------------------------------------------------------------------------------------ %%
