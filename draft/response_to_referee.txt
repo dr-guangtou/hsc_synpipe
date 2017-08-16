@@ -1,0 +1,61 @@
+
+We thank the referee for the careful reading and many valuable comments. Here we attached the updated draft
+where important changes are highlighted in cyan.
+
+We believe that all the comments and questions from the referee have been addressed, and below are the
+detailed response to some of the referee's concerns.  
+
+0. About the general comment that this draft resembles a "technical supplement of the hscPipe paper", we
+think:
+    * SynPipe paper presents important evaluations of the curent HSC data.  These results are useful to
+      the general users of HSC instrument.  Given that the hscPipe paper already contains lots of technical 
+      details and is quite long, we believe that a separate paper can better draw people's attention to these
+      results. 
+    * As we now presented in the new Discussion section, as an independent software, SynPipe is being used for
+      many scientific goals, both within and outside the SSP community.  For some of them (e.g. Murata et al.
+      in prep. about the impact of blended objects in weak lensing analysis), SynPipe is the key technical
+      component.  We think it is useful to have a separate paper as reference to the readers of these works
+      and the future SynPipe users.  In addition, SynPipe has recently been adopted by the LSST community, and 
+      will be used to test the performance of the LSST pipeline.  We think it is useful to summarize the
+      developement of SynPipe on the HSC side as an independent paper. 
+    * We would like to draw the referee's attention to papers with the similar purpose, e.g. Balrog for the
+      DES survey (http://adsabs.harvard.edu/abs/2016MNRAS.457..786S). These papers are proved to be useful and
+      well-cited for similar reasons as we stated above. 
+
+# 1. 
+
+# 8. p. 7-8: "High level reduction pipeline": as stated more clearly in the hscPipe technical paper (Bosch et
+al. 2017). Low-level reduction involves basic image detrending and calibration; high-level processes involves
+the ones that generate coadded images and science-ready catalogs.  Now use the same explanation here to be
+consistent with the technical paper and provide more details. 
+
+# 9. "purity and completeness"
+
+
+# Minor comments: 
+
+1. p.7: should be 'mas' not 'max', corrected.
+
+2. p.10, about 'rectangular cutout': the images are stored in a 2-D array, hence has a rectangular nature to
+it.  And, it is much easier to convolve the model and shift the 2-D rectangular array before we add them to
+the HSC coadd images.  When we generate the model image array using GalSim, we try to make sure that all fluxes 
+of the model is contained in the image. For galaxies, we cutout the model at 10 x Re of the Sersic model. This 
+is fine for most galaxies, but still miss small fraction of light for galaxy with very high Sersic index.
+First, we try to avoide model with very high Sersic index in the input catalog, as they are often problematic
+models for real galaxies; Second, given the magnitude distribution of the model galaxies (most have i>23.0
+mag), the results we are showing here are not sensitive to the flux distributions outside 10 x Re.  
+The referee is correct that estimation of R_e could be sensitive to the very outskirt when Sersic index is
+high, but we'd like to point out that the CModel method used in hscPipe does not use any pixel with
+S/N < 5, and only provides n=4 model fits (dev) to the "footprint" of the galaxy.  We do not expect accurate
+R_e estimates for high Sersic index galaxies in the beginning. 
+
+We add a footnote to briefly explain this choice. 
+
+3. p.11, about "noise": it is Poisson noise, and we state that clearly in the text. 
+
+4. p.13: We think the location and context of this figure makes it very clear that it is for the input
+parameters.  Now we state that clearly in the caption. 
+
+5. Fig. 4 and 5: has been corrected.
+
+6. 
