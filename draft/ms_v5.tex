@@ -19,7 +19,7 @@
 \usepackage[usenames, dvipsnames]{xcolor}
 \usepackage{colortbl}
 \usepackage{multirow}
-
+
 %% ------------------------------------------------------------------------------------ %%
 
 % Figure extension
@@ -293,6 +293,16 @@
     We then summarize the work and discuss future developments in Section 
     \ref{sec:summary}.
 
+    \song{
+    Throughout this work, all magnitudes are in AB system (\citealt{Oke1974}). 
+    Signal--to--noise ratio (\s2n{}) is defined as the ratio between a flux measurement 
+    using certain algorithm (e.g. PSF, \cmodel{}) and its corresponding flux uncertainty 
+    from \hscpipe{} ($\mathrm{Flux}/\sigma(\mathrm{Flux})$).  
+    At the same time, a $5\sigma$ detection is equivalent to a flux measurement with 
+    \s2n{}$=5$ using certain algorithm.  
+    Such definitions are adopted in other works using HSC SSP data 
+    (e.g. \citealt{Bosch2017, HSCDR1}).
+    } 
     The code for \synpipe{}, along with documentation and examples, is made available
     on GitHub at: \texttt{https://github.com/dr-guangtou/synpipe}.
     
@@ -445,33 +455,63 @@
             photometric measurements (see \citealt{HSCDR1} for details). 
             Here, we focus on characterizing the the \forced{} \texttt{psf} and 
             \cmodel{} photometry. 
-            The \texttt{psf} photometry should provide the most appropriate magnitudes 
-            and colors for point sources, while the \cmodel{} should be used for 
-            galaxies. 
+            \song{
+            Both the \psf{} and \cmodel{} photometry algorithms take the PSF convolution 
+            effect into account, and hence can provide consistent \forced{} photometry 
+            across all bands and maximizes \s2n{}.  
+            Although their accuracies depend on the accuracy of the PSF model and 
+            the applicability of the adopted models, they still provide the most useful 
+            flux information for stars and galaxies, especially for objects with 
+            low-\s2n{}. 
+            Please see Section~4 and Appendix~2 of \citet{Bosch2017} for detailed 
+            descriptions of these algorithms.  
+            }
             
             \begin{itemize}
             
-                \item \hscpipe{} uses matched-filter method to derive PSF magnitude 
+                \item \song{
+                    Details of the HSC \psf{} photometry can be found in 
+                    Section~4.9.5 of \citet{Bosch2017}. 
+                    In short, 
+                    }
+                    \hscpipe{} uses matched-filter method to derive PSF magnitude 
                     with the centroid fixed. 
                     The algorithm matches the image of a star with the PSF model 
                     multiplied by an amplitude. 
                     This amplitude parameter is estimated via the inner product of 
                     the image and PSF model after shifting the model to the centroid 
                     of the star, then divide by the effective area of the PSF model.
+                    \song{
+                    It considers the per-pixel variance information when estimating 
+                    the flux error. 
+                    Flux uncertainty due to the uncertainty of centroid is ignored 
+                    since it is subdominant even when \s2n{} is low. 
+                    }
                     
-                \item The HSC \cmodel{} algorithm is described in Bosch\etal (in prep), 
-                    and is based on the version for the SDSS \cmodel{} magnitude 
+                \item \song{
+                    Details about the HSC \cmodel{} photometry can be found in 
+                    Section~4.9.9 and Appendix~2 of \citet{Bosch2017}. 
+                    }
+                    It is based on the version for the SDSS \cmodel{} magnitude 
                     (\citealt{Lupton2001, Abazajian2004}). 
-                    It fits objects using both a de~Vaucouleurs and an exponential 
-                    profiles convolved with the PSF model.  
-                    \cmodel{} then linearly combines the two results to find the best 
-                    fit to the galaxy image. 
-                    \cmodel{} magnitudes are designed to yield accurate fluxes and 
-                    colors for galaxies. 
-                    Star--galaxy classification is also performed based on the 
+                    \song{
+                    It fits an object using both elliptical model with an exponential 
+                    profile and de~Vaucouleurs profile with free amplitudes and shapes. 
+                    Then it fits a linear combination of both models to the image while 
+                    only allowing the amplitude of each component to change.  
+                    The last step provides the \cmodel{} flux and flux error used in 
+                    this work. 
+                    This \cmodel{} flux can be roughly seen as the linear interpolation 
+                    between exponential and de~Vaucouleurs models. 
+                    Although these models are often not the most appropriate models for 
+                    real galaxies, this method is shown to be robust and efficient, 
+                    especially for poorly--resolved and/or low \s2n{} galaxies. 
+                    }
+                    Star--galaxy classification now is also performed based on the 
                     difference between \texttt{psf} and \cmodel{}{} magnitudes.
                 
             \end{itemize}
+
        
     \end{enumerate}
 %% ------------------------------------------------------------------------------------ %%
@@ -1823,8 +1863,15 @@
     Using our \synpipe{} tests, we discovered that the bug related to the priors only 
     presents when \texttt{usePixelWeight} configuration is set to \texttt{False} during 
     the data reduction. 
-    The parameter controls whether or not the per-pixel variance information is used 
-    during the model fitting process.  
+    \song{
+    Please see \citet{Bosch2017} (Section 4.4.9 and Appendix 2) for more details about
+    the fitting algorithm of \cmodel{}.  
+    In short, when \texttt{usePixelWeight} is set to \texttt{True}, \cmodel{} algorithm 
+    will uses the per--pixel square root of the variance map for \texttt{coadd} image as 
+    weights during the fitting.  
+    When \texttt{usePixelWeight} is \texttt{False}, a constant weight will be used 
+    instead.
+    }  
     As one can see, this leads to significantly overestimated axis ratios for almost
     all galaxies\footnote{It also leads to underestimated half-light radius for the same
     galaxies.}.
@@ -1843,7 +1890,6 @@
 
     For the current HSC data release, we warn users against using the sizes and shapes 
     from \cmodel{} to study the structural properties of galaxies.
-
 %% ------------------------------------------------------------------------------------ %%
 
 %% ------------------------------------------------------------------------------------ %%
@@ -2315,7 +2361,10 @@
 
     \bibitem[Bolzonella et al.(2000)]{Bolzonella2000} Bolzonella, M., Miralles, J.-M.,
             \& Pell{\'o}, R.\ 2000, \aap, 363, 476
-
+    
+    \bibitem[Bosch et al.(2017)]{Bosch2017} Bosch, J., Armstrong, R., Bickerton, S., 
+            et al.\ 2017, arXiv:1705.06766 
+    
     \bibitem[Bovy Jo et al.(2011)]{Bovy2011} Bovy Jo, Hogg, D.~W., \& Roweis,
              S.~T.\ 2011, Annals of Applied Statistics, 5,
 
@@ -2393,7 +2442,10 @@
     %% N %%
     \bibitem[Niikura et al.(2017)]{Niikura2017} Niikura, H., Takada, M., Yasuda, N.,
              et al.\ 2017, arXiv:1701.02151
-
+    
+    %% O %%
+    \bibitem[Oke(1974)]{Oke1974} Oke, J.~B.\ 1974, \apjs, 27, 21 
+    
     %% P %%
     \bibitem[Padmanabhan et al.(2008)]{Padmanabhan2008} Padmanabhan, N., Schlegel,
              D.~J., Finkbeiner, D.~P., et al.\ 2008, \apj, 674, 1217-1233

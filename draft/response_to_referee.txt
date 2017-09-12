@@ -84,8 +84,66 @@ Most of these concepts are explained and discussed in great details in the hscPi
 and the Data Release 1 Paper (Aihara et al. 2017).  We emphasize the basic definitions of these values at the
 end of the introduction section and point the authors to the Bosch+2017 paper for more details. 
 
+<1> HSC pipeline performs multi-step photometric calibrations against the Pan-STARRS system, hence all the
+fluxes and magnitudes measured by hscPipe are already calibrated into the AB magnitude system.  Therefore, the
+pixel values on the calibrated single-Visit and coadd images can be directly related to fluxes in physical
+unit, and can be converted into magnitudes using a simple calibration zeropoint (27.0).  Users of HSC survey
+data should not worry that the definition of magnitude is affected by filter or exposure time.
+Through out this work, we assume that all magnitudes of synthetic objects are also in AB system, and they are 
+converted into fluxes using the same zeropoint.  
 
+<2> The CCD processing provides us calibrated exposures that include both the detrended, background-subtracted
+image and an image containing per-pixel estimate of the variance. The following coaddition process also takes
+the variance information into account, uses the inverse of the mean variance of the input images to set the
+weights for coaddition, and calculates the per-pixel variance for the coadd images. Both the PSF and CModel
+photometry take these variance images into account, and provide meaningful estimations of flux error for the
+coadd images.  
+    - The HSC pipeline uses matched-filter method to estimate the PSF fluxes.  Per-pixel variance information
+      is taken into account when estimating the flux error.  Please see Section 4.9.5 of Bosch+2017 for more
+      technical details.  
+    - The HSC CModel photometry is modified and improved based on the SDSS version.  It fits linear
+      combination of two basic parametric models to the 2-D flux distribution of galaxy after taking PSF
+      convolution into account.  It has the advantage of providing consistent multiband photometry for
+      extended objects and having reliable performance for very faint object. 
+      Please see Section 4.9.9 and Appendix 2 of Bosch+2017 for technical details of the CModel algorithm. 
+    - For CModel photometry, it is optional to use per-pixel inverse square root of the variance information
+      as weights during the fitting (when usePixelWeights=True).  By default, usePixelWeights=False, and a
+      constant weight is used for an object.  Again we will refer the reader to Bosch+2017 for more details
+      about this. 
 
+<3> We understand the referee's concern, and it is true that based on statistics of photons, we could have
+more clear definition of signal-to-noise ratio (S/N).  However, in practice, it is not realistic to use "photon
+number" for statistics or separately account for the noise from readout, dark, and sky background.  Each CCD
+on the camira has four amplifiers that have slightly different effective gain; individual CCD images need to
+be detrended, calibrated, and background subtracted before coaddition; single exposures with different seeings
+are warped before they are coadded into a final image using appropriate weighting.  All these processes make
+it difficult to trace back to the origianl photon statistics.  For instance, on the coadd image, there are
+covariances between adjacent pixels due to the warping process.  On the other hand, hscPipe calibrates the
+pixels values on both coadd and single-Visit images to physically meaningful flux scale, and provides
+correponding variance information that reflect the per-pixel uncertainties after all these complex reduction
+steps.  Based on this design, scientific user of HSC data can use the flux value and its uncertainty from
+hscPipe to estimate the S/N of the object under certain photometric method.  
+    - Throughout this work, S/N is defined as the ration between a flux measurement and its uncertainty (flux
+      / flux_err).  Same definition is adopted by both Bosch+2017 (hscPipe paper) and Aihara+2017 (HSC DR1
+      paper), along with a series of science papers.  
+    - Under this definition, 5 sigma detection corresponds to a S/N=5 flux measurement under certain
+      photometric method.  The same concept is adopted by both Bosch+2017 (hscPipe paper) and Aihara+2017 
+      (HSC DR1 paper), along with a series of science papers. 
+    - Both the PSF and CModel photometry algorithms convolve a model for the true object’s morphology with 
+      the effective PSF model at the position of the object, which maximizes S/N (see Bosch+2017)
+
+The changes of text related to this comment are: 
+    - At the end of Introduction section, we make it clear that we are using AB system, and explain the
+      definiton of S/N and Nxsigma detection.  
+    - At the end of Section 2.2, we provide more details related to the flux measurements for PSF and CModel
+      photometry.  We also refer the reader to Bosch+2017 for more technical details. 
+    - Section 6.4: slightly more details about the usePixelWeights option and reference to hscPipe paper. 
+
+-----
+# 4. CModel algorithm
+
+We agree with the referee that the details of CModel algorithm should be explained better.  However, limited
+by the scope of this work, we can not afford to show all the technical details.  As mentioned, we expanded 
 
 -----
 # 8. p. 7-8: "High level reduction pipeline": as stated more clearly in the hscPipe technical paper (Bosch et
