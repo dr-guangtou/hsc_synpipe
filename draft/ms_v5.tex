@@ -19,7 +19,7 @@
 \usepackage[usenames, dvipsnames]{xcolor}
 \usepackage{colortbl}
 \usepackage{multirow}
-
+
 %% ------------------------------------------------------------------------------------ %%
 
 % Figure extension
@@ -383,7 +383,11 @@
     The HSC data are reduced using a pipeline that builds on the prototype pipeline 
     being designed for the Large Synoptic Survey Telescope’s Data Management system
     (\citealt{Ivezic2008, Axelrod2010, Juric2015}) and is described in 
-    Bosch\etal (in prep.). 
+    Bosch\etal (2017). 
+    \song{To enhance the flexibility and extensibility of the pipeline, \hscpipe{} 
+    is written using a combination of C++ and Python. 
+    All computationally intensive pixel-level operations are performed in C++, 
+    high-level algorithm and user interface is written in Python.}
     DR1 data are reduced by \hscpipe{} \texttt{v4.0.5}. 
     Because\synpipe{} is intrinsically connected to the complex data reduction
     processes in \hscpipe{}, we briefly introduce the main steps below along with a 
@@ -475,8 +479,8 @@
     DR1 data quality has been vetted in \citet{HSCDR1} by cross-checking with the 
     Pan-STARRS 1 imaging survey to examine the behavior of the stellar sequence.
     Generally speaking, the PSF photometry is accurate at the 1--2\% level for bright 
-    stars, and the astrometry is accurate to ${\sim}10$ and 40 max internally and 
-    externally.
+    stars, and the astrometry is accurate to ${\sim}10$ and 40 \song{mas} internally 
+    and externally.
 
 %% ------------------------------------------------------------------------------------ %%
 
@@ -490,9 +494,10 @@
 
     \hscpipe{} is a complex data reduction pipeline that still faces many challenges
     and is under active development.
-    Unlike most publicly available photometric pipelines, it involves high-level 
-    reduction processes that produce not only deep \coadd{} images but also a series 
-    of science-ready catalogs. 
+    \song{Unlike other publicly available photometric pipelines whose focus is the
+    low--level reduction processes such as detrending and calibrating the images,
+    it involves high-level reduction processes that produce not only deep \coadd{} 
+    images but also a series of science-ready catalogs.} 
     To perform tests of the data products that result from \hscpipe{}, \synpipe{} is 
     designed to satisfies a few basic standards:
 
@@ -538,6 +543,17 @@
             for their applications.
             \synpipe{} is already being used in a wide range of
             scientific topics (see Section \ref{sec:summary} for details).
+            
+        \item \song{\synpipe{} works as a special user interface to \hscpipe{}. 
+            It will keep developing along with the \hscpipe{} (and \textttt{LSSTpipe}
+            in the future). 
+            Since both \hscpipe{} and \galsim{} use Python as high-level language, 
+            we also choose to use Python for \synpipe{} to make the frequent 
+            interactions among them easy and straightforward. 
+            Most of the computationally expensive tasks are handled by the low-level 
+            algorithms in \hscpipe{} and \galsim{} in C++, the usage of Python will not 
+            affect the overall efficiency of \synpipe{}.
+            }
 
     \end{itemize}
 %% ------------------------------------------------------------------------------------ %%
@@ -690,7 +706,14 @@
             
             \item For parametric models from the GREAT3 catalog, \synpipe{} uses the
                 \texttt{COSMOSCatalog.makeGalaxy} method to generate models.  
-                
+            
+            \item \song{For galaxy using any parametric model, we generate 
+                rectangular cutout image too. 
+                The model image can be truncated at $N \times R_{\rm e}$ to reduce the 
+                size of the cutout and speed up the injection process. 
+                In this work, we truncate all \ser{} model at $10 \times R_{\rm e}$. 
+                The results presented here are not sensitive to this choice.}
+               
             \item To inject real HST galaxy images, \synpipe{} calls the \galsim{}    
                 \texttt{.RealGalaxy} method.
             
@@ -715,7 +738,8 @@
         \item After \synpipe{} creates the image of the simulated galaxy, it then 
             shifts the image according to is location on the CCD on a pixel-by-pixel 
             basis; \synpipe{} also crops the images when necessary.
-            When that task is complete, \synpipe{} adds appropriate noise to the 
+            When that task is complete, \synpipe{} adds \song{appropriate Poisson 
+            noise} to the 
             image based on the pixels it covers and the calibration information of 
             the detector, and creates a variance image that reflects the influence 
             of the synthetic object.
@@ -747,13 +771,27 @@
     The \texttt{stack.py} step takes the improved astrometric and photometric
     calibrations for each \visit{} from the original reduction and creates
     \coadd{} images that contain synthetic objects.
-    The \texttt{multiBand.py} step then processes these \coadd{}  images and
+    The \texttt{multiBand.py} step then processes these \coadd{} images and
     provides standard multi-band measurements in FITS catalogs that are grouped by
     \texttt{Patch} ID.
 
     Using the infrastructure provided by \hscpipe{}, the user can easily perform these 
-    steps in parallel, and the overall efficiency of \synpipe{} is similar to
-    the real data reduction process. 
+    steps in parallel.  
+    \song{
+    For \texttt{coadd} images that include the same number of single-\texttt{Visit} 
+    data, the overall efficiency of \synpipe{} is similar to the real data reduction
+    process under the same computational conditions (e.g. same number of cores). 
+    The \texttt{stack.py} and \texttt{multiBand.py} steps should cost very similar 
+    amount of time. 
+    The single-\texttt{Visit} process is replaced with the injection of synthetic 
+    objects. 
+    The speed of this step depends on the total number of fake objects injected and 
+    the type of the synthetic object (e.g. fake galaxy using \ser{} model costs more 
+    time than fake star).
+    For tests with reasonable density of fake objects per CCD (e.g. the tests in this 
+    work), the injection step costs slightly less time than the actual 
+    single-\texttt{Visit} data processing. 
+    }
     The data and catalog volumes is also similar to the original data reduction process.
 
     The final step is to identify Synthetic galaxies in the output catalogs. 
@@ -808,9 +846,11 @@
         \includegraphics[width=\textwidth]{fig/synpipe_galaxy_sample}
     \end{center}
     \caption{
-         \textbf{Upper panel}: five-band magnitude distributions of synthetic
-         galaxies. (\texttt{lower panel}; from left to right are the \ser{} index, 
-         axis ratio, effective radius in arcsec, the $g-r$ and $r-z$ colors).
+         \textbf{Upper panels} show the five-band magnitude distributions of synthetic
+         galaxies. \texttt{lower panels} \song{
+         show the \textbf{input} parameters of the \ser{} 
+         model; from left to right are the input \ser{} index, axis ratio, effective 
+         radius in arcsec, the $g-r$ and $r-z$ colors}).
          }
     \label{fig:galaxy_sample}
 \end{figure*}
@@ -855,7 +895,8 @@
         by \hscpipe{} PSF photometry.
         Filled-contours and open-contours show the distributions for
         stars in both the \texttt{goodSeeing} and \texttt{badSeeing} \tracts{}. 
-        Highly blended stars are highlighted using scatter plots.
+        Highly blended stars \song{with $b>0.05$} are highlighted using scatter 
+        plots.
         The gray dashed line marks $S/N = 5$ which is the detection threshold used 
         by \hscpipe{}.  
         Our 5$\sigma$ point source detection limit is ${\sim}26.5$ mag in $i$-band,
@@ -977,7 +1018,8 @@
         magnitude difference.
         Filled and open contours are for the synthetic galaxies 
         from \texttt{goodSeeing} and \texttt{badSeeing} \tracts{}.
-        Highly blended objects are highlighted using scattered points.
+        Highly blended stars \song{with $b>0.05$} are highlighted using scattered 
+        points.
         The long-dashed lines mark zero magnitude difference, while the pairs of
         dashed lines outline the running-median of PSF magnitude errors
         (including the uncertainties in aperture correction).
@@ -1805,6 +1847,49 @@
 %% ------------------------------------------------------------------------------------ %%
 
 %% ------------------------------------------------------------------------------------ %%
+\section{Discussion}
+    \label{sec:discussion}
+   
+    \todo{More discussions}
+%% ------------------------------------------------------------------------------------ %%
+    %% Other applications
+    \song{
+    Here we focused on characterizing the photometric performance of \hscpipe{}.  
+    However, \synpipe{} is a flexible tool and is being used for a range of other     
+    applications. 
+    For instance, Murata\etal (in prep.) uses \synpipe{} to characterize the level of
+    blending in the HSC Wide Layer.  
+    \citep{Niikura2017} apply \synpipe{} to high-cadence HSC observations of M31 HSC 
+    to search for microlensing events. 
+    \synpipe{} is also currently being used to estimate the completeness of high-$z$ 
+    LBG and Lyman-$\alpha$ emitters (Ono\etal in prep.; Konno\etal in prep.), to 
+    check the completeness of high-$z$ LBG pairs as a function of pair separation 
+    (Harikane\etal in prep.), to test the completeness of low surface--brightness 
+    dwarf galaxies selections (Greco\etal in prep.), and to test magnifications effects
+    around nearby clusters (Chiu\etal in prep.).
+    }
+
+    %% Future developments
+    \song{
+    Both \hscpipe{} and \synpipe{} are undergoing active development. 
+    Our plan is to update \synpipe{} to provide a photometric benchmark for
+    each HSC survey data release, which will help improve \hscpipe{}.
+    At the same time, we are also working on improving the efficiency of \synpipe{}.
+    Many users are not necessarily concerned with the subtle effects involved in 
+    the image stacking process. 
+    Hence, a future implementation of \synpipe{} will include the option of injecting 
+    objects directly onto \coadd{} images which will speed up the generation of 
+    synthetic data sets. 
+    The results shown in this paper demonstrate the utility of the \synpipe{} framework
+    in order to perform end-to-end quality control on pipeline products to the level 
+    of accuracy needed by large panchromatic surveys. 
+    }
+
+%% ------------------------------------------------------------------------------------ %%   
+    
+%% ------------------------------------------------------------------------------------ %%
+
+%% ------------------------------------------------------------------------------------ %%
 \section{Summary and Conclusion}
     \label{sec:summary}
 
@@ -1892,37 +1977,6 @@
     
 %% ------------------------------------------------------------------------------------ %%
 
-%% ------------------------------------------------------------------------------------ %%
-    %% Other applications
-    Here we focused on characterizing the photometric performance of \hscpipe{}.  
-    However, \synpipe{} is a flexible tool and is being used for a range of other     
-    applications. 
-    For instance, Murata\etal (in prep.) uses \synpipe{} to characterize the level of
-    blending in the HSC Wide Layer.  
-    \citep{Niikura2017} apply \synpipe{} to high-cadence HSC observations of M31 HSC 
-    to search for microlensing events. 
-    \synpipe{} is also currently being used to estimate the completeness of high-$z$ 
-    LBG and Lyman-$\alpha$ emitters (Ono\etal in prep.; Konno\etal in prep.), to 
-    check the completeness of high-$z$ LBG pairs as a function of pair separation 
-    (Harikane\etal in prep.), to test the completeness of low surface--brightness 
-    dwarf galaxies selections (Greco\etal in prep.), and to test magnifications effects
-    around nearby clusters (Chiu\etal in prep.).
-
-    %% Future developments
-    Both \hscpipe{} and \synpipe{} are undergoing active development. 
-    Our plan is to update \synpipe{} to provide a photometric benchmark for
-    each HSC survey data release, which will help improve \hscpipe{}.
-    At the same time, we are also working on improving the efficiency of \synpipe{}.
-    Many users are not necessarily concerned with the subtle effects involved in 
-    the image stacking process. 
-    Hence, a future implementation of \synpipe{} will include the option of injecting 
-    objects directly onto \coadd{} images which will speed up the generation of 
-    synthetic data sets. 
-    The results shown in this paper demonstrate the utility of the \synpipe{} framework
-    in order to perform end-to-end quality control on pipeline products to the level 
-    of accuracy needed by large panchromatic surveys. 
-
-%% ------------------------------------------------------------------------------------ %%
 
 %% ------------------------------------------------------------------------------------ %%
 % Table 1 : Magnitudes for PSF

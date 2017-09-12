@@ -5,6 +5,7 @@ where important changes are highlighted in cyan.
 We believe that all the comments and questions from the referee have been addressed, and below are the
 detailed response to some of the referee's concerns.  
 
+-----
 0. About the general comment that this draft resembles a "technical supplement of the hscPipe paper", we
 think:
     * SynPipe paper presents important evaluations of the curent HSC data.  These results are useful to
@@ -22,16 +23,80 @@ think:
       DES survey (http://adsabs.harvard.edu/abs/2016MNRAS.457..786S). These papers are proved to be useful and
       well-cited for similar reasons as we stated above. 
 
-# 1. 
+----- 
 
+# 1. Discussion: 
+
+We agree with the referee that this work can benefit from a more detailed discussion, which we have added
+before the Summary section.  A few relevant points were included in the earlier Summary and Conclusion
+section, and have been moved to the new Discussion section.  
+
+We emphasize the importance of such synthetic object pipeline for modern cosmology survey, explain again the
+philosophy of our desgin, and compare it with other efforts for testing the data reduction pipline.  
+Right now, SynPipe is specifically tailored for HSC images, but it will be included in the LSSTpipe in the
+near future.  We demonstrate the broad scientific topics that can benefit from SynPipe, and describe the
+on-going efforts for further improvements. 
+
+-----
+# 2 Interpreter Language
+
+The referee is correct that, in general, C++ should be more efficient in the heavy duty data reduction process.
+However, SynPipe here mainly works as a special user interface to hscPipe, which is also use Python for
+high-level algorithm.  The reason for this choise is described in details in the Section 2 of the technical paper 
+for hscPipe (Bosch et al. 2017).  Below is the most relevant paragraph: 
+
+    """
+    Both the LSST Data Management codebase and the HSC Pipeline are written in a combination of C++ and Python. 
+    Flexibility and extensibility are core development goals at all levels of the code-base: we have attempted 
+    to make virtually every algorithm not just configurable but replaceable (even by external code). 
+    This flexibility is important for LSST in part because many algorithmic choices in LSST processing still 
+    require significant research and are under active development.....
+    
+    High-level algorithms are written in Python, primarily as subclasses of our Task class...
+
+    Low-level algorithms that perform direct pixel-level processing or other computationally intensive operations 
+    are written in C++....
+    """
+
+As the referee can see, flexibility and extensibility is the main reason that hscPipe choose to use Python as
+the high-level language.  GalSim also uses the same logic.  Since SynPipe 1) directly depends on hscPipe and
+GalSim; 2) will develop along with the hscPipe (and LSSTpipe in the future); 3) does not do any low-level
+computationally intensive operation, we think it is natural to follow this decision and use Python as our
+working language. 
+
+The efficiency of SynPipe, as the referee mentioned, certaintly relates to the available cores of the CPU. 
+What we meant to explain is that, under the same computational condition, SynPipe test costs similar amount
+time as the real data reduction.  Most heavy duty is carried out by hscPipe, so using C or C++ for SynPipe
+will not increase the efficiency.  The most time-consuming part of SynPipe test is the injection of synthetic
+objects to the individual CCD image.  During this process, the most computationally intensive part is carried
+out by GalSim using C++, so using C or C++ for SynPipe here will not increase the efficiency much.  At the
+end, we would like to emphasize that the design of SynPipe currently focuses on testing data reduction in the
+most reaslistic way, in the future, we will gradually work on increase the efficiency of SynPipe. 
+
+Following the suggestion by the referee, we now try to explain this better in Section 2.2, 
+Section 3.1, and Section 3.2.3.  
+
+-----
+# 3.  Missing Definitions 
+
+The referee is correct that some of these basic definitions should be explained better.  
+Most of these concepts are explained and discussed in great details in the hscPipe paper (Bosch et al. 2017)
+and the Data Release 1 Paper (Aihara et al. 2017).  We emphasize the basic definitions of these values at the
+end of the introduction section and point the authors to the Bosch+2017 paper for more details. 
+
+
+
+
+-----
 # 8. p. 7-8: "High level reduction pipeline": as stated more clearly in the hscPipe technical paper (Bosch et
 al. 2017). Low-level reduction involves basic image detrending and calibration; high-level processes involves
 the ones that generate coadded images and science-ready catalogs.  Now use the same explanation here to be
 consistent with the technical paper and provide more details. 
 
+-----
 # 9. "purity and completeness"
 
-
+-----
 # Minor comments: 
 
 1. p.7: should be 'mas' not 'max', corrected.
