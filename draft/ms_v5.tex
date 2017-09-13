@@ -668,6 +668,13 @@
             angle (PA).
             External shear can also be applied to a synthetic galaxy ($g_1$ and
             $g_2$, see \citealt{Rowe2015} for more details).
+            \song{ 
+            To correctly generate synthetic image of \ser{} or double-\ser{} galaxy
+            model, it is not trivial to carefully consider details in pixel 
+            integration (especially for central pixel) and image rendering process.  
+            Details about these can be found in Section 5 and Section 6 of 
+            \citet{Rowe2015}.
+            }
             
         \item \textbf{Galaxies from the GREAT3 challenge}: 
             \synpipe{} also allows users to choose from parametric models or real
@@ -975,11 +982,14 @@
     are included in \galsim{}. 
     Each model is described by a total of five parameters: magnitude, effective radius,
     \ser{} index, axis ratio, and position angle.
-    Although the single-\ser{} model is not always the best choice for describing 
-    galaxies, its flexibility enables it to reasonably describe the flux distribution 
-    of most galaxies.
-    Also, its simplicity makes it easy for us to diagnose potential problems with the 
-    \cmodel{} photometry.
+    \song{
+    It is worth noting that although single-\ser{} profile is still oversimplified model 
+    compared to the complexity in real galaxies, they are flexible enough to broadly 
+    describe the flux distributions of most galaxies, and test the \cmodel{} algorithm 
+    who models galaxy in very different way.
+    In addition, single-\ser{} model is simple enough to ensure straightforward 
+    diagnostic of potential systematic issues of \cmodel{} algorithm. 
+    }
     We exclude a tiny fraction (${\sim}4$\%) of ill-behaved models that have a very 
     high \ser{} index ($n_{\mathrm{Ser}} > 6.0$) or a very low central surface 
     brightness ($\mu_{i} < 24.0$\sb).
@@ -991,6 +1001,7 @@
     faint ($i<24.0$ mag) and barely resolved ($R_{\mathrm{e}}< 1.0$\asec).
     This sample is appropriate to test \hscpipe{}'s general photometric behaviors, 
     but the sample lacks relatively bright galaxies ($i<20.5$ mag).
+
 
     We spatially distribute synthetic stars and galaxies randomly in our two selected 
     \tracts{}. 
@@ -1098,7 +1109,7 @@
     The error of the PSF magnitude from \hscpipe{} only considers the per-pixel noise,
     and does not include centroid uncertainties.
     \hscpipe{} also estimates aperture correction for PSF photometry.
-    For more details please see Bosch\etal (in prep.).
+    For more details please see \citet{Bosch2017}.
 
     We randomly inject ${\sim}100,000$ stars into each \tract{} in all five bands. 
     Typically, there are ${\sim}80000$ stars with $i_{\mathrm{PSF}}<26.0$ in one HSC 
@@ -1145,6 +1156,14 @@
 
     The \s2n{} for PSF photometry is defined as
     $\mathrm{Flux}_{\mathrm{PSF}}/\mathrm{Flux\_Err}_{\mathrm{PSF}}$ in each band. 
+    \song{
+    The flux error here is estimated based on the per-pixel variance information that
+    summaries statistical uncertainties from various sources. 
+    However, systematical one like the centroid uncertainty is not taken into account 
+    as it should be subdominant even at low-\s2n{}. 
+    As mentioned earlier, such definition of PSF \s2n{} is adopted by \citet{HSCDR1} 
+    and \citet{Bosch2017}.
+    }
     Figure \ref{fig:star_sn} shows the relationship between stellar magnitude and \s2n{} 
     in the $g$- and $i$-bands. 
     This figure shows the expected \s2n{} of stars as a function of magnitude in the 
@@ -1164,6 +1183,12 @@
     average seeing conditions.
     However, it is worth reminding HSC data users that the detection
     limit will exhibit spatial variations due to the seeing conditions.
+    \song{
+    In addition, the image warping process introduces covariance across pixels into 
+    \texttt{coadd} images, and leads to slightly underestimated the flux error.  
+    Therefore, it is useful to compare the statistical results from our tests with the 
+    average PSF flux error at fixed input magnitude.  
+    }
 %% ------------------------------------------------------------------------------------ %%
 
 %% ------------------------------------------------------------------------------------ %%
@@ -1497,8 +1522,14 @@
     \s2n{} of synthetic galaxies.  
     The \s2n{} is the ratio  of the \cmodel{} flux and the flux error measured by 
     \hscpipe{}.
+    \song{
+    For extended object with all kinds of flux distributions, definition of \s2n{} is 
+    not as straightforward as for point sources.  
     Here the adopted \s2n{} corresponds to the average \s2n{} over entire footprint. 
     The center of the galaxy typically has high \s2n{} than this value.    
+    We adopt this definition as the main purpose here is to demonstrate the overall 
+    ``significancy'' of galaxy down to certain magnitude. 
+    }
 
     Fig \ref{fig:cmodel_sn} shows that the \cmodel{} photometry displays a 
     well-behaved relation between input magnitude and output \s2n{}.  
@@ -1518,6 +1549,15 @@
     keep this in mind.  
     Finally, we also find that a worse seeing leads to a lower \s2n{} at fixed 
     magnitude (see Fig \ref{fig:star_sn} for $i$-band).
+    
+    \song{
+    The \cmodel{} flux error also only considers statistical uncertainties provided by 
+    the variance information. 
+    For galaxy photometry based on 2-D model, one can expect the error budget is 
+    dominated by systematical ones involved in the fitting process.  
+    Therefore, statistical tests like the one presented here can provide more insights 
+    about the accuracy of \cmodel{} photometry.  
+    }
 
 %% ------------------------------------------------------------------------------------ %%
 \subsubsection{Precision and Accuracy of the \cmodel{} magnitude}
@@ -1647,8 +1687,9 @@
     This is expected given the narrow dynamical ranges of these colors in the redder 
     filters.
     The \forced{} \cmodel{} tends to slightly underestimate the $(g-r)$ and $(i-z)$
-    colors at the very ``blue'' end, while overestimating the $(i-y)$ color at the very
-    red end.
+    colors at the very ``blue'' end, while overestimating the \song{
+    $(i-z)$ color}
+    at the very red end.
 
     We note that our synthetic galaxies do not have color gradients.  
     In reality, color gradients will complicate the situation and hence the statistical 
@@ -1671,6 +1712,9 @@
         (\textbf{right}). 
         We show the differences between the input R.A and Dec and the coordinates 
         measured on the \coadd{} images. 
+        \song{
+        HSC \coadd{} image has pixel scale of 0.168\asec{} per pixel. 
+        }
         Filled-contours (filled histogram) and open-contours (solid-line histogram) are 
         for synthetic objects from \tracts{} with good and bad seeing conditions, 
         respectively.
@@ -1777,6 +1821,9 @@
     Fig \ref{fig:astrometry} shows the distribution of astrometric offsets for 
     synthetic stars and galaxies in \texttt{goodSeeing} and \texttt{badSeeing} 
     \tracts{}.
+    \song{
+    Note that HSC \coadd{} image has pixel size of 0.168\asec{} per pixel. 
+    }
     We find small systematic offsets at the ${\sim}10$--20 mas level, which is similar 
     to the uncertainties of astrometric calibration quoted in \citet{HSCDR1}.
     The two \tracts{} show different systematic offsets, while the synthetic stars and
@@ -1826,8 +1873,8 @@
     Fig \ref{fig:blend} shows the $b$ parameter versus the difference between input and
     output values for both magnitudes and colors. 
     For both PSF and \cmodel{} magnitude distributions, we can see clear trends that 
-    total fluxes are systematically underestimated for highly blended ($b>0.05$ for 
-    stars or $0.1$ for galaxies) objects.
+    total fluxes are systematically underestimated for highly blended \song{($b>0.05$)} 
+    objects.
     This effect is particularly strong for stars.
     
     As for colors, higher values of $b$ results in higher statistical uncertainties 
