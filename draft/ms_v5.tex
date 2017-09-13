@@ -1290,6 +1290,18 @@
     precision reported here should be considered as upper limits because 
     \synpipe{} currently does not consider the systematic uncertainties in PSF 
     modeling. But this effect should be subdominant.}
+    \song{
+    On Fig~\ref{fig:psf_mag}, we also compare the \synpipe{} test results with the 
+    median \psf{} magnitude error obtained by \hscpipe{} in each bin after taking 
+    the aperture correction (see Section~4.9.2 in \citealt{Bosch2017}) uncertainty 
+    into account (pairs of grey long-dashed lines on each plot). 
+    We find that, for \psf{} photometry, the flux errors from \hscpipe{} are very 
+    close to what we estimate using \synpipe{} once the aperture correction 
+    error is considered.
+    Without the aperture correction error, it seems that \hscpipe{} underestimate 
+    the statistical uncertainties of \psf{} magnitude, most likely due to the 
+    correlated noises introduced during the image warping and stacking step.
+    }
 
     Fig \ref{fig:psf_mag} also shows that the precision of the PSF photometry is 
     not filter dependent. 
@@ -1395,7 +1407,17 @@
     PSF magnitudes.
     
 	The statistical uncertainties of \forced{} PSF colors are summarized in 
-	Table \ref{tab:psfcolor}
+	Table \ref{tab:psfcolor}. 
+	\song{
+	On Fig~\ref{fig:psf_color}, we also compare the \synpipe{} results with the 
+	uncertainties of \psf{} color obtained by \hscpipe{} (pair of grey long-dashed 
+	lines). 
+	Here, we simply add the magnitude errors from both bands in quadrature. 
+	We find that the average uncertainties of \psf{} color from \hscpipe{} are 
+	consistent with the results of \synpipe{} test. 
+	Although we should emphasize again that the uncertainties of PSF models are not 
+	taken into account. 
+    }
     
 %% ------------------------------------------------------------------------------------ %%
 
@@ -1479,7 +1501,7 @@
     For galaxies, \hscpipe{} uses a \cmodel{} photometry algorithm that is an improved 
     version of the SDSS \cmodel{} photometry.
     For details about the \cmodel{} algorithm, please see description in Section 
-    \ref{ssec:hscpipe} and Bosch\etal (in prep.).
+    \ref{ssec:hscpipe} and \citet{Bosch2017}.
     Despite the limitations of the \cmodel{} method (e.g., sensitivity to the 
     background subtraction and to deblending failures), it can deliver robust 
     PSF-corrected fluxes and colors for galaxies.
@@ -1646,7 +1668,18 @@
     are determined using band with higher \s2n{}.
     
 	The precisions and accuracies of \forced{} \cmodel{} magnitudes shown here are 
-	summarized in Table \ref{tab:cmodelmag}
+	summarized in Table \ref{tab:cmodelmag}. 
+	\song{
+	Similar to \psf{} photometry, here we also compare the average \cmodel{} magnitude 
+	error provided by \hscpipe{} in each magnitude bin with our \synpipe{} test results
+	(pairs of grey long-dashed lines on each plot). 
+	The \cmodel{} magnitude error in \hscpipe{} only considers the statistical 
+	uncertainties based on the variance information. 
+	As expected, the real error budget for \cmodel{} magnitude is dominated by 
+	systematics in the model fitting process, and the \cmodel{} flux uncertainties 
+	from \hscpipe{} are underestimated. 
+	We stress that user of \cmodel{} photometry should take this into consideration.
+	}
 
 %% ------------------------------------------------------------------------------------ %%
 \subsubsection{Precision and Accuracy of the \cmodel{} color}
@@ -1696,7 +1729,22 @@
     uncertainties shown here should be considered as lower limits.
 
 	The statistical uncertainties of \forced{} \cmodel{} colors are summarized in 
-	Table \ref{tab:cmodelcolor}
+	Table \ref{tab:cmodelcolor}. 
+	\song{
+	We also compare the \cmodel{} color uncertainties estimated by \hscpipe{} with 
+	our \synpipe{} results. 
+	We still simply add the magnitude error from each band in quadrature.
+	For $(g-i)$ color, we see that the statistical uncertainties of \cmodel{} colors 
+	are very similar to the \synpipe{} results. 
+	This is consistent with the design of the \forced{} \cmodel{} algorithm, where 
+	precisions are expected to be much better for colors than for fluxes themselves 
+	(see Section 4.9.9 of \citealt{Bosch2017}).
+	For $(i-y)$ color, we can draw similar conclusion except for the faint end 
+	($i>24.0$ mag), where the uncertainties from \synpipe{} test become higher than 
+	the statistical uncertainties from \hscpipe{}. 
+	This is likely due to the scattered light in $y$--band that has not been accounted 
+	for (see Section~5.8.14 in \citealt{HSCDR1}). 
+	}
     
 %% ------------------------------------------------------------------------------------ %%
 
@@ -1843,7 +1891,7 @@
     In \hscpipe{}, the star--galaxy classification primarily depends on the 
     extendedness value, which is measured by the magnitude difference between PSF and 
     \cmodel{} photometry in $i$-band.
-    For more details about this algorithm, please see Bosch\etal (in prep.).
+    For more details about this algorithm, please see \citet{Bosch2017}.
 
     Fig \ref{fig:sg} shows the current status of our star--galaxy classification 
     scheme.  
@@ -2052,7 +2100,7 @@
             quite high. 
             $>20$\% of the synthetic stars at $i> 22.5$ mag are misclassified
             \footnote{Note that this does not mean high fraction of contamination 
-            in the galaxy sample. Please see Bosch\etal (in prep.) for more 
+            in the galaxy sample. Please see \citet{Bosch2017} for more 
             details.}
 
         \item The bug in priors on structural parameters and the 
@@ -2612,7 +2660,7 @@
 
     To evaluate the degree to which an object is blended with others, \hscpipe{} 
     introduces the blendedness parameter: $b$ (\texttt{[grizy]blendedness\_abs\_flux}).
-    We briefly define  $b$ below; please refer to Bosch\etal (in prep.) and Murata\etal 
+    We briefly define  $b$ below; please refer to \citet{Bosch2017} and Murata\etal 
     (in prep.) for more details.
 
     For object ${\rm A}$:
@@ -2647,7 +2695,7 @@
     For the \synpipe{} tests here, it does not qualitatively change the conclusions 
     related to the highly-blended objects and about the relationship between $b$ and
     photometric precision. 
-    Please see Murata\etal (in prep.) and Bosch\etal (in prep.) for more details. 
+    Please see Murata\etal (in prep.) and \citet{Bosch2017} for more details. 
     
 %% ------------------------------------------------------------------------------------ %%
 

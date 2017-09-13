@@ -218,12 +218,44 @@ We slightly modify the text to explain the definition of S/N and flux error bett
 -----
 # 6. Pure statistical errors in figures. 
 
-We agree with the referee that it is very useful to compare with the statistical uncertainties.  However, as
-we explained for comment #5, 
+We agree with the referee that it is very useful to compare with the statistical uncertainties. 
+However, as we explained for comment #5, "pure statistical random errors" based on photon 
+statistics are not very practical to get from hscPipe.  
+
+Instead, the flux error from hscPipe for both PSF and CModel photometry are relied on the
+detailed variance information that summarize most of the statistical errors. These flux or
+magnitude error are also provided to the HSC data user as the most frequently used
+information on photometric uncertainties, it is useful to compare them with the results of
+our SynPipe tests.  
+
+On Fig 5, 6, 7, 10, 11, 12, and 15, we have overplot a pair of grey dashed lines that
+outline the running median of statistical uncertainties measured by the hscPipe (in
+positive and negative form).  For magnitude, we simply use the magnitude error provided by
+hscPipe, for color, we add the magnitude uncertainties for both bands in quadrature.
+
+Given the realistic situation, we think these comparisons cover the requirements by the
+referee, although are not exactly the same.  We did not specifically mentioned these
+comparesions because the results are exactly as we expected based on the algorithms
+themselves: for PSF photometry, the statistical uncertainties from hscPipe are similar but
+still slightly lower compared to the median uncertainties from SynPipe test; For CModel,
+the statistical flux errors from hscPipe are smaller compared to the uncertainties from
+SynPipe test as systematic uncertainties (model-dependent errors) dominate the real error
+budget of CModel photometry.  
+
+We now briefly mention these comparisons in each section to draw readers attention to
+these information.
+
 
 -----
 # 7. Precision and accuracy of PSF magnitude 
 
+We believe this comment is also covered by the previous one.  For PSF magnitude, the
+statistical uncertainties obtained by hscPipe is similar but still slightly lower than the
+photometric uncertainties based on the SynPipe test.  As mentioned, due to the correlated
+noise from the image warping and coadding process, the statistical uncertainties of PSF
+flux measured by hscPipe is likely to be over-optimistic. 
+
+Relevant text has been added to Section 5.1.2 and 5.1.3. 
 
 -----
 # 8. p. 7-8: "High level reduction pipeline": as stated more clearly in the hscPipe technical paper (Bosch et
@@ -234,11 +266,30 @@ consistent with the technical paper and provide more details.
 -----
 # 9. "purity and completeness"
 
+We agree with the referee that the purity and completeness tests are very important for
+survey like this, and SynPipe can be a useful tool for this purpose.  
+
+At the same time, careful tests for this purpose are beyond the scope of this paper, where
+we simply want to demonstrate the application of SynPipe and provide simple photometric
+benchmark tests for stars and galaxies.  Following the suggestions from the referee, we
+add more discussions about this in the discussion section.  And here are the main points:
+    - Detection limits and completeness are normally defined for point sources.  As we
+      show using the PSF S/N, it depends on the seeing condition and show spatial changes 
+      across the 
+    - Detection completeness of point sources for HSC DR1 is investigated in Aihara+2017
+      (see Section 5.7) using a different method. 
+    - The efficiency 
+    - 
+
+
+
 -----
 # Minor comments: 
 
+----
 1. p.7: should be 'mas' not 'max', corrected.
 
+----
 2. p.10, about 'rectangular cutout': the images are stored in a 2-D array, hence has a rectangular nature to
 it.  And, it is much easier to convolve the model and shift the 2-D rectangular array before we add them to
 the HSC coadd images.  When we generate the model image array using GalSim, we try to make sure that all fluxes 
@@ -254,23 +305,47 @@ R_e estimates for high Sersic index galaxies in the beginning.
 
 We add a footnote to briefly explain this choice. 
 
-3. p.11, about "noise": it is Poisson noise, and we state that clearly in the text. 
+----
+3. p.11, about "noise": 
 
-4. p.13: We think the location and context of this figure makes it very clear that it is for the input
+It is Poisson noise, and we state that clearly in the text. 
+
+----
+4. p.13: 
+
+We think the location and context of this figure makes it very clear that it is for the input
 parameters.  Now we state that clearly in the caption. 
 
+----
 5. Fig. 4 and 5: has been corrected.
 
-6. 
+----
+6. p.22:
 
------
+For stars, we think the likely reasons for this are: 
+    - There are actually very small fraction of stars with those extreme colors, which 
+
+----
+7. 
+
+----
 8. P.29 
 
 Yes, it should be (i-z) color, and has been corrected. 
 
------
+----
 9. Astrometric Calibration Fig 14
 
 HSC image has pixel scale of 0.168 arcsec/pixel.  We use arcsec as unit since when evaluating the astrometric
 calibration for HSC DR1, arcsec or mas are used in Aihara+2017.  Information about pixel scale is added to the
 caption of the figure and the text. 
+
+----
+10. the definition of highly blended
+
+The referee is correct, that we should use consistent definition for highly blended
+objects, which is b>0.05.  We have make it consistent across the draft. 
+
+---- 
+11. Table 1, 2, 3, and 4
+
