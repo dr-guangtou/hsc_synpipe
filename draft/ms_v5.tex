@@ -1418,10 +1418,21 @@
     stars have worse precision and accuracy in their colors compared to isolated stars. 
     At fixed input magnitude, the precision in $(g-i)$ is ${\sim}0.1$ mag worse for 
     highly blended stars.  
-    Also, for blended stars, $(g-i)$ shows a bias towards bluer colors, while $(i-y)$ 
-    shows a bias towards redder colors. 
-    However, such biases appear to be less severe in terms of colors than in terms of
-    PSF magnitudes.
+    \song{
+    Unlike \psf{} magnitudes, where the distributions of magnitude differences 
+    for highly--blended stars are clearly off, the distributions of \psf{} color 
+    differences do peaks around zero.  
+    Although the long asymmetric tails still indicate severe biases of \psf{} colors 
+    for blended stars: $(g-i)$ color is clearly biased towards bluer colors, while 
+    $(i-y)$ color shows bias towards redder values.
+    The performances of \psf{} magnitude and color are still poor for highly-blended 
+    stars in the current version of \hscpipe{}.  
+    Object deblending becomes much more challenging at the depth of HSC SSP, and 
+    the current deblending algorithm is known to have problems 
+    (see Section~4.8 of \citealt{Bosch2017}) that could cause the problem here. 
+    The deblending algorithm is also being constantly updated now, and we will keep 
+    using \synpipe{} to evaluate its performance. 
+    } 
     
 	The statistical uncertainties of \forced{} PSF colors are summarized in 
 	Table \ref{tab:psfcolor}. 
@@ -1916,8 +1927,15 @@
     In \hscpipe{}, the star--galaxy classification primarily depends on the 
     extendedness value, which is measured by the magnitude difference between PSF and 
     \cmodel{} photometry in $i$-band.
-    For more details about this algorithm, please see \citet{Bosch2017}.
-
+    \song{
+    Such method has its limitation and only works well down to $i\sim 24$ mag 
+    (see Section 4.9.10 of \citealt{Bosch2017}).  
+    For fainter extended objects, the difference between these two magnitudes become
+    seeing- and model-dependent. 
+    Moreover, right now, \hscpipe{} simply uses 
+    $(m_{\mathrm{PSF}}-m_{\mathrm{CModel}})>0.0164$ mag to separate star and galaxies.  
+    }
+    
     Fig \ref{fig:sg} shows the current status of our star--galaxy classification 
     scheme.  
     Fig \ref{fig:sg} shows the difference between PSF and \cmodel{} magnitudes as a 
@@ -1928,17 +1946,29 @@
     This confirms that the current star--galaxy classification strategy in \hscpipe{}
     results in a galaxy sample with \textbf{high completeness} and a star sample
     with \textbf{high purity}.
-
     It is also clear that the seeing condition strongly modifies the distributions
     of $i_{\mathrm{PSF}}-i_{\mathrm{cModel}}$. 
     Worse seeing condition makes star-galaxy separation more challenging. 
     The completeness and purity of galaxy and star samples at the faint end will 
-    depend on seeing conditions.  
-
-    In the next data release, \hscpipe{} will include an improved star--galaxy 
-    classifier which will be based on a machine learning method that takes both 
-    size and color information into account. 
-
+    depend on seeing conditions. 
+    \song{
+    In \citet{HSCDR1}, the star--galaxy separation issue is tested in a small field 
+    but under different seeing conditions and imaging depths (see their Section~5.7). 
+    The overall conclusions are the same with ours, the efficiency and accuracy of 
+    the current star--galaxy separation algorithm are reasonable at $i<23.0$ mag, but 
+    depend on both seeing and depth.  
+    We should point out that careful evaluation of star--galaxy separation algorithm 
+    and the completeness of both types of objects are important to several scientific 
+    topics of HSC SSP. 
+    It deserve test at larger scale that covers different observational conditions and 
+    with higher number density of objects. 
+    It will be a major effort and is beyond the scope of this work.
+    At the same time, \hscpipe{} will replace the current star--galaxy separation 
+    algorithm with a much improved version that provides actual probability of being 
+    star or galaxy (also see Section~4.9.10 in \citealt{Bosch2017}).  
+    It will be available for the future data release, and will be tested by \synpipe{}. 
+    }
+    
 %% ------------------------------------------------------------------------------------ %%
 \subsection{Blending Effects}
     \label{ssec:blendedness}
@@ -2194,13 +2224,19 @@
     \caption{
         Summary of precisions and accuracies of \forced{} PSF magnitudes in all 
         five bands and in both \texttt{goodSeeing} (FWHM$=0.45$\asec{}) and
-        \texttt{badSeeing} (FWHM$=0.70$\asec{}) \tracts{} based on the statistics of 
-        the difference between output \forced{} PSF magnitude and input 
-        value ($\Delta\mathrm{mag}$) shown in Fig \ref{fig:psf_mag}.
-        Here, the precision is described using the statistical uncertainties of 
+        \texttt{badSeeing} (FWHM$=0.70$\asec{}) \tracts{} based on the statistics 
+        \song{
+        (standard deviation and mean value)
+        }
+        of the difference between output \forced{} 
+        PSF magnitude and input value ($\Delta\mathrm{mag}$) shown in 
+        Fig \ref{fig:psf_mag}.
+        \song{
+        Here, the precision is described using the \textbf{standard deviation} of 
         $\Delta\mathrm{mag}$ within a series of input magnitude bins (\smag{}). 
         The accuracy of PSF photometry in the same magnitude bin is described by the 
-        mean value of $\Delta\mathrm{mag}$.
+        \textbf{mean value} of $\Delta\mathrm{mag}$.
+        }
         }
         \label{tab:psfmag}
 \end{table*}
@@ -2248,11 +2284,14 @@
     \caption{
         Summary of precisions and accuracies of \forced{} PSF colors using $(g-i)$ and 
         $(i-y)$ colors and in both \texttt{goodSeeing} (FWHM$=0.45$\asec{}) and
-        \texttt{badSeeing} (FWHM$=0.70$\asec{}) \tracts{} based on the statistics of 
-        the difference between output \forced{} PSF color and input value 
+        \texttt{badSeeing} (FWHM$=0.70$\asec{}) \tracts{} based on the 
+        \song{
+        standard deviation and mean value
+        } 
+        of the difference between output \forced{} PSF color and input value 
         ($\Delta\mathrm{Color}$) shown in Fig \ref{fig:psf_color}.
         Here, we describe the precision and accuracy of PSF color measurements using 
-        the statistical uncertainties and mean values of $\Delta\mathrm{Color}$ in 
+        the \song{standard deviation} and mean values of $\Delta\mathrm{Color}$ in 
         bins of input $i$ band magnitudes.
     }
         \label{tab:psfcolor}
@@ -2306,8 +2345,11 @@
     \caption{
         Summary of precisions and accuracies of \forced{} \cmodel{} magnitudes in all 
         five bands and in both \texttt{goodSeeing} (FWHM$=0.45$\asec{}) and
-        \texttt{badSeeing} (FWHM$=0.70$\asec{}) \tracts{} based on the statistics of 
-        the difference between output \forced{} \cmodel{} magnitude and input 
+        \texttt{badSeeing} (FWHM$=0.70$\asec{}) \tracts{} based on the 
+        \song{
+        standard deviation and mean value 
+        }
+        of the difference between output \forced{} \cmodel{} magnitude and input 
         value ($\Delta\mathrm{mag}$) shown in Fig \ref{fig:cmodel_mag}.
         Other details are the same with Table \ref{tab:psfmag}.}
         \label{tab:cmodelmag}
@@ -2353,8 +2395,11 @@
     \caption{
         Summary of precisions and accuracies of \forced{} \cmodel{} colors using 
         $(g-i)$ and $(i-y)$ colors and in both \texttt{goodSeeing} (FWHM$=0.45$\asec{}) 
-        and \texttt{badSeeing} (FWHM$=0.70$\asec{}) \tracts{} based on the statistics of 
-        the difference between output \forced{} \cmodel{} color and input value 
+        and \texttt{badSeeing} (FWHM$=0.70$\asec{}) \tracts{} based on the 
+        \song{
+        standard deviation and mean value 
+        }
+        of the difference between output \forced{} \cmodel{} color and input value 
         ($\Delta\mathrm{Color}$) shown in Fig \ref{fig:cmodel_color}.
         Other details are the same with Table \ref{tab:psfcolor}.
     }

@@ -281,7 +281,24 @@ this, and here are the main points:
       changes which requires more careful designs and higher density of fake stars. 
       Detection completeness of point sources for HSC DR1 is investigated in Aihara+2017
       (see Section 5.7) using a different method. 
-    - The efficiency     
+    - Misclassification is briefly discussed in Section 6.2. The design of our tests and the 
+      number density of synthetic galaxies are not perfect to thoroughly test the star-galaxy 
+      separation. So our results just demonstrate the capability and briefly discuss the 
+      current situation for star/galaxy separation.  We find that, right now, hscPipe tends 
+      to provide a very complete sample for galaxy but with considerable fraction of star 
+      contamination at the faint end.  In Aihara+2017, the star/galaxy separation issue 
+      is discussed in Section 5.7, where they draw the same conclusion using different 
+      method. 
+    - The current method adopted by hscPipe focuses on the magnitude different between PSF 
+      and CModel photometry and is known to have limitations (see Section 4.9.10 of 
+      Bosch+2017) and issues (e.g. the one related to the current CModel algorithm; see 
+      Appendix 2 in Bosch+2017).  All these conclusions are reflected in our simple test. 
+      On the other hand, hscPipe team is working on replacing the star/galaxy separation 
+      algorithm with a much improved one (based on extreme deconvolution method, also 
+      see Section of 4.9.10 of Bosch+2017).  We will test its performance after the next 
+      data release. 
+    - We expand the discussion in Section 6.2 to provide more information about star/galaxy 
+      separation tests and emphasize the importance of such tests as suggested by the referee.
 
 
 -----
@@ -344,6 +361,21 @@ input and recovered z-y colors.
 ----
 7. p.22
 
+The referee is correct that, for highly blended stars, the biases on their PSF colors are 
+still quite big.  What we meant here is that the biases for PSF magnitude are much worse 
+as the total fluxes of blended stars are highly underestimated.  As for PSF colors, 
+although there are still long tails that indicate the biases, at least the peak of the 
+distributions are around zero now.  We adjust this sentence to make it more clear.  
+
+As for general comments for PSF photometry of highly blended stars.  Unfortunately we are 
+not perfectly clear what causes this issue.  It is clearly related to the performace of 
+debelnder in hscPipe, which is know to still have issue and is being improved now 
+(please see Section 4.8 of Bosch+2017).  Given the depth of HSC survey, the situation for 
+object deblending becomes much more tricky.  At this point, we have to leave this as a 
+caveat.  PSF magnitude is still considered the best photometry for point sources, but we 
+will remind the users to avoid using it for highly blended objects.  The text has been 
+modified to reflect this point. 
+
 
 
 ----
@@ -366,4 +398,10 @@ objects, which is b>0.05.  We have make it consistent across the draft.
 
 ---- 
 11. Table 1, 2, 3, and 4
+
+The statistical uncertainty is actually the standard deviation of (mag_output - mag_input)
+within each input magnitude bin.  This is the what we used to describe "precision". 
+For accuracy, we use the mean value of magnitude difference in each input magnitude bin.  
+
+All the captions of tables have been updated to make it more clear. 
 
