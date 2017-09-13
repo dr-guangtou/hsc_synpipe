@@ -271,16 +271,17 @@ survey like this, and SynPipe can be a useful tool for this purpose.
 
 At the same time, careful tests for this purpose are beyond the scope of this paper, where
 we simply want to demonstrate the application of SynPipe and provide simple photometric
-benchmark tests for stars and galaxies.  Following the suggestions from the referee, we
-add more discussions about this in the discussion section.  And here are the main points:
-    - Detection limits and completeness are normally defined for point sources.  As we
-      show using the PSF S/N, it depends on the seeing condition and show spatial changes 
-      across the 
-    - Detection completeness of point sources for HSC DR1 is investigated in Aihara+2017
-      (see Section 5.7) using a different method. 
-    - The efficiency 
-    - 
+benchmark tests for stars and galaxies.  
 
+Following the suggestions from the referee, we modify the text with more discussions on
+this, and here are the main points:
+    - Section 4.2: We explain that it is beyond the scope of this work to look into this
+      carefully.  Detection limits and completeness are normally defined for point sources.  
+      As we show using the PSF S/N, it depends on the seeing condition and show spatial 
+      changes which requires more careful designs and higher density of fake stars. 
+      Detection completeness of point sources for HSC DR1 is investigated in Aihara+2017
+      (see Section 5.7) using a different method. 
+    - The efficiency     
 
 
 -----
@@ -322,16 +323,33 @@ parameters.  Now we state that clearly in the caption.
 ----
 6. p.22:
 
-For stars, we think the likely reasons for this are: 
-    - There are actually very small fraction of stars with those extreme colors, which 
+For stars, first, fraction of stars with such extreme colors are very low.  The
+discrepency can barely be noticed on the comparisons of 1-D color distributions. 
+We think the likely reasons for this are: 
+    - There are still scattered light on the y-band images that are not accounted for.
+      This known prolblem can affect the accuracy of y-band photometry and is discussed in 
+      Section 5.8.14 in Aihara+2017. 
+    - Background level is much higher in z and y-band, and background subtraction could
+      suffer from higher uncertainties.  Right now, SynPipe can still not test the impact
+      of background subtraction on photometry, and it will be investigated in the future. 
+    - We modify text in Section 5.1.3 to breifly explain this. 
+
+As for galaxies, the same background and y-band scatter light issues also exist.  However,
+the dynamical ranges for i-z and z-y colors are narrower.  Also the CModel color
+uncertainties are higher than the PSF ones.  Both of these factors make it harder to spot
+discrepencies of color distributions.  However, we still see discrenpencies between the
+input and recovered z-y colors. 
+    - We expand the discussion in Section 5.2.3 a little to address this issue. 
 
 ----
-7. 
+7. p.22
+
+
 
 ----
 8. P.29 
 
-Yes, it should be (i-z) color, and has been corrected. 
+Actually it should be (z-y) color, and has been corrected. 
 
 ----
 9. Astrometric Calibration Fig 14

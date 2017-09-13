@@ -975,6 +975,16 @@
     Fig \ref{fig:star_sample} shows the magnitude and color distributions of real 
     COSMOS stars compared to the resampled distributions in all five-bands and in 
     color-color space.
+    \song{
+    It is worth noting that \synpipe{} test using synthetic stars can also help 
+    determine the detection limit and point sources completeness of the HSC data. 
+    However, both of them depend on seeing or background conditions, and show 
+    spatial variations that need to be considered.  
+    It normally requires higher density of synthetic objects to carefully test this 
+    and is beyond the scope of this work.  
+    Please see Section~5.6 and Section~5.7 of \citet{HSCDR1} for investigation of 
+    this topic for HSC SSP DR1 using different method.
+    }
 
     For synthetic galaxies, we use single-\ser{} galaxy models of COSMOS galaxies with 
     $I_{F814W} \leq 25.2$ mag. 
@@ -1396,6 +1406,13 @@
     Using four different colors and two color--color planes, we show that the 
     \forced{} PSF colors accurately recover the distributions of all four colors 
     and the color-color distributions.
+    \song{
+    On the $(i-z)$-$(z-y)$ color plane, stars with extreme colors are not well 
+    recovered.  
+    Fraction of these stars is very low, and it could relate to the scattered 
+    light in $y$-band that is still unaccounted for (see Section~5.8.14 of 
+    \citealt{HSCDR1}). 
+    }
 
     As for highly blended stars, Fig \ref{fig:psf_color} also shows that highly blended 
     stars have worse precision and accuracy in their colors compared to isolated stars. 
@@ -1721,8 +1738,16 @@
     filters.
     The \forced{} \cmodel{} tends to slightly underestimate the $(g-r)$ and $(i-z)$
     colors at the very ``blue'' end, while overestimating the \song{
-    $(i-z)$ color}
+    $(z-y)$ color}
     at the very red end.
+    \song{
+    The same $y$-band scattered light issue also affects the \cmodel{} photometry. 
+    The background levels are also higher in the $z$- and $y$-band, which could lead 
+    to higher uncertainties from background subtraction.  
+    Unfortunately, \synpipe{} is not yet equipped to test the impact of background 
+    subtraction on photometry, and the issues with the $(z-y)$ colors will be 
+    investigated later. 
+    }
 
     We note that our synthetic galaxies do not have color gradients.  
     In reality, color gradients will complicate the situation and hence the statistical 
